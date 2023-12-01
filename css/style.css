@@ -1,0 +1,6 @@
+header{
+  font-family: sans-serif; 
+  font-size:1.25rem;
+  display:flex;
+  justify-content: space-between;
+}
