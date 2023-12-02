@@ -19,6 +19,10 @@ function connection($dbhost, $dbuser, $dbpass, $dbname) {
 
 //create a function for hotel cards
 function hotelCards(){
-    
+
 }
+
+function format_hotel_name_as_link($id,$name,$page) {
+    echo "<a href=\"$page?hotelid=$id\">$name</a>";
+    }
 ?>

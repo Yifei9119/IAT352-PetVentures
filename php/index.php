@@ -5,63 +5,27 @@ error_reporting(E_ALL);
 include_once("../helper/function.php");
 require("header.php");
 
-//move this to a function later
-echo'<form action="index.php" method="POST" style="display:flex; justify-content: center;">
-<div>
-<label> Place </label>
-<input id="search" name="search" type="text" placeholder="Country">
-</div>
-<div>
-<label>Check in</label>
-<input id="date" name="startdate" type="date">
-</div>
-<div>
-<label>Check out</label>
-<input id="date" name="enddate" type="date">
-<input id="submit" type="submit" value="Search">
-</div>
-</form>';
-
-//Getting value of "search" variable from "script.js".
-
-if (isset($_POST['search'])) {
-
-  //Search box value assigning to $Name variable.
   
-     $Name = $_POST['search'];
+  // Define a query string to select product codes and names from the products table
+  $query_str = "SELECT * FROM hotel";
+  $res = $db->query($query_str);
   
-  //Search query.
+  // Function to create a clickable link for each product model
+ 
   
-     $Query = "SELECT province FROM hotel WHERE province LIKE '%$Name%'";
-     //** remember to edit to use prepare statements */
+  echo "<h2>Pet-Friendly Hotels in Canada</h2>";
   
-  //Query execution
+  echo "<ul>";
+  // Iterate through each row in the query result
+  while ($row = $res->fetch_assoc()) {
+    echo "<li>";
+    // Format each product model as a link
+    format_hotel_name_as_link($row["hotel_id"], $row["name"],"hoteldetails.php");
+    echo "</li>\n";
+  };
+  echo "</ul>";
   
-     $execQuery = MySQLi_query($db, $Query);
-  
-  
-  
-     //Fetching result from database.
-  
-     while ($result = MySQLi_fetch_array($execQuery)) {
-  
-      
-  
-    //       Calling javascript function named as "fill" found in "script.js" file.
-  
-    //       By passing fetched result as parameter.
-  
-     echo'<li onclick="fill"' . $result['province'] .'">';
-  
-     echo "<a>";
-  
-    //  Assigning searched result in "Search box" in "index.php" file.
-      echo $result['province'];
-        //  echo hotelCards($result['province']);
-        echo"</a>";
-
-  }}
-  
-
-require("footer.php");
+  include('footer.php');
+  $res->free_result();
+  $db->close();
 ?>
