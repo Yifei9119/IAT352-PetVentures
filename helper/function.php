@@ -16,4 +16,9 @@ function connection($dbhost, $dbuser, $dbpass, $dbname) {
     }
     return $conn;
 }
+
+//create a function for hotel cards
+function hotelCards(){
+    
+}
 ?>
