@@ -11,7 +11,7 @@ echo'
 
 <body>
     <header>
-        <a href="index.php"><img src="../images/logo.svg" alt="logo"></a>
+        <a href="index.php"><img src="../images/logo/logo.svg" alt="logo"></a>
         <div>
           ';
             if (isset($_SESSION['valid_user']))

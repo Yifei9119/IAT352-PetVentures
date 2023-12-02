@@ -7,7 +7,8 @@ require("header.php");
 
   
   // Define a query string to select product codes and names from the products table
-  $query_str = "SELECT * FROM hotel";
+  $query_str = "SELECT hotel.hotel_id, hotel.name, hotel.image, MIN(room.price) as price FROM hotel INNER JOIN room ON hotel.hotel_id = room.hotel_id GROUP BY hotel_id";
+
   $res = $db->query($query_str);
   
   // Function to create a clickable link for each product model
@@ -19,9 +20,11 @@ require("header.php");
   // Iterate through each row in the query result
   while ($row = $res->fetch_assoc()) {
     echo "<li>";
-    // Format each product model as a link
+    // Format each hotel model as a link
     format_hotel_name_as_link($row["hotel_id"], $row["name"],"hoteldetails.php");
-    echo "</li>\n";
+    echo "$". $row['price'] ."<br>";
+    echo'<img width="400" src="../images/hotels/'. $row['image'] .'">';
+    echo "</li><br>";
   };
   echo "</ul>";
   

@@ -26,8 +26,9 @@ if (isset($_POST['search'])) {
        echo "<ul>";
        // Iterate through each row in the query result
        while ($row = $res->fetch_assoc()) {
-         echo "<li onclick='fill'>";
-         // Format each product model as a link
+        //  echo "<li onclick='fill'>";
+        echo "<li>";
+         // Format each hotel  as a link
          format_hotel_name_as_link($row["hotel_id"], $row["name"],"hoteldetails.php");
          echo "</li>\n";
        };
