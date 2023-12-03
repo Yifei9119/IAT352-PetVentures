@@ -12,7 +12,7 @@ searchbar();
   $res = $db->query($query_str);
  
   echo "<section>";
-  echo "<h2>Pet-Friendly Hotels in Canada</h2><div id=hotel-cards>";
+  echo "<h1>Pet-Friendly Hotels in Canada</h1><div id=hotel-cards>";
   // Iterate through each row in the query result
 
   while ($row = $res->fetch_assoc()) {

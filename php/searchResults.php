@@ -8,7 +8,7 @@ searchbar();
 // **IMPORTANT this whole page needs to be updated using js
 
 //Getting value of "search" variable from "script.js".
-if (isset($_POST['search'])) {
+if (isset($_POST['search']) && !empty($_POST['search'])) {
 
     //Search box value assigning to $Name variable.
     
@@ -16,20 +16,21 @@ if (isset($_POST['search'])) {
     
     //Search query.
     
-       $query_str = "SELECT hotel_id, name, province FROM hotel WHERE province LIKE '%$Name%'";
+       $query_str = "SELECT hotel.hotel_id, hotel.name, hotel.image, hotel.province, MIN(room.price) as price FROM hotel INNER JOIN room ON hotel.hotel_id = room.hotel_id WHERE hotel.province LIKE '%$Name%' GROUP BY hotel_id";
        //** remember to edit to use prepare statements */
     
     //Query execution
        $res = $db->query($query_str);
     
-    
+        echo "<section>";
+        echo "<h1>Pet-Friendly Hotels in $Name</h1>";
        //Fetching result from database.
        // Iterate through each row in the query result
        while ($row = $res->fetch_assoc()) {
         //  echo "<li onclick='fill'>";
         format_hotel_name_as_link($row["hotel_id"], $row["name"], $row['price'], $row['province'], $row['image'], "hoteldetails.php");
        };
-
+       echo "</section>";
 
     //    while ($result = MySQLi_fetch_array($execQuery)) {
     
@@ -49,6 +50,9 @@ if (isset($_POST['search'])) {
     //       echo"</a>";
   
     // }}
+}
+else{
+    
 }
     include('footer.php');
 ?>
