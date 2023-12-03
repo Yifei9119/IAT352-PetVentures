@@ -13,3 +13,17 @@ img{
     width:100%;
     height:auto;
 }
+
+#hotel-cards{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    width:fit-content;
+    row-gap: 2rem;
+    column-gap: 2rem;
+}
+
+.hotel-img{
+    width: 27rem;
+    height: 17rem;
+    object-fit: cover;
+}

@@ -4,7 +4,8 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 include_once("../helper/function.php");
 require("header.php");
-
+searchbar();  
+// **IMPORTANT this whole page needs to be updated using js
 
 //Getting value of "search" variable from "script.js".
 if (isset($_POST['search'])) {
@@ -23,16 +24,12 @@ if (isset($_POST['search'])) {
     
     
        //Fetching result from database.
-       echo "<ul>";
        // Iterate through each row in the query result
        while ($row = $res->fetch_assoc()) {
         //  echo "<li onclick='fill'>";
-        echo "<li>";
-         // Format each hotel  as a link
-         format_hotel_name_as_link($row["hotel_id"], $row["name"],"hoteldetails.php");
-         echo "</li>\n";
+        format_hotel_name_as_link($row["hotel_id"], $row["name"], $row['price'], $row['province'], $row['image'], "hoteldetails.php");
        };
-       echo "</ul>";
+
 
     //    while ($result = MySQLi_fetch_array($execQuery)) {
     
