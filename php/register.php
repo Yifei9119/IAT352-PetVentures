@@ -1,5 +1,5 @@
 <?php
-include('function.php');
+include('../helper/function.php');
 require_SSL();
 
 if (isset($_POST['submit'])) { // detect form submission

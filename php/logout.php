@@ -1,5 +1,5 @@
 <?php
-    include('function.php');
+    include('../helper/function.php');
     session_start();
     session_destroy();
     $message = "logged out";

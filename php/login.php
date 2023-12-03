@@ -1,5 +1,5 @@
 <?php
-include('function.php');
+include('../helper/function.php');
 require_SSL();
 
 // Check if the form is not submitted
