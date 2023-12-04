@@ -47,7 +47,79 @@ else {
 
 require('header.php');
 ?>
+<style>
+    /* Style for the overall layout */
+    html, body {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f7f7f7;
+    }
 
+    /* Container for the form to align it to the center */
+    .form-container {
+        width: 350px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+    }
+
+    /* Style for the form inputs */
+    input[type=text], input[type=email], input[type=password], input[type=submit] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        display: block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    /* Style for the submit button */
+    input[type=submit] {
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+    }
+
+    /* Hover effect for the submit button */
+    input[type=submit]:hover {
+        opacity: 0.8;
+    }
+    
+    .message {
+        color: red; /* Or any color you wish for error messages */
+    }
+</style>
+
+<div class="form-container">
+    <h2>Register for an account</h2>
+    <form action="register.php" method="post">
+        <label for="fname">First Name:</label>
+        <input name="fname" type="text" value="<?php echo htmlspecialchars($fname); ?>" required>
+
+        <label for="lname">Last Name:</label>
+        <input type="text" name="lname" value="<?php echo htmlspecialchars($lname); ?>" required>
+
+        <label for="email">Email Address:</label>
+        <input type="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" required>
+
+        <label for="password2">Confirm Password:</label>
+        <input type="password" name="password2" required>
+
+        <input type="submit" name="submit" value="Register">
+        
+        <?php if(!empty($message)) echo '<p class="message">' . $message . '</p>' ?>
+    </form>
+</div>
+
+<!-- 
             <h2>Register for a Classic Models account</h2>
             <form action="register.php" method="post">
                 <label for="fname">First Name: <input name="fname" type="text" value="<?php $fname ?>"></label>
@@ -65,7 +137,7 @@ require('header.php');
 
                 <input type="submit" name="submit" value="Register">
                 <?php if(!empty($message)) echo '<p class="message">' . $message . '</p>' ?>
-            </form>
+            </form> -->
 
 
 <?php
