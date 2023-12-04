@@ -8,9 +8,20 @@ require("header.php");
 searchbar();  
   // Define a query string to select product codes and names from the products table
   $query_str = "SELECT hotel.hotel_id, hotel.name, hotel.image, hotel.province, MIN(room.price) as price FROM hotel INNER JOIN room ON hotel.hotel_id = room.hotel_id GROUP BY hotel_id";
-
   $res = $db->query($query_str);
  
+if ($res === false) {
+  
+  echo "Error: " . htmlspecialchars($db->error);
+  
+  exit;
+}
+
+
+if ($res->num_rows == 0) {
+  echo "No hotels found.";
+  exit;
+}
   echo "<section>";
   echo "<h1>Pet-Friendly Hotels in Canada</h1><div id=hotel-cards>";
   // Iterate through each row in the query result
