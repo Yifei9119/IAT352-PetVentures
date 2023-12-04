@@ -52,7 +52,8 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
     // }}
 }
 else{
-    
+    //use js to show the error
+    echo"<p>Please type in the search bar</p>";
 }
     include('footer.php');
 ?>

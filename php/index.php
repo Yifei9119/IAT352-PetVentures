@@ -8,6 +8,7 @@ require("header.php");
 searchbar();  
   // Define a query string to select product codes and names from the products table
   $query_str = "SELECT hotel.hotel_id, hotel.name, hotel.image, hotel.province, MIN(room.price) as price FROM hotel INNER JOIN room ON hotel.hotel_id = room.hotel_id GROUP BY hotel_id";
+
   $res = $db->query($query_str);
  
 if ($res === false) {
@@ -16,7 +17,6 @@ if ($res === false) {
   
   exit;
 }
-
 
 if ($res->num_rows == 0) {
   echo "No hotels found.";
@@ -29,7 +29,6 @@ if ($res->num_rows == 0) {
   while ($row = $res->fetch_assoc()) {
     // Format each hotel model as a link
     format_hotel_name_as_link($row["hotel_id"], $row["name"], $row['price'], $row['province'], $row['image'], "hoteldetails.php");
-   
   };
   echo "</div></section>";
   
