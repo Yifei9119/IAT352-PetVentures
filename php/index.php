@@ -21,6 +21,10 @@ if ($res->num_rows == 0) {
   echo "No hotels found.";
   exit;
 }
+// Echo the HTML for the hero image right after your header include
+echo '<div class="hero-image">';
+echo '<img src="../images/hotels/dog.jpeg" alt="A backgroup of a dog" class="center">';
+echo '</div>';
   echo "<section class='padding-top'>";
   echo "<h1>Pet-Friendly Hotels in Canada</h1><div id=hotel-cards>";
   // Iterate through each row in the query result

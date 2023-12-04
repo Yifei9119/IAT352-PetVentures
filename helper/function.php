@@ -58,13 +58,23 @@ function connection($dbhost, $dbuser, $dbpass, $dbname)
 // }
 function format_hotel_name_as_link($id, $name, $price, $province, $image, $page)
 {
+    // echo "<a href=\"$page?hotelid=$id\">";
+    // echo $name;
+    // echo "<div>";
+    // echo "$" . $price;
+    // echo $province . "<br>";
+    // echo '<img class="hotel-img" width="200" src="../images/hotels/' . $image . '">';
+    // echo "</div></a>";
+    echo "<div class='hotel-card'>"; // Add this line to wrap each hotel in a card
     echo "<a href=\"$page?hotelid=$id\">";
-    echo $name;
-    echo "<div>";
-    echo "$" . $price;
-    echo $province . "<br>";
-    echo '<img class="hotel-img" width="200" src="../images/hotels/' . $image . '">';
-    echo "</div></a>";
+    echo "<img class=\"hotel-img\" src=\"../images/hotels/$image\">"; // Make sure the image path is correct
+    echo "<div class='hotel-info'>"; // Wrap the text in a div with class for styling
+    echo "<h2 class='hotel-name'>$name</h2>"; // Add class for hotel name
+    echo "<p class='hotel-price'>Starting at \$$price</p>"; // Add class for price
+    echo "<p class='hotel-location'>$province</p>"; // Add class for location
+    echo "</div>";
+    echo "</a>";
+    echo "</div>";
 }
 
 
