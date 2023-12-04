@@ -3,6 +3,27 @@ header{
   font-size:1.25rem;
   display:flex;
   justify-content: space-between;
+  padding:0.5rem;
+}
+
+form{
+    margin:0;
+    gap:0.5rem;
+    align-items:flex-end;
+}
+
+.nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    /* From https://css.glass */
+background: rgba(255, 255, 255, 0.4);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(6.7px);
+-webkit-backdrop-filter: blur(6.7px);
+border: 1px solid rgba(255, 255, 255, 0.32);
 }
 
 label{
@@ -14,12 +35,21 @@ img{
     height:auto;
 }
 
+h1{
+    text-align: center;
+}
+
+.padding-top{
+    padding-top:5rem;
+}
+
 #hotel-cards{
     display:grid;
     grid-template-columns: 1fr 1fr;
     width:fit-content;
     row-gap: 2rem;
     column-gap: 2rem;
+    margin:auto;
 }
 
 .hotel-img{

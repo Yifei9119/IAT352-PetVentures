@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 include_once("../helper/function.php");
 require("header.php");
-searchbar();  
+
 $hotelDisplayed = false;
 // Retrieve and trim the hotel code from the GET request
 $code = trim($_GET['hotelid']);
@@ -21,8 +21,9 @@ $res = mysqli_stmt_get_result($stmt);
 // Fetch the result and display product details
 while ($row = $res->fetch_assoc()) {
     if($hotelDisplayed==false){
+    echo "<section class='padding-top'>";
     echo '<img class="hotel-img" width="200" src="../images/hotels/' . $row['image'] . '">';
-	echo "<h1>" .$row['name']."</h1>\n<p>".$row['location']."</p>";
+	echo "<h1>" .$row['name']."</h1>\n<p>".$row['location']."</p></section>";
 	echo "<section><h2>Description</h2><p>". $row['details'],"</p></section>
         <section><h2>Services</h2><p>". $row['services']."</p></section>
         <section><h2>Policies</h2><p>". $row['policies']."</p></section>

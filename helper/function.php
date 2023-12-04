@@ -38,24 +38,24 @@ function connection($dbhost, $dbuser, $dbpass, $dbname)
     return $conn;
 }
 
-function searchbar()
-{
-    echo '<form action="searchResults.php" method="POST" style="display:flex; justify-content: center;">
-    <div>
-    <label> Place </label>
-    <input id="search" name="search" type="text" placeholder="Country">
-    </div>
-    <div>
-    <label>Check in</label>
-    <input id="date" name="startdate" type="date">
-    </div>
-    <div>
-    <label>Check out</label>
-    <input id="date" name="enddate" type="date">
-    <input id="submit" type="submit" value="Search">
-    </div>
-    </form>';
-}
+// function searchbar()
+// {
+//     echo '<form action="searchResults.php" method="POST" style="display:flex; justify-content: center;">
+//     <div>
+//     <label> Place </label>
+//     <input id="search" name="search" type="text" placeholder="Country">
+//     </div>
+//     <div>
+//     <label>Check in</label>
+//     <input id="date" name="startdate" type="date">
+//     </div>
+//     <div>
+//     <label>Check out</label>
+//     <input id="date" name="enddate" type="date">
+//     <input id="submit" type="submit" value="Search">
+//     </div>
+//     </form></div>';
+// }
 function format_hotel_name_as_link($id, $name, $price, $province, $image, $page)
 {
     echo "<a href=\"$page?hotelid=$id\">";

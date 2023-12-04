@@ -10,19 +10,35 @@ echo '
 </head>
 
 <body>
+<div class="nav">
     <header>
-        <a href="index.php"><img src="../images/logo/logo.svg" alt="logo"></a>
+        <a href="index.php"><img src="../images/logo/logo.svg" alt="logo"></a><form action="searchResults.php" method="POST" style="display:flex; justify-content: center;">
+        <div>
+        <label> Place </label>
+        <input id="search" name="search" type="text" placeholder="Country">
+        </div>
+        <div>
+        <label>Check in</label>
+        <input id="date" name="startdate" type="date">
+        </div>
+        <div>
+        <label>Check out</label>
+        <input id="date" name="enddate" type="date">
+        </div><div>
+        <input id="submit" type="submit" value="Search">
+        </div>
+        </form>
         <div>
           ';
 if (isset($_SESSION['valid_user']))
-    echo "<a class=\"nav\"  href=\"logout.php\">Logout</a>";
+    echo "<a href=\"logout.php\">Logout</a>";
 else
-    echo "<a class=\"nav\" href=\"login.php\">Login</a>";
+    echo "<a href=\"login.php\">Login</a>";
 echo '
             |
-            <a class="nav" href="register.php">Register</a>
-        </div>
+            <a href="register.php">Register</a>
+        </div></header></div>
 
-    </header>';
+    ';
 
 ?>
