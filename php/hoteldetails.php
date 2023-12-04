@@ -23,13 +23,13 @@ while ($row = $res->fetch_assoc()) {
     if($hotelDisplayed==false){
     echo '<img class="hotel-img" width="200" src="../images/hotels/' . $row['image'] . '">';
 	echo "<h1>" .$row['name']."</h1>\n<p>".$row['location']."</p>";
-	echo "<section><h2>Description</h2><br><p>". $row['details'],"</p></section>
-        <section><h2>Services</h2><br><p>". $row['services']."</p></section>
-        <section><h2>Policies</h2><br><p>". $row['policies']."</p></section>
+	echo "<section><h2>Description</h2><p>". $row['details'],"</p></section>
+        <section><h2>Services</h2><p>". $row['services']."</p></section>
+        <section><h2>Policies</h2><p>". $row['policies']."</p></section>
         ";
     }
     $hotelDisplayed=true;
-    echo"<section><h2>Rooms</h2><br><h3>". $row['accommodation']."</h3><p> ".$row['bed'] ." $".$row['price'].$row['details']."</p></section>";
+    echo"<section><h2>Rooms</h2><h3>". $row['accommodation']."</h3><p> ".$row['bed'] ." $".$row['price'].$row['room_details']."</p></section>";
 	}
 
 $stmt->free_result();
