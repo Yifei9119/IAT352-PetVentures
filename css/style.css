@@ -1,5 +1,5 @@
 header{
-  font-family: sans-serif; 
+  font-family: 'Verdana', sans-serif;
   font-size:1.25rem;
   display:flex;
   justify-content: space-between;
@@ -36,10 +36,12 @@ img{
 }
 
 h1{
+    font-family: 'Verdana', sans-serif;
     text-align: center;
 }
 
 .title{
+    font-family: 'Verdana', sans-serif;
     text-align: left;
     font-size: 3rem;
     margin:1rem;
@@ -65,7 +67,7 @@ h1{
 }
 
 .hero-image{
-    background-image: url(../images/hotels/dog.jpeg);
+    background-image: url(../images/hotels/puppy.jpeg);
     background-size: cover;
     background-position: center;
     width:100%;
@@ -86,3 +88,104 @@ h1{
     margin-right: auto;
    
   }
+
+  /* details page */
+  .hotel-info, .room-details, .availability-check {
+    font-family: 'Verdana', sans-serif;
+    /* Other styling rules */
+}
+  .hotel-details-wrapper {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    padding-top: 100px; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+  .hotel-details-container {
+    width: 100%; 
+    max-width: 100%; 
+    margin: 20px 0; 
+}
+
+.hotel-content {
+    flex-grow: 2; /* Allows this div to grow and take up more space */
+}
+
+.hotel-main-info {
+    flex-basis: 70%;
+}
+
+.hotel-info{
+    text-align: left; 
+    padding: 0 20px; 
+}
+
+.room-details {
+    width: 100%; /* Full width of the wrapper */
+    padding: 0 20px; /* Padding on sides */
+}
+
+.hotel-image-container {
+    /* Adjust the width as needed, or set it to a percentage for responsiveness */
+    width: 100%; /* Example: this could be 50%, 75%, etc., based on your layout */
+    max-width: 800px; /* Or the maximum width you want the image to have */
+    margin: auto; /* This will center the image if the container is wider than the image */
+}
+
+.hotel-img-detail {
+    max-width: 100%; /* Image can fill the container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Optional rounded corners */
+}
+
+.hotel-description, .hotel-services, .hotel-policies, .hotel-rooms {
+    margin-top: 20px;
+}
+
+.availability-check {
+    flex-grow: 1;
+    margin-left: 20px; /* Spacing between the content and the sidebar */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hotel-details-container {
+        flex-direction: column;
+    }
+
+    .availability-check {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+}
+
+.availability-check form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.availability-check input[type='date'],
+.availability-check select {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.availability-check button {
+    padding: 10px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.availability-check button:hover {
+    background-color: #4cae4c;
+}
