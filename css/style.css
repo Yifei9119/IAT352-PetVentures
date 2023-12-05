@@ -64,6 +64,7 @@ h1{
     width: 27rem;
     height: 17rem;
     object-fit: cover;
+    display:block;
 }
 
 .hero-image{
@@ -95,9 +96,8 @@ h1{
     /* Other styling rules */
 }
   .hotel-details-wrapper {
-    display: flex;
-    flex-direction: column; 
-    align-items: center; 
+    display: grid;
+    grid-template-columns: 2fr 1fr;
     padding-top: 100px; 
     max-width: 1200px; 
     margin: 0 auto; 
@@ -117,13 +117,13 @@ h1{
 }
 
 .hotel-info{
-    text-align: left; 
-    padding: 0 20px; 
+    text-align: left;
 }
-
+.hotel-info.card{
+    width:27rem;
+}
 .room-details {
-    width: 100%; /* Full width of the wrapper */
-    padding: 0 20px; /* Padding on sides */
+    /* padding: 0 20px; Padding on sides */
 }
 
 .hotel-image-container {
@@ -149,6 +149,8 @@ h1{
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
+    margin-top:20px;
+    height:fit-content;
 
 }
 /* Responsive adjustments */

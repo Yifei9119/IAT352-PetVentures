@@ -68,7 +68,7 @@ function format_hotel_name_as_link($id, $name, $price, $province, $image, $page)
     echo "<div class='hotel-card'>"; // Add this line to wrap each hotel in a card
     echo "<a href=\"$page?hotelid=$id\">";
     echo "<img class=\"hotel-img\" src=\"../images/hotels/$image\">"; // Make sure the image path is correct
-    echo "<div class='hotel-info'>"; // Wrap the text in a div with class for styling
+    echo "<div class='hotel-info card'>"; // Wrap the text in a div with class for styling
     echo "<h2 class='hotel-name'>$name</h2>"; // Add class for hotel name
     echo "<p class='hotel-price'>Starting at \$$price</p>"; // Add class for price
     echo "<p class='hotel-location'>$province</p>"; // Add class for location
