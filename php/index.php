@@ -22,13 +22,16 @@ if ($res->num_rows == 0) {
   exit;
 }
 // Echo the HTML for the hero image right after your header include
-echo '<div class="hero-image">';
-echo '<img src="../images/hotels/dog.jpeg" alt="A backgroup of a dog" class="center">';
-echo '</div>';
+// echo '<div class="hero-image">';
+// echo '<img src="../images/hotels/dog.jpeg" alt="A backgroup of a dog" class="center">';
+// echo '</div>';
+echo "<section class='hero-image'>";
+echo "<div class='absolute-pos'><h1 class='title'>Pet-Friendly Hotels in Canada</h1>";
+echo "<p>Browse through pet-friendly hotels in Canada. PetVentures provides the best accommodations for your pets.</p></div>";
+echo "</section>";
   echo "<section class='padding-top'>";
-  echo "<h1>Pet-Friendly Hotels in Canada</h1><div id=hotel-cards>";
   // Iterate through each row in the query result
-
+  echo "<div id=hotel-cards>";
   while ($row = $res->fetch_assoc()) {
     // Format each hotel model as a link
     format_hotel_name_as_link($row["hotel_id"], $row["name"], $row['price'], $row['province'], $row['image'], "hoteldetails.php");
