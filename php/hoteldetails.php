@@ -95,33 +95,33 @@ $stmt->free_result();
 // }
 
 // Check if the user is logged in before showing the review button
-if (isset($_SESSION['user_id'])) {
-    $hotel_id = $_GET['hotelid']; // Ensure you have the hotel's ID available
-    echo "<a href='submit_review.php?hotelid=" . $hotel_id . "' class='review-button'>Write Review</a>";
-} else {
-    echo "<p>You must be <a href='login.php'>logged in</a> to write a review.</p>";
-}
+// if (isset($_SESSION['user_id'])) {
+//     $hotel_id = $_GET['hotelid']; // Ensure you have the hotel's ID available
+//     echo "<a href='submit_review.php?hotelid=" . $hotel_id . "' class='review-button'>Write Review</a>";
+// } else {
+//     echo "<p>You must be <a href='login.php'>logged in</a> to write a review.</p>";
+// }
 
-$hotel_id = $_GET['hotelid'];
-$query = "SELECT * FROM reviews WHERE hotel_id = ?";
-$stmt = $db->prepare($query);
-$stmt->bind_param("i", $hotel_id);
-$stmt->execute();
-$result = $stmt->get_result();
+// $hotel_id = $_GET['hotelid'];
+// $query = "SELECT * FROM reviews WHERE hotel_id = ?";
+// $stmt = $db->prepare($query);
+// $stmt->bind_param("i", $hotel_id);
+// $stmt->execute();
+// $result = $stmt->get_result();
 
-if ($result->num_rows > 0) {
-    echo "<h2>User Reviews</h2>";
-    while ($review = $result->fetch_assoc()) {
-        echo "<div class='review'>";
-        echo "<p>Rating: " . htmlspecialchars($review['rating']) . "</p>";
-        echo "<p>Comment: " . htmlspecialchars($review['comment']) . "</p>";
-        echo "</div>";
-    }
-} else {
-    echo "<p>No reviews yet.</p>";
-}
+// if ($result->num_rows > 0) {
+//     echo "<h2>User Reviews</h2>";
+//     while ($review = $result->fetch_assoc()) {
+//         echo "<div class='review'>";
+//         echo "<p>Rating: " . htmlspecialchars($review['rating']) . "</p>";
+//         echo "<p>Comment: " . htmlspecialchars($review['comment']) . "</p>";
+//         echo "</div>";
+//     }
+// } else {
+//     echo "<p>No reviews yet.</p>";
+// }
 
-$stmt->close();
+// $stmt->close();
 
 include('footer.php');
 $db->close();
