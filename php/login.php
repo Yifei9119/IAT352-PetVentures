@@ -27,7 +27,8 @@ if (!isset($_POST['submit'])) { // detect form submission
     if($stmt->fetch() && password_verify($password,$pass2_hash)) {
         $_SESSION['valid_user'] = $email;
         // // Set default callback URL and update it if it exists in the session
-        // $callback_url = "showwatchlist.php";
+        $callback_url = "index.php";
+        redirect_to($callback_url);
         // if (isset($_SESSION['callback_url']))
         // 	$callback_url = $_SESSION['callback_url'];
         // //switch back to non-secure http
