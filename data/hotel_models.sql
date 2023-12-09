@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2023 at 09:11 AM
+-- Generation Time: Dec 09, 2023 at 06:50 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -110,6 +110,17 @@ CREATE TABLE `reviews` (
   `comment` varchar(300) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `created_at` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `hotel_id`, `user_id`, `rating`, `comment`, `created_at`) VALUES
+('', '8', '', '3', 'hghjbjkhkj', '0000-00-00 00:00:00.000000'),
+('', '8', '', '3', 'hghjbjkhkj', '0000-00-00 00:00:00.000000'),
+('', '8', '', '3', 'hghjbjkhkj', '0000-00-00 00:00:00.000000'),
+('', '8', '', '3', 'hghjbjkhkj', '0000-00-00 00:00:00.000000'),
+('', '0', '', '3', 'is a test', '0000-00-00 00:00:00.000000');
 
 -- --------------------------------------------------------
 
