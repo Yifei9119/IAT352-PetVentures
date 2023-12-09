@@ -25,9 +25,9 @@ if ($res->num_rows == 0) {
 // echo '<div class="hero-image">';
 // echo '<img src="../images/hotels/dog.jpeg" alt="A backgroup of a dog" class="center">';
 // echo '</div>';
-echo "<section class='hero-image'>";
+echo "<section class='landing-image'>";
 echo "<div class='absolute-pos'><h1 class='title'>Pet-Friendly Hotels in Canada</h1>";
-echo "<p>Browse through pet-friendly hotels in Canada. PetVentures provides the best accommodations for your pets.</p></div>";
+echo "<p class='title-p'>Browse through pet-friendly hotels in Canada. PetVentures provides the best accommodations for your pets.</p></div>";
 echo "</section>";
   echo "<section class='padding-top'>";
   // Iterate through each row in the query result
