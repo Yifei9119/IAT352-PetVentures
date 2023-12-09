@@ -11,15 +11,15 @@ $code = trim($_GET['hotelid']);
 // Retrieve and trim any message passed in the GET request, using @ to suppress errors if 'message' is not set
 @$msg = trim($_GET['message']);
 
-$query_str = "SELECT * FROM hotel JOIN room ON hotel.hotel_id = room.hotel_id WHERE hotel.hotel_id=?"; 
-			  
+$query_str = "SELECT * FROM hotel JOIN room ON hotel.hotel_id = room.hotel_id WHERE hotel.hotel_id=?";
+
 $stmt = $db->prepare($query_str);
-$stmt->bind_param('s',$code);
+$stmt->bind_param('s', $code);
 $stmt->execute();
 $res = mysqli_stmt_get_result($stmt);
 
 // Retrieve and display reviews for the hotel
-$reviewsQuery = "SELECT rating, comment, created_at FROM reviews WHERE hotel_id = ? ORDER BY created_at DESC";
+$reviewsQuery = "SELECT rating, AVG(rating) as avgRating, comment, created_at FROM reviews WHERE hotel_id = ? ORDER BY created_at DESC";
 $reviewsStmt = $db->prepare($reviewsQuery);
 $reviewsStmt->bind_param('i', $code); // $code is the hotel ID obtained from $_GET['hotelid']
 $reviewsStmt->execute();
@@ -29,40 +29,45 @@ $reviewsResult = $reviewsStmt->get_result();
 echo "<div class='hotel-details-wrapper'>"; // Wrapper for hotel details and availability
 echo "<div class='hotel-details-container'>"; // Container for all content
 while ($row = $res->fetch_assoc()) {
-    if($hotelDisplayed==false){
-    // echo "<section class='padding-top'>";
-    // echo '<img class="hotel-img" width="200" src="../images/hotels/' . $row['image'] . '">';
-	// echo "<h1>" .$row['name']."</h1>\n<p>".$row['location']."</p></section>";
-	// echo "<section><h2>Description</h2><p>". $row['details'],"</p></section>
-    //     <section><h2>Services</h2><p>". $row['services']."</p></section>
-    //     <section><h2>Policies</h2><p>". $row['policies']."</p></section>
-    //     ";
-    //echo "<div class='hotel-content'>"; // Left side content
-    //echo "<div class='hotel-image'>";
-    echo "<div class='hotel-image-container'>"; 
-    echo '<img class="hotel-img-detail" src="../images/hotels/' . htmlspecialchars($row['image']) . '" alt="' . htmlspecialchars($row['name']) . '">';
-    echo "</div>";
-    echo "<div class='hotel-info'>";
-    echo "<h1>" . htmlspecialchars($row['name']) . "</h1>";
-    echo "<p>" . nl2br(htmlspecialchars($row['details'])) . "</p>";
-    echo "<h2>Services</h2><p>" . nl2br(htmlspecialchars($row['services'])) . "</p>";
-    echo "<h2>Policies</h2><p>" . nl2br(htmlspecialchars(isset($row['policies']) ? $row['policies'] : '')) . "</p>";
+    if ($hotelDisplayed == false) {
+        // echo "<section class='padding-top'>";
+        // echo '<img class="hotel-img" width="200" src="../images/hotels/' . $row['image'] . '">';
+        // echo "<h1>" .$row['name']."</h1>\n<p>".$row['location']."</p></section>";
+        // echo "<section><h2>Description</h2><p>". $row['details'],"</p></section>
+        //     <section><h2>Services</h2><p>". $row['services']."</p></section>
+        //     <section><h2>Policies</h2><p>". $row['policies']."</p></section>
+        //     ";
+        //echo "<div class='hotel-content'>"; // Left side content
+        //echo "<div class='hotel-image'>";
+        echo "<div class='hotel-image-container'>";
+        echo '<img class="hotel-img-detail" src="../images/hotels/' . htmlspecialchars($row['image']) . '" alt="' . htmlspecialchars($row['name']) . '">';
+        echo "</div>";
+        echo "<div class='hotel-info'>";
+        echo "<h1>" . htmlspecialchars($row['name']) . "</h1>";
+        if (!empty($avgRating))
+            echo "<p>Rating: " . str_repeat('★', $review['rating']) . "</p>";
+        else {
+            echo "<p>Rating: No Ratings Yet</p>";
+        }
+        echo "<p>" . nl2br(htmlspecialchars($row['details'])) . "</p>";
+        echo "<h2>Services</h2><p>" . nl2br(htmlspecialchars($row['services'])) . "</p>";
+        echo "<h2>Policies</h2><p>" . nl2br(htmlspecialchars(isset($row['policies']) ? $row['policies'] : '')) . "</p>";
 
-    echo "</div>"; // Close hotel-info
-    //echo "</div>"; // Close hotel-content
-    
+        echo "</div>"; // Close hotel-info
+        //echo "</div>"; // Close hotel-content
+
     }
-    $hotelDisplayed=true;
+    $hotelDisplayed = true;
     echo "<div class='room-details'>";
     echo "<h2>Rooms</h2>";
     echo "<h3>" . htmlspecialchars($row['accommodation']) . "</h3>";
     echo "<p> " . htmlspecialchars($row['bed']) . " $" . htmlspecialchars($row['price']) . htmlspecialchars($row['room_details']) . "</p>";
     echo "</div>"; // Close room-details
     //echo"<section><h2>Rooms</h2><h3>". $row['accommodation']."</h3><p> ".$row['bed'] ." $".$row['price'].$row['room_details']."</p></section>";
-	}
+}
 
-    echo "</div>"; // Close .hotel-details
-    
+echo "</div>"; // Close .hotel-details
+
 echo "<div class='availability-check'>";
 // Form for checking availability
 echo "<h2>Check Availability</h2>";
@@ -93,21 +98,25 @@ $stmt->free_result();
 echo "<div class='hotel-reviews'>";
 echo "<h2>User Reviews</h2>";
 
+if (loggedIn()) {
+    // Display a button that links to the review submission page
+    echo "<a href='submit_review.php?hotelid=" . urlencode($code) . "' class='write-review-button'>Write Review</a>";
+}
 
-// Display a button that links to the review submission page
-echo "<a href='submit_review.php?hotelid=" . urlencode($code) . "' class='write-review-button'>Write Review</a>";
 
 
-if ($reviewsResult->num_rows > 0) {
-    while ($review = $reviewsResult->fetch_assoc()) {
+while ($review = $reviewsResult->fetch_assoc()) {
+    if (!empty($review['rating']) && !empty($review['comment']) && !empty($review['created_at'])) {
         echo "<div class='review'>";
         echo "<p>Rating: " . str_repeat('★', $review['rating']) . "</p>";
         echo "<p>Comment: " . htmlspecialchars($review['comment']) . "</p>";
-        //echo "<p>Date: " . htmlspecialchars($review['created_at']) . "</p>"; // Format date as needed
+        echo "<p>Date: " . htmlspecialchars($review['created_at']) . "</p>"; // Format date as needed
         echo "</div>";
+        $avgRating = $review['avgRating'];
+    } else {
+        echo "<p>No reviews yet. Be the first to write a review!</p>";
     }
-} else {
-    echo "<p>No reviews yet. Be the first to write a review!</p>";
+
 }
 
 echo "</div>"; // Close the hotel-reviews div
