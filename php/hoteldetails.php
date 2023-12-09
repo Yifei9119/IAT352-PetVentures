@@ -17,6 +17,13 @@ $stmt = $db->prepare($query_str);
 $stmt->bind_param('s',$code);
 $stmt->execute();
 $res = mysqli_stmt_get_result($stmt);
+
+// Retrieve and display reviews for the hotel
+$reviewsQuery = "SELECT rating, comment, created_at FROM reviews WHERE hotel_id = ? ORDER BY created_at DESC";
+$reviewsStmt = $db->prepare($reviewsQuery);
+$reviewsStmt->bind_param('i', $code); // $code is the hotel ID obtained from $_GET['hotelid']
+$reviewsStmt->execute();
+$reviewsResult = $reviewsStmt->get_result();
 // $stmt->bind_result($hotel_id,$name,$details,$services,$location,$policies,$contact,$avg_rating,$province, $image);
 // Fetch the result and display product details
 echo "<div class='hotel-details-wrapper'>"; // Wrapper for hotel details and availability
@@ -81,6 +88,32 @@ echo "</div>"; // Close availability-check
 echo "</div>"; // Close hotel-detail-container
 
 $stmt->free_result();
+
+// Now display the reviews
+echo "<div class='hotel-reviews'>";
+echo "<h2>User Reviews</h2>";
+
+
+// Display a button that links to the review submission page
+echo "<a href='submit_review.php?hotelid=" . urlencode($code) . "' class='write-review-button'>Write Review</a>";
+
+
+if ($reviewsResult->num_rows > 0) {
+    while ($review = $reviewsResult->fetch_assoc()) {
+        echo "<div class='review'>";
+        echo "<p>Rating: " . str_repeat('★', $review['rating']) . "</p>";
+        echo "<p>Comment: " . htmlspecialchars($review['comment']) . "</p>";
+        //echo "<p>Date: " . htmlspecialchars($review['created_at']) . "</p>"; // Format date as needed
+        echo "</div>";
+    }
+} else {
+    echo "<p>No reviews yet. Be the first to write a review!</p>";
+}
+
+echo "</div>"; // Close the hotel-reviews div
+
+$reviewsStmt->close();
+
 
 // Display add to favourite form if the user is logged in and the product is not already in the watchlist
 // if(loggedIn() && !inWatchlist($code) ) {
