@@ -30,15 +30,6 @@ echo "<div class='hotel-details-wrapper'>"; // Wrapper for hotel details and ava
 echo "<div class='hotel-details-container'>"; // Container for all content
 while ($row = $res->fetch_assoc()) {
     if ($hotelDisplayed == false) {
-        // echo "<section class='padding-top'>";
-        // echo '<img class="hotel-img" width="200" src="../images/hotels/' . $row['image'] . '">';
-        // echo "<h1>" .$row['name']."</h1>\n<p>".$row['location']."</p></section>";
-        // echo "<section><h2>Description</h2><p>". $row['details'],"</p></section>
-        //     <section><h2>Services</h2><p>". $row['services']."</p></section>
-        //     <section><h2>Policies</h2><p>". $row['policies']."</p></section>
-        //     ";
-        //echo "<div class='hotel-content'>"; // Left side content
-        //echo "<div class='hotel-image'>";
         echo "<div class='hotel-image-container'>";
         echo '<img class="hotel-img-detail" src="../images/hotels/' . htmlspecialchars($row['image']) . '" alt="' . htmlspecialchars($row['name']) . '">';
         echo "</div>";
@@ -49,8 +40,13 @@ while ($row = $res->fetch_assoc()) {
         else {
             echo "<p>Rating: No Ratings Yet</p>";
         }
-        echo "<p>" . nl2br(htmlspecialchars($row['details'])) . "</p>";
-        echo "<h2>Services</h2><p>" . nl2br(htmlspecialchars($row['services'])) . "</p>";
+        $services = explode(",",$row['services']);
+
+        echo "<p>" .nl2br(htmlspecialchars($row['details'])). "</p>";
+        echo "<h2>Services</h2>";
+        foreach($services as $service){
+         echo"<p>".nl2br(htmlspecialchars($service)) . "</p>";
+        }
         echo "<h2>Policies</h2><p>" . nl2br(htmlspecialchars(isset($row['policies']) ? $row['policies'] : '')) . "</p>";
 
         echo "</div>"; // Close hotel-info
@@ -61,7 +57,11 @@ while ($row = $res->fetch_assoc()) {
     echo "<div class='room-details'>";
     echo "<h2>Rooms</h2>";
     echo "<h3>" . htmlspecialchars($row['accommodation']) . "</h3>";
-    echo "<p> " . htmlspecialchars($row['bed']) . " $" . htmlspecialchars($row['price']) . htmlspecialchars($row['room_details']) . "</p>";
+    echo "<p> " . htmlspecialchars($row['bed']) . " $" . htmlspecialchars($row['price']). "</p>";
+    $roomDetails = explode("++", $row['room_details']);
+    foreach($roomDetails as $detail){
+        echo"<p>".nl2br(htmlspecialchars($detail)) . "</p>";
+    }
     echo "</div>"; // Close room-details
     //echo"<section><h2>Rooms</h2><h3>". $row['accommodation']."</h3><p> ".$row['bed'] ." $".$row['price'].$row['room_details']."</p></section>";
 }
