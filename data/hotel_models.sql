@@ -11,6 +11,9 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+DROP DATABASE IF EXISTS hotel_models;
+CREATE DATABASE hotel_models;
+use hotel_models;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,7 +29,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `comment`
 --
-
+DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
   `member_id` varchar(50) NOT NULL,
   `rating` varchar(5) NOT NULL,
@@ -38,7 +41,7 @@ CREATE TABLE `comment` (
 --
 -- Table structure for table `hotel`
 --
-
+DROP TABLE IF EXISTS `hotel`;
 CREATE TABLE `hotel` (
   `hotel_id` varchar(20) NOT NULL,
   `name` varchar(100) NOT NULL,
@@ -73,7 +76,7 @@ INSERT INTO `hotel` (`hotel_id`, `name`, `details`, `services`, `location`, `pol
 --
 -- Table structure for table `payment`
 --
-
+DROP TABLE IF EXISTS `payment`;
 CREATE TABLE `payment` (
   `payment_id` varchar(50) NOT NULL,
   `payment_status` tinyint(1) NOT NULL,
@@ -85,9 +88,9 @@ CREATE TABLE `payment` (
 --
 -- Table structure for table `registered_member`
 --
-
+DROP TABLE IF EXISTS `registered_member`;
 CREATE TABLE `registered_member` (
-  `member_id` varchar(20) NOT NULL,
+  `member_id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `first_name` varchar(80) NOT NULL,
   `last_name` varchar(80) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -101,11 +104,11 @@ CREATE TABLE `registered_member` (
 --
 -- Table structure for table `reviews`
 --
-
+DROP TABLE IF EXISTS `reviews`;
 CREATE TABLE `reviews` (
   `id` varchar(40) NOT NULL,
   `hotel_id` varchar(50) NOT NULL,
-  `user_id` varchar(40) NOT NULL,
+  `member_id` int(40) NOT NULL,
   `rating` varchar(40) NOT NULL,
   `comment` varchar(300) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `created_at` datetime(6) NOT NULL
@@ -115,7 +118,7 @@ CREATE TABLE `reviews` (
 -- Dumping data for table `reviews`
 --
 
-INSERT INTO `reviews` (`id`, `hotel_id`, `user_id`, `rating`, `comment`, `created_at`) VALUES
+INSERT INTO `reviews` (`id`, `hotel_id`, `member_id`, `rating`, `comment`, `created_at`) VALUES
 ('', '8', '', '3', 'hghjbjkhkj', '0000-00-00 00:00:00.000000'),
 ('', '8', '', '3', 'hghjbjkhkj', '0000-00-00 00:00:00.000000'),
 ('', '8', '', '3', 'hghjbjkhkj', '0000-00-00 00:00:00.000000'),
@@ -127,7 +130,7 @@ INSERT INTO `reviews` (`id`, `hotel_id`, `user_id`, `rating`, `comment`, `create
 --
 -- Table structure for table `room`
 --
-
+DROP TABLE IF EXISTS `room`;
 CREATE TABLE `room` (
   `hotel_id` varchar(100) NOT NULL,
   `room_id` varchar(100) NOT NULL,
@@ -207,7 +210,6 @@ ALTER TABLE `payment`
 -- Indexes for table `registered_member`
 --
 ALTER TABLE `registered_member`
-  ADD PRIMARY KEY (`member_id`),
   ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `member_id` (`member_id`);
 
