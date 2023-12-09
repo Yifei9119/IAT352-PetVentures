@@ -23,9 +23,8 @@ if (isset($_POST['submit'])) { // detect form submission
     }
     else {
         $pw_encrypted = password_hash($password, PASSWORD_DEFAULT);
-
         // Prepare an INSERT query to add the new user to the database
-        $query = "INSERT INTO users (email, password, firstName,lastName) ";
+        $query = "INSERT INTO registered_member (email, password, first_name,last_name) ";
         $query .= "VALUES (?,?,?,?)";
       
       	$stmt = $db->prepare($query);

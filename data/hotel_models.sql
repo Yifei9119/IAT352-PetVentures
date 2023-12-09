@@ -90,7 +90,7 @@ CREATE TABLE `payment` (
 --
 DROP TABLE IF EXISTS `registered_member`;
 CREATE TABLE `registered_member` (
-  `member_id` varchar(20) NOT NULL,
+  `member_id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `first_name` varchar(80) NOT NULL,
   `last_name` varchar(80) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -108,7 +108,7 @@ DROP TABLE IF EXISTS `reviews`;
 CREATE TABLE `reviews` (
   `id` varchar(40) NOT NULL,
   `hotel_id` varchar(50) NOT NULL,
-  `user_id` varchar(40) NOT NULL,
+  `member_id` int(40) NOT NULL,
   `rating` varchar(40) NOT NULL,
   `comment` varchar(300) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `created_at` datetime(6) NOT NULL
@@ -118,7 +118,7 @@ CREATE TABLE `reviews` (
 -- Dumping data for table `reviews`
 --
 
-INSERT INTO `reviews` (`id`, `hotel_id`, `user_id`, `rating`, `comment`, `created_at`) VALUES
+INSERT INTO `reviews` (`id`, `hotel_id`, `member_id`, `rating`, `comment`, `created_at`) VALUES
 ('', '8', '', '3', 'hghjbjkhkj', '0000-00-00 00:00:00.000000'),
 ('', '8', '', '3', 'hghjbjkhkj', '0000-00-00 00:00:00.000000'),
 ('', '8', '', '3', 'hghjbjkhkj', '0000-00-00 00:00:00.000000'),
@@ -210,7 +210,6 @@ ALTER TABLE `payment`
 -- Indexes for table `registered_member`
 --
 ALTER TABLE `registered_member`
-  ADD PRIMARY KEY (`member_id`),
   ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `member_id` (`member_id`);
 
