@@ -136,12 +136,12 @@ h1{
     grid-template-columns: 2fr 1fr;
     padding-top: 100px; 
     max-width: 1200px; 
-    margin: 0 2rem; 
+    margin: 0 auto; 
 }
 
-.hotel-reviews{
-    margin: 0 2rem;
-}
+/* .hotel-reviews{
+    margin: 0 auto;
+} */
   .hotel-details-container {
     width: 100%; 
     max-width: 100%; 
