@@ -30,11 +30,11 @@ function handleDataByButton(keyName){
             success: function(response) {
                 button.toggleClass('style');
                 // let guideId = button.data('guide-id');
-                alert('secuss to clicked button');
+                alert('hotel has been added to favourites');
                 // updateCount(keyName, guideId);
             },
             error: function() {
-                alert('failed to clicked button');
+                alert('failed to add to favourites');
             }
         });
     });
