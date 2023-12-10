@@ -32,12 +32,13 @@ echo '
           ';
 if (isset($_SESSION['valid_user']))
     echo "<a href=\"logout.php\">Logout</a>";
-else
+else{
     echo "<a href=\"login.php\">Login</a>";
 echo '
             |
-            <a href="register.php">Register</a>
-        </div></header></div>
+            <a href="register.php">Register</a>';
+}
+       echo' </div></header></div>
 
     ';
 

@@ -41,16 +41,14 @@ while ($row = $res->fetch_assoc()) {
         echo "</div>";
         echo "<div class='hotel-info'>";
         echo "<h1>" . htmlspecialchars($row['name']) . "</h1>";
-        if ($avgRatingResult->num_rows > 0) {
-            $avgRating = $avgRatingResult->fetch_assoc();
-            if(!empty($avgRating['rating'])){
-            echo "<p>Rating: " . str_repeat('★', $avgRating['rating']) . "</p>";}
-            else{
-                echo "<p>Rating: No Ratings Yet</p>";
-            }
+
+        $avgRating = $avgRatingResult->fetch_assoc();
+        if (!empty($avgRating['rating'])) {
+            echo "<p>Rating: " . str_repeat('★', $avgRating['rating']) . "</p>";
         } else {
             echo "<p>Rating: No Ratings Yet</p>";
         }
+
 
         $services = explode(",", $row['services']);
 
@@ -120,12 +118,12 @@ if (loggedIn()) {
 
 if ($reviewsResult->num_rows > 0) {
     while ($review = $reviewsResult->fetch_assoc()) {
-        if(!empty($review['rating']) && !empty($review['comment'] && !empty($review['created_at']))){
-        echo "<div class='review'>";
-        echo "<p>Rating: " . str_repeat('★', $review['rating']) . "</p>";
-        echo "<p>Comment: " . htmlspecialchars($review['comment']) . "</p>";
-        echo "<p>Date: " . htmlspecialchars($review['created_at']) . "</p>"; // Format date as needed
-        echo "</div>";
+        if (!empty($review['rating']) && !empty($review['comment'] && !empty($review['created_at']))) {
+            echo "<div class='review'>";
+            echo "<p>Rating: " . str_repeat('★', $review['rating']) . "</p>";
+            echo "<p>Comment: " . htmlspecialchars($review['comment']) . "</p>";
+            echo "<p>Date: " . htmlspecialchars($review['created_at']) . "</p>"; // Format date as needed
+            echo "</div>";
         }
 
     }
