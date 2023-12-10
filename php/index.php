@@ -39,7 +39,9 @@ echo "</section>";
   };
   echo "</div></section>";
 
+  if(loggedIn()){
   echo "uid" . $_SESSION['valid_user'];
+  }
   
   include('footer.php');
   $res->free_result();

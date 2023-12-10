@@ -13,7 +13,7 @@ $hotelsStmt->execute();
 $hotelsResult = $hotelsStmt->get_result();
 
 
-$userQuery = "SELECT member_id FROM registered_member WHERE email=?";
+$userQuery = "SELECT member_id FROM registered_member WHERE member_id=?";
 $userStmt = $db->prepare($userQuery);
 $userStmt->bind_param('s', $current_user);
 $userStmt->execute();
@@ -78,7 +78,7 @@ echo'
         echo'<div class="review">
             <p>Hotel: '. htmlspecialchars($review['name']).'</p>
             <p>Rating: '.str_repeat('★', $review['rating']) .'</p>
-            <p>Comment:'. htmlspecialchars($review["comment"]). '</p>
+            <p>Comment: '. htmlspecialchars($review["comment"]). '</p>
         </div>';
     }
 echo '</div>';

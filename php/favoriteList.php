@@ -2,8 +2,6 @@
 include_once("../helper/function.php");
 // Start the session
 session_start();
-// Establish database connection
-$db = connection('localhost', 'root', '', 'hotel_models');
 
 $table = "favourite_list";
 $postKey = "addFavorite_guideId";
