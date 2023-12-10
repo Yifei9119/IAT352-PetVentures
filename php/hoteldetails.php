@@ -41,21 +41,24 @@ while ($row = $res->fetch_assoc()) {
         echo "</div>";
         echo "<div class='hotel-info'>";
         echo "<h1>" . htmlspecialchars($row['name']) . "</h1>";
-        if($avgRatingResult->num_rows>0){
-             $avgRating = $avgRatingResult->fetch_assoc();
-            echo "<p>Rating: " . str_repeat('★', $avgRating['rating']) . "</p>";
-        }
-        else {
+        if ($avgRatingResult->num_rows > 0) {
+            $avgRating = $avgRatingResult->fetch_assoc();
+            if(!empty($avgRating['rating'])){
+            echo "<p>Rating: " . str_repeat('★', $avgRating['rating']) . "</p>";}
+            else{
+                echo "<p>Rating: No Ratings Yet</p>";
+            }
+        } else {
             echo "<p>Rating: No Ratings Yet</p>";
         }
-    
-        $services = explode(",",$row['services']);
 
-        echo "<p>" .nl2br(htmlspecialchars($row['details'])). "</p>";
-        
+        $services = explode(",", $row['services']);
+
+        echo "<p>" . nl2br(htmlspecialchars($row['details'])) . "</p>";
+
         echo "<div><h2>Services</h2><div class='service-info'>";
-        foreach($services as $service){
-         echo"<p>".nl2br(htmlspecialchars($service)) . "</p>";
+        foreach ($services as $service) {
+            echo "<p>" . nl2br(htmlspecialchars($service)) . "</p>";
         }
         echo "</div></div>";
         echo "<h2>Policies</h2><p>" . nl2br(htmlspecialchars(isset($row['policies']) ? $row['policies'] : '')) . "</p>";
@@ -69,10 +72,10 @@ while ($row = $res->fetch_assoc()) {
     echo "<h2>Rooms</h2>";
     echo '<img src="../images/rooms/' . htmlspecialchars($row['room_image']) . '" alt="' . htmlspecialchars($row['accommodation']) . '">';
     echo "<h3>" . htmlspecialchars($row['accommodation']) . "</h3>";
-    echo "<p> " . htmlspecialchars($row['bed']) . " $" . htmlspecialchars($row['price']). "</p>";
+    echo "<p> " . htmlspecialchars($row['bed']) . " $" . htmlspecialchars($row['price']) . "</p>";
     $roomDetails = explode("++", $row['room_details']);
-    foreach($roomDetails as $detail){
-        echo"<p>".nl2br(htmlspecialchars($detail)) . "</p>";
+    foreach ($roomDetails as $detail) {
+        echo "<p>" . nl2br(htmlspecialchars($detail)) . "</p>";
     }
     echo "<a href='booking.php?roomid=" . urlencode($row['room_id']) . "'>Reserve</a>";
     echo "</div>"; // Close room-details
@@ -115,26 +118,25 @@ if (loggedIn()) {
 }
 
 
-
-while ($review = $reviewsResult->fetch_assoc()) {
-    // if (empty($review['rating']) && empty($review['comment']) && empty($review['created_at'])) {
-    //     echo "<p>No reviews yet. Be the first to write a review!</p>";
-        
-    // } 
-  
-
+if ($reviewsResult->num_rows > 0) {
+    while ($review = $reviewsResult->fetch_assoc()) {
+        if(!empty($review['rating']) && !empty($review['comment'] && !empty($review['created_at']))){
         echo "<div class='review'>";
         echo "<p>Rating: " . str_repeat('★', $review['rating']) . "</p>";
         echo "<p>Comment: " . htmlspecialchars($review['comment']) . "</p>";
         echo "<p>Date: " . htmlspecialchars($review['created_at']) . "</p>"; // Format date as needed
         echo "</div>";
-    
+        }
+
+    }
+} else {
+    echo "<p>No reviews yet. Be the first to write a review!</p>";
 }
 
 
 echo "</div>"; // Close the hotel-reviews div
 $reviewsResult->free_result();
-$avgRatingResult -> free_result();
+$avgRatingResult->free_result();
 
 // Display add to favourite form if the user is logged in and the product is not already in the watchlist
 // if(loggedIn() && !inWatchlist($code) ) {
