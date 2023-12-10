@@ -58,13 +58,6 @@ function connection($dbhost, $dbuser, $dbpass, $dbname)
 // }
 function format_hotel_name_as_link($id, $name, $price, $province, $image, $page)
 {
-    // echo "<a href=\"$page?hotelid=$id\">";
-    // echo $name;
-    // echo "<div>";
-    // echo "$" . $price;
-    // echo $province . "<br>";
-    // echo '<img class="hotel-img" width="200" src="../images/hotels/' . $image . '">';
-    // echo "</div></a>";
     echo "<div class='hotel-card'>"; // Add this line to wrap each hotel in a card
     echo "<a href=\"$page?hotelid=$id\">";
     echo "<img class=\"hotel-img\" src=\"../images/hotels/$image\">"; // Make sure the image path is correct
