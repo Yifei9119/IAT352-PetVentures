@@ -1,10 +1,5 @@
 <?php
 include_once("../helper/function.php");
-$userQuery = "SELECT first_name, last_name, member_id FROM registered_member WHERE member_id=?";
-$userStmt = $db->prepare($userQuery);
-$userStmt->bind_param('s', $current_user);
-$userStmt->execute();
-$userResult = mysqli_stmt_get_result($userStmt);
 ?>
 <html>
 <head>
@@ -20,7 +15,7 @@ $userResult = mysqli_stmt_get_result($userStmt);
 <body>
 <div class="nav">
     <header>
-        <a href="index.php"><img src="../images/logo/logo.svg" alt="logo"></a><form action="searchResults.php" method="POST" style="display:flex; justify-content: center;">
+        <a href="index.php"><img class="logo" src="../images/logo/logo.svg" alt="logo"></a><form action="searchResults.php" method="POST" style="display:flex; justify-content: center;">
         <div class="search">
         <label> Place </label>
         <input id="search" name="search" type="text" placeholder="Country">
@@ -40,13 +35,13 @@ $userResult = mysqli_stmt_get_result($userStmt);
 if (isset($_SESSION['valid_user'])){
 echo '<div class="dropdown">
   <button class="dropbtn">';
-  while($user = $userResult->fetch_assoc()){
+  while($user = userResult()->fetch_assoc()){
     if(!empty($user['first_name']) && !empty($user['last_name'])){
     echo   '<img src="../images/other/avatar.svg"><p>'.
     $user['first_name'] . " ". $user['last_name'][0] .'</p>';
     }
   } 
-  $userResult->free_result();
+  userResult()->free_result();
   echo'</button>
   <div class="dropdown-content">
     <a href="#">Bookings</a>
