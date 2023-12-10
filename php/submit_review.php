@@ -13,10 +13,11 @@ $hotelsStmt->execute();
 $hotelsResult = $hotelsStmt->get_result();
 
 
-$userQuery = "SELECT member_id FROM registered_member";
+$userQuery = "SELECT member_id FROM registered_member WHERE email=?";
 $userStmt = $db->prepare($userQuery);
+$userStmt->bind_param('s', $current_user);
 $userStmt->execute();
-$userResult = $userStmt->get_result();
+$userResult = mysqli_stmt_get_result($userStmt);
 
 
 // Handle the POST request from the form submission
@@ -26,9 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $comment = $_POST['comment'];
 
     // Insert the review into the database
-    $insertQuery = "INSERT INTO reviews (hotel_id, rating, comment) VALUES (?, ?, ?)";
+    $insertQuery = "INSERT INTO reviews (hotel_id, member_id, rating, comment) VALUES (?, ?, ?, ?)";
     $insertStmt = $db->prepare($insertQuery);
-    $insertStmt->bind_param("iis", $hotel_id, $rating, $comment);
+    while($user = $userResult->fetch_assoc()){
+    $insertStmt->bind_param("iiis", $hotel_id, $user,$rating, $comment);
     $insertStmt->execute();
 
     if ($insertStmt->affected_rows > 0) {
@@ -36,19 +38,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "<p>Error: " . $insertStmt->error . "</p>";
     }
+}
 
     $insertStmt->close();
 }
 
-$hotelsResult->free_result();
-$userResult->free_result();
+
 
 // Retrieve all reviews
 $reviewsQuery = "SELECT hotel.name, reviews.rating, reviews.comment FROM reviews JOIN hotel ON reviews.hotel_id = hotel.hotel_id ORDER BY reviews.created_at DESC";
 $reviewsStmt = $db->prepare($reviewsQuery);
 $reviewsStmt->execute();
 $reviewsResult = $reviewsStmt->get_result();
-$reviewsStmt->close();
+
 echo'
 
 <div class="main-content">
@@ -81,5 +83,8 @@ echo'
     }
 echo '</div>';
 require("footer.php");
+$hotelsResult->free_result();
+$userResult->free_result();
+$reviewsResult->free_result();
 $db->close();
 ?>

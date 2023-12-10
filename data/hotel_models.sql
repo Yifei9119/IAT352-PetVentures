@@ -41,13 +41,16 @@ CREATE TABLE `booking` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comment`
+-- Table structure for table `reviews`
 --
-DROP TABLE IF EXISTS `comment`;
-CREATE TABLE `comment` (
-  `member_id` varchar(50) NOT NULL,
-  `rating` varchar(5) NOT NULL,
-  `text` varchar(1000) NOT NULL
+DROP TABLE IF EXISTS `reviews`;
+CREATE TABLE `reviews` (
+  `id` int(40) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `hotel_id` varchar(50) NOT NULL,
+  `member_id` int(40) NOT NULL,
+  `rating` varchar(40) NOT NULL,
+  `comment` varchar(300) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -122,7 +125,7 @@ CREATE TABLE `registered_member` (
   `email` varchar(100) NOT NULL,
   `password` varchar(1000) NOT NULL,
   `contact_number` varchar(15) DEFAULT NULL,
-  `booking_history` varchar(1000) NOT NULL
+  `booking_history` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -193,12 +196,6 @@ INSERT INTO `room` (`hotel_id`, `room_id`, `accommodation`, `room_details`, `ame
 --
 ALTER TABLE `booking`
   ADD PRIMARY KEY (`booking_id`);
-
---
--- Indexes for table `comment`
---
-ALTER TABLE `comment`
-  ADD PRIMARY KEY (`member_id`);
 
 --
 -- Indexes for table `favourite_list`
