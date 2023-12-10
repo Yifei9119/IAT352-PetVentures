@@ -35,7 +35,7 @@ CREATE TABLE `booking` (
   `options` varchar(500) DEFAULT NULL,
   `total_price` varchar(255) NOT NULL,
   `room_id` varchar(255) NOT NULL,
-  `hotel_id` varchar(255) NOT NULL
+  `member_id` int(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -61,8 +61,8 @@ CREATE TABLE `reviews` (
 DROP TABLE IF EXISTS `favourite_list`;
 CREATE TABLE `favourite_list` (
   `favourite_id` varchar(255) NOT NULL,
-  `hotel_id` varchar(255) NOT NULL,
-  `member_id` int(255) NOT NULL
+  `hotel_id` varchar(50) NOT NULL,
+  `member_id` int(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -108,6 +108,7 @@ INSERT INTO `hotel` (`hotel_id`, `name`, `details`, `services`, `location`, `pol
 DROP TABLE IF EXISTS `payment`;
 CREATE TABLE `payment` (
   `payment_id` varchar(50) NOT NULL,
+  `member_id` int(10) NOT NULL,
   `payment_status` tinyint(1) NOT NULL,
   `amount` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -187,24 +188,29 @@ INSERT INTO `room` (`hotel_id`, `room_id`, `accommodation`, `room_details`, `ame
 INSERT INTO `room` (`hotel_id`, `room_id`, `accommodation`, `room_details`, `amenities`, `bed`, `price`, `availability`, `view`, `room_image`) VALUES
 ('9', 'R33', 'Club Room, King', '300-sq-foot room with city views++Club Level - Club Lounge access++Internet - Free wired internet access++Entertainment - 55-inch TV with cable channels, pay movies, iPod dock++Food & Drink - Mini-fridge, coffee/tea maker, room service (limited hours), and free bottled water++Sleep - Pillowtop bed, a down duvet, blackout drapes/curtains, and bed sheets++Bathroom - Private bathroom, shower/tub combination, free toiletries, and a hair dryer++Practical - Laptop-compatible safe, iron/ironing board, and desk; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Air conditioning and climate-controlled heating++Accessibility - Lever door handles++Eco-friendly - Eco-friendly toiletries, reusable coffee/tea filters, eco-friendly cleaning supplies, and compost bin++Need to Know - Housekeeping on request++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'No Smoking, Non-Smoking, Club level room, Television, In-room climate control (heating), Height-adjustable showerhead, Closed captioned TV, Refrigerator (surcharge), Pillowtop mattress, Composting, Blackout drapes/curtains, Wardrobe or closet, Free wired internet, Coffee/tea maker, Phone, In-room safe (laptop compatible), Desk\r\niPod docking station, Towels provided, Eco-friendly toiletries, Eco-friendly cleaning products provided, Bedsheets provided, Lowered electrical outlets in bathroom, Recycling, LED light bulbs, Lowered peephole/view port in door, Mini-fridge, Connecting/adjoining rooms available, Reusable coffee/tea filters, Shower only, Lever door handles, TV size measurement: inch, Shower/tub combination, Private bathroom, Down comforter, Free toiletries, Hair dryer, Air conditioning, TV size: 55, Iron/ironing board, Housekeeping on request, Rollaway/extra beds (surcharge), Pay movies, Cable TV service, Free bottled water, Free cribs/infant beds, Room service (limited hours)', '1 King Bed', '279', 2, 'City View', 'SheratonCentre-king.webp');
 
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `registered_member`
+--
+ALTER TABLE `registered_member`
+  MODIFY `member_id` int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT;
+
+
+--
+-- AUTO_INCREMENT for table `booking`
+--
+ALTER TABLE `booking`
+  MODIFY `booking_id` int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT;
+COMMIT;
+
 --
 -- Indexes for dumped tables
 --
 
---
--- Indexes for table `booking`
---
-ALTER TABLE `booking`
-  ADD PRIMARY KEY (`booking_id`);
-
---
--- Indexes for table `favourite_list`
---
-ALTER TABLE `favourite_list`
-  ADD PRIMARY KEY (`favourite_id`),
-  ADD UNIQUE KEY `favourite_id` (`favourite_id`),
-  ADD UNIQUE KEY `member_id` (`member_id`),
-  ADD UNIQUE KEY `hotel_id` (`hotel_id`);
 
 --
 -- Indexes for table `hotel`
@@ -217,39 +223,47 @@ ALTER TABLE `hotel`
 -- Indexes for table `payment`
 --
 ALTER TABLE `payment`
-  ADD PRIMARY KEY (`payment_id`);
+  ADD PRIMARY KEY (`payment_id`),
+  ADD FOREIGN KEY (`member_id`) REFERENCES `registered_member`(`member_id`);
 
 --
 -- Indexes for table `registered_member`
 --
 ALTER TABLE `registered_member`
-  ADD PRIMARY KEY (`member_id`),
   ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `member_id` (`member_id`);
+
+--
+-- Indexes for table `favourite_list`
+--
+ALTER TABLE `favourite_list`
+  ADD PRIMARY KEY (`favourite_id`),
+ADD FOREIGN KEY (`hotel_id`) REFERENCES `hotel`(`hotel_id`),
+ADD FOREIGN KEY (`member_id`) REFERENCES `registered_member`(`member_id`);
 
 --
 -- Indexes for table `room`
 --
 ALTER TABLE `room`
-  ADD PRIMARY KEY (`hotel_id`,`room_id`),
-  ADD UNIQUE KEY `room_id` (`room_id`);
+  ADD PRIMARY KEY (`room_id`),
+  ADD UNIQUE KEY `room_id` (`room_id`),
+ADD FOREIGN KEY (`hotel_id`) REFERENCES `hotel`(`hotel_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `registered_member`
---
-ALTER TABLE `registered_member`
-  MODIFY `member_id` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `booking`
+-- Indexes for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `booking_id` int(10) NOT NULL AUTO_INCREMENT;
-COMMIT;
+  ADD FOREIGN KEY (`member_id`) REFERENCES `registered_member`(`member_id`),
+  ADD FOREIGN KEY (`room_id`) REFERENCES `room`(`room_id`);
+  
+--
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+ADD FOREIGN KEY (`hotel_id`) REFERENCES `hotel`(`hotel_id`),
+ADD FOREIGN KEY (`member_id`) REFERENCES `registered_member`(`member_id`);
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
