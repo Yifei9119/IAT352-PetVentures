@@ -19,11 +19,17 @@ $stmt->execute();
 $res = mysqli_stmt_get_result($stmt);
 
 // Retrieve and display reviews for the hotel
-$reviewsQuery = "SELECT rating, AVG(rating) as avgRating, comment, created_at FROM reviews WHERE hotel_id = ? ORDER BY created_at DESC";
+$reviewsQuery = "SELECT rating, comment, created_at FROM reviews WHERE hotel_id = ? ORDER BY created_at DESC";
 $reviewsStmt = $db->prepare($reviewsQuery);
 $reviewsStmt->bind_param('i', $code); // $code is the hotel ID obtained from $_GET['hotelid']
 $reviewsStmt->execute();
 $reviewsResult = $reviewsStmt->get_result();
+
+$avgRatingQuery = "SELECT AVG(rating) as rating FROM reviews WHERE hotel_id = ?";
+$avgRatingStmt = $db->prepare($avgRatingQuery);
+$avgRatingStmt->bind_param('i', $code); // $code is the hotel ID obtained from $_GET['hotelid']
+$avgRatingStmt->execute();
+$avgRatingResult = $avgRatingStmt->get_result();
 // $stmt->bind_result($hotel_id,$name,$details,$services,$location,$policies,$contact,$avg_rating,$province, $image);
 // Fetch the result and display product details
 echo "<div class='hotel-details-wrapper'>"; // Wrapper for hotel details and availability
@@ -35,11 +41,14 @@ while ($row = $res->fetch_assoc()) {
         echo "</div>";
         echo "<div class='hotel-info'>";
         echo "<h1>" . htmlspecialchars($row['name']) . "</h1>";
-        if (!empty($avgRating))
-            echo "<p>Rating: " . str_repeat('★', $review['rating']) . "</p>";
+        if($avgRatingResult->num_rows>0){
+             $avgRating = $avgRatingResult->fetch_assoc();
+            echo "<p>Rating: " . str_repeat('★', $avgRating['rating']) . "</p>";
+        }
         else {
             echo "<p>Rating: No Ratings Yet</p>";
         }
+    
         $services = explode(",",$row['services']);
 
         echo "<p>" .nl2br(htmlspecialchars($row['details'])). "</p>";
@@ -69,7 +78,6 @@ while ($row = $res->fetch_assoc()) {
     echo "</div>"; // Close room-details
     //echo"<section><h2>Rooms</h2><h3>". $row['accommodation']."</h3><p> ".$row['bed'] ." $".$row['price'].$row['room_details']."</p></section>";
 }
-
 echo "</div>"; // Close .hotel-details
 
 echo "<div class='availability-check'>";
@@ -96,8 +104,7 @@ echo "</div>"; // Close availability-check
 
 echo "</div>"; // Close hotel-detail-container
 
-$stmt->free_result();
-
+$res->free_result();
 // Now display the reviews
 echo "<div class='hotel-reviews'>";
 echo "<h2>User Reviews</h2>";
@@ -110,23 +117,24 @@ if (loggedIn()) {
 
 
 while ($review = $reviewsResult->fetch_assoc()) {
-    if (!empty($review['rating']) && !empty($review['comment']) && !empty($review['created_at'])) {
+    // if (empty($review['rating']) && empty($review['comment']) && empty($review['created_at'])) {
+    //     echo "<p>No reviews yet. Be the first to write a review!</p>";
+        
+    // } 
+  
+
         echo "<div class='review'>";
         echo "<p>Rating: " . str_repeat('★', $review['rating']) . "</p>";
         echo "<p>Comment: " . htmlspecialchars($review['comment']) . "</p>";
         echo "<p>Date: " . htmlspecialchars($review['created_at']) . "</p>"; // Format date as needed
         echo "</div>";
-        $avgRating = $review['avgRating'];
-    } else {
-        echo "<p>No reviews yet. Be the first to write a review!</p>";
-    }
-
+    
 }
 
+
 echo "</div>"; // Close the hotel-reviews div
-
-$reviewsStmt->close();
-
+$reviewsResult->free_result();
+$avgRatingResult -> free_result();
 
 // Display add to favourite form if the user is logged in and the product is not already in the watchlist
 // if(loggedIn() && !inWatchlist($code) ) {
