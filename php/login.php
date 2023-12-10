@@ -86,7 +86,7 @@ require('header.php');
 </style>
 
 <div class="form-container">
-    <h2>Sign in</h2>
+    <h2>Login</h2>
     <?php if(!empty($message)) echo '<p>' . $message . '</p>' ?>
     <form action="login.php" method="post">
         <label for="email">Email Address:</label>

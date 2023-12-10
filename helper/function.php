@@ -70,11 +70,22 @@ function format_hotel_name_as_link($id, $name, $price, $province, $image, $page)
     echo "</div>";
 }
 
-
 // Check if a user is logged in and set current user
 if (!empty($_SESSION['valid_user'])) {
     $current_user = $_SESSION['valid_user'];
 }
+
+// // Select current user's query
+// function userQuery(){
+//     $userQuery = "SELECT first_name, last_name, member_id FROM registered_member WHERE email=?";
+//     global $db;
+//     $userStmt = $db->prepare($userQuery);
+//     $userStmt->bind_param('s', $current_user);
+//     $userStmt->execute();
+//     $userResult = mysqli_stmt_get_result($userStmt);
+//     return $userResult;
+// }
+
 
 // Function to redirect user to a specified URL
 function redirect_to($url)

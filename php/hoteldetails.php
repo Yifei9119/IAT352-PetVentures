@@ -2,8 +2,8 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include_once("../helper/function.php");
-require("header.php");
+// include_once("../helper/function.php");
+require_once("header.php");
 
 $hotelDisplayed = false;
 // Retrieve and trim the hotel code from the GET request
