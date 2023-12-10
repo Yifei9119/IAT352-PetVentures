@@ -24,13 +24,18 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
         echo "<section class='padding-top'>";
        //Fetching result from database.
        // Iterate through each row in the query result
+       if ($res->num_rows == 0){
+        echo "<h1>No Results Found</h1>";
+        echo "<p style='text-align:center;'>Please search for other places or return to home page</p>";
+       }
+       else{
        while ($row = $res->fetch_assoc()) {
         //  echo "<li onclick='fill'>";
         if($showTitle==false)
         echo "<h1>Pet-Friendly Hotels in ". $row['province']."</h1><div id=hotel-cards>";
     $showTitle=true;
         format_hotel_name_as_link($row["hotel_id"], $row["name"], $row['price'], $row['province'], $row['image'], "hoteldetails.php");
-       };
+       }}
        echo "</div></section>";
 
     //    while ($result = MySQLi_fetch_array($execQuery)) {
@@ -54,7 +59,7 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
 }
 else{
     //use js to show the error
-    echo"<p class='padding-top'>Please type in the search bar</p>";
+    echo"<p class='padding-top' style='text-align:center;'>Please type in the search bar</p>";
 }
     include('footer.php');
 ?>

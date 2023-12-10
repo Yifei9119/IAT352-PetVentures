@@ -1,0 +1,197 @@
+#hotel-cards{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    width:fit-content;
+    row-gap: 4rem;
+    column-gap: 6rem;
+    margin:0 20vw;
+}
+.svg-star {
+    width: 35px;
+}
+
+.style .svg-star-color{
+    fill: #d0d06d;
+}
+.hotel-card{
+    box-shadow:0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    position:relative;
+}
+
+.hotel-card a{
+    text-decoration: none;
+    color:black;
+}
+
+.hotel-img{
+    height: 17rem;
+    object-fit: cover;
+    display:block;
+    border-radius:  20px 20px 0 0;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+   
+  }
+
+  /* details page */
+  .hotel-info, .room-details, .availability-check {
+    font-family: 'Verdana', sans-serif;
+    /* Other styling rules */
+}
+  .hotel-details-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    padding-top: 100px; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+  .hotel-details-container {
+    width: 100%; 
+    max-width: 100%; 
+    margin: 20px 0; 
+}
+
+.hotel-content {
+    flex-grow: 2; /* Allows this div to grow and take up more space */
+}
+
+.hotel-main-info {
+    flex-basis: 70%;
+}
+
+.hotel-info, .hotel-info h1{
+    text-align: left;
+}
+.hotel-name{
+    margin-bottom:0;
+}
+
+.hotel-location{
+    margin-top:0.75rem;
+}
+
+.service-info{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.hotel-info.card{
+padding: 0 1rem;
+}
+
+.room-details {
+    /* padding: 0 20px; Padding on sides */
+}
+
+.hotel-image-container {
+    /* Adjust the width as needed, or set it to a percentage for responsiveness */
+    width: 100%; /* Example: this could be 50%, 75%, etc., based on your layout */
+    max-width: 800px; /* Or the maximum width you want the image to have */
+    margin: auto; /* This will center the image if the container is wider than the image */
+}
+
+.hotel-img-detail {
+    max-width: 100%; /* Image can fill the container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Optional rounded corners */
+}
+
+.hotel-price{
+    position:absolute;
+    top:1rem;
+    left:0;
+    margin:0;
+    padding:0.5rem;
+    background-color:#FFC107;
+    color:#412f29;
+    font-size:1.25rem;
+}
+.hotel-description, .hotel-services, .hotel-policies, .hotel-rooms {
+    margin-top: 20px;
+}
+
+.availability-check {
+    flex-grow: 1;
+    margin-left: 20px; /* Spacing between the content and the sidebar */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-top:20px;
+    height:fit-content;
+
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hotel-details-container {
+        flex-direction: column;
+    }
+
+    .availability-check {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+}
+
+.availability-check form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.availability-check input[type='date'],
+.availability-check select {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.availability-check button {
+    padding: 10px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.availability-check button:hover {
+    background-color: #4cae4c;
+}
+
+.review {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.review p {
+    margin: 5px 0;
+}
+
+.review .rating {
+    color: gold;
+    font-size: 1.2em;
+}
+
+.write-review-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.write-review-button:hover {
+    background-color: #0056b3;
+    color: white;
+    text-decoration: none;
+}
