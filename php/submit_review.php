@@ -13,11 +13,11 @@ $hotelsStmt->execute();
 $hotelsResult = $hotelsStmt->get_result();
 
 
-// $userQuery = "SELECT member_id FROM registered_member WHERE member_id=?";
-// $userStmt = $db->prepare($userQuery);
-// $userStmt->bind_param('s', $current_user);
-// $userStmt->execute();
-// $userResult = mysqli_stmt_get_result($userStmt);
+$userQuery = "SELECT member_id FROM registered_member WHERE member_id=?";
+$userStmt = $db->prepare($userQuery);
+$userStmt->bind_param('s', $current_user);
+$userStmt->execute();
+$userResult = mysqli_stmt_get_result($userStmt);
 
 
 // Handle the POST request from the form submission
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Insert the review into the database
     $insertQuery = "INSERT INTO reviews (hotel_id, member_id, rating, comment) VALUES (?, ?, ?, ?)";
     $insertStmt = $db->prepare($insertQuery);
-    while($user = userResult()->fetch_assoc()){
+    while($user = $userResult->fetch_assoc()){
     $insertStmt->bind_param("iiis", $hotel_id, $user,$rating, $comment);
     $insertStmt->execute();
 
@@ -84,7 +84,7 @@ echo'
 echo '</div>';
 require("footer.php");
 $hotelsResult->free_result();
-userResult()->free_result();
+$userResult->free_result();
 $reviewsResult->free_result();
 $db->close();
 ?>
