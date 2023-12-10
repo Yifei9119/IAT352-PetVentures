@@ -19,12 +19,13 @@ $stmt->execute();
 $res = mysqli_stmt_get_result($stmt);
 
 // Retrieve and display reviews for the hotel
-$reviewsQuery = "SELECT rating, comment, created_at FROM reviews WHERE hotel_id = ? ORDER BY created_at DESC";
+$reviewsQuery = "SELECT rating, first_name, last_name, comment, created_at FROM reviews JOIN registered_member ON reviews.member_id = registered_member.member_id WHERE hotel_id = ? ORDER BY created_at DESC";
 $reviewsStmt = $db->prepare($reviewsQuery);
 $reviewsStmt->bind_param('i', $code); // $code is the hotel ID obtained from $_GET['hotelid']
 $reviewsStmt->execute();
 $reviewsResult = $reviewsStmt->get_result();
 
+//retrieve the avg rating for the hotel
 $avgRatingQuery = "SELECT AVG(rating) as rating FROM reviews WHERE hotel_id = ?";
 $avgRatingStmt = $db->prepare($avgRatingQuery);
 $avgRatingStmt->bind_param('i', $code); // $code is the hotel ID obtained from $_GET['hotelid']
@@ -119,8 +120,10 @@ if (loggedIn()) {
 if ($reviewsResult->num_rows > 0) {
     while ($review = $reviewsResult->fetch_assoc()) {
         if (!empty($review['rating']) && !empty($review['comment'] && !empty($review['created_at']))) {
+            $userInitials = $review['first_name'] ." ". $review['last_name'][0].".";
             echo "<div class='review'>";
             echo "<p>Rating: " . str_repeat('★', $review['rating']) . "</p>";
+            echo "<p> By: $userInitials</p>";
             echo "<p>Comment: " . htmlspecialchars($review['comment']) . "</p>";
             echo "<p>Date: " . htmlspecialchars($review['created_at']) . "</p>"; // Format date as needed
             echo "</div>";
