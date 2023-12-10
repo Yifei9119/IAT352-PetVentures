@@ -1,4 +1,7 @@
+<script src="../js/jquery-3.6.1.js"></script>
+<script src="../js/add_favorite.js"></script>
 <?php
+// session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -22,6 +25,7 @@ if ($res->num_rows == 0) {
   exit;
 }
 // Echo the HTML for the landing image right after your header include
+
 echo "<section class='landing-image'>";
 echo "<div class='absolute-pos'><h1 class='title'>Pet-Friendly Hotels in Canada</h1>";
 echo "<p class='title-p'>Browse through pet-friendly hotels in Canada. PetVentures provides the best accommodations for your pets.</p></div>";
@@ -34,6 +38,8 @@ echo "</section>";
     format_hotel_name_as_link($row["hotel_id"], $row["name"], $row['price'], $row['province'], $row['image'], "hoteldetails.php");
   };
   echo "</div></section>";
+
+  echo "uid" . $_SESSION['valid_user'];
   
   include('footer.php');
   $res->free_result();

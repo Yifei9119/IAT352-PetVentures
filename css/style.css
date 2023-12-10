@@ -79,7 +79,13 @@ h1{
     column-gap: 2rem;
     margin:0 15vw;
 }
+.svg-star {
+    width: 35px;
+}
 
+.style .svg-star-color{
+    fill: #d0d06d;
+}
 .hotel-card{
     box-shadow:0 4px 30px rgba(0, 0, 0, 0.1);
     border-radius: 20px;

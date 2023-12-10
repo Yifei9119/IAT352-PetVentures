@@ -14,18 +14,19 @@ if (!isset($_POST['submit'])) { // detect form submission
     // Retrieve and trim email and password from the POST data if they exist
     $email = !empty($_POST["email"]) ? trim($_POST["email"]) : "";
     $password = !empty($_POST["password"]) ? trim($_POST["password"]) : "";
+    //$user_id= !empty($_POST["member_id"]) ? trim($_POST["member_id"]) : "";
     // Prepare a query to fetch the user's email and hashed password from the database
-    $query = "SELECT email, password FROM registered_member ";
-    $query .= "WHERE email = ?";
+    $query = "SELECT member_id, password FROM registered_member";
+    $query .= " WHERE email = ?";
 
 	$stmt = $db->prepare($query);
 	$stmt->bind_param('s',$email);
 	$stmt->execute();
-	$stmt->bind_result($email2,$pass2_hash);
+	$stmt->bind_result($user_id,$pass2_hash);
 	
 // Check if user exists and password is correct
     if($stmt->fetch() && password_verify($password,$pass2_hash)) {
-        $_SESSION['valid_user'] = $email;
+        $_SESSION['valid_user'] = $user_id;
         // // Set default callback URL and update it if it exists in the session
         $callback_url = "index.php";
         redirect_to($callback_url);
