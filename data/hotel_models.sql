@@ -109,6 +109,7 @@ DROP TABLE IF EXISTS `payment`;
 CREATE TABLE `payment` (
   `payment_id` varchar(50) NOT NULL,
   `member_id` int(10) NOT NULL,
+  `booking_id` int(50) NOT NULL,
   `payment_status` tinyint(1) NOT NULL,
   `amount` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -224,7 +225,8 @@ ALTER TABLE `hotel`
 --
 ALTER TABLE `payment`
   ADD PRIMARY KEY (`payment_id`),
-  ADD FOREIGN KEY (`member_id`) REFERENCES `registered_member`(`member_id`);
+  ADD FOREIGN KEY (`member_id`) REFERENCES `registered_member`(`member_id`),
+  ADD FOREIGN KEY (`booking_id`) REFERENCES `booking`(`booking_id`);
 
 --
 -- Indexes for table `registered_member`
@@ -255,7 +257,7 @@ ADD FOREIGN KEY (`hotel_id`) REFERENCES `hotel`(`hotel_id`);
 ALTER TABLE `booking`
   ADD FOREIGN KEY (`member_id`) REFERENCES `registered_member`(`member_id`),
   ADD FOREIGN KEY (`room_id`) REFERENCES `room`(`room_id`);
-  
+
 --
 -- Indexes for table `reviews`
 --
