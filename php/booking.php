@@ -12,8 +12,8 @@ if(isset($_POST['submit'])){
 <form action="searchResults.php" method="POST" style="display:flex; justify-content: center;">
 
         <label> Guest Details </label>
-        <input id="firstName" name="firstName" type="text" placeholder="First Name">
-        <input id="lastName" name="lastName" type="text" placeholder="Last Name">
+        <input id="firstName" name="firstName" type="text" placeholder="First Name" required>
+        <input id="lastName" name="lastName" type="text" placeholder="Last Name" required>
         <label for="contactNumber">Phone Number:</label>
         <input id="contactNumber" type="text" name="contactNumber" placeholder="Phone Number">
         <label for="email">Email Address:</label>

@@ -26,6 +26,21 @@ use hotel_models;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `booking`
+--
+DROP TABLE IF EXISTS `booking`;
+CREATE TABLE `booking` (
+  `booking_id` int(50) NOT NULL,
+  `pet_info` mediumtext DEFAULT NULL,
+  `options` varchar(500) DEFAULT NULL,
+  `total_price` varchar(255) NOT NULL,
+  `room_id` varchar(255) NOT NULL,
+  `hotel_id` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `comment`
 --
 DROP TABLE IF EXISTS `comment`;
@@ -33,6 +48,18 @@ CREATE TABLE `comment` (
   `member_id` varchar(50) NOT NULL,
   `rating` varchar(5) NOT NULL,
   `text` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `favourite_list`
+--
+DROP TABLE IF EXISTS `favourite_list`;
+CREATE TABLE `favourite_list` (
+  `favourite_id` varchar(255) NOT NULL,
+  `hotel_id` varchar(255) NOT NULL,
+  `member_id` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -162,10 +189,25 @@ INSERT INTO `room` (`hotel_id`, `room_id`, `accommodation`, `room_details`, `ame
 --
 
 --
+-- Indexes for table `booking`
+--
+ALTER TABLE `booking`
+  ADD PRIMARY KEY (`booking_id`);
+
+--
 -- Indexes for table `comment`
 --
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`member_id`);
+
+--
+-- Indexes for table `favourite_list`
+--
+ALTER TABLE `favourite_list`
+  ADD PRIMARY KEY (`favourite_id`),
+  ADD UNIQUE KEY `favourite_id` (`favourite_id`),
+  ADD UNIQUE KEY `member_id` (`member_id`),
+  ADD UNIQUE KEY `hotel_id` (`hotel_id`);
 
 --
 -- Indexes for table `hotel`
@@ -204,6 +246,12 @@ ALTER TABLE `room`
 --
 ALTER TABLE `registered_member`
   MODIFY `member_id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `booking`
+--
+ALTER TABLE `booking`
+  MODIFY `booking_id` int(10) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

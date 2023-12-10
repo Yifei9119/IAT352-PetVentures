@@ -14,11 +14,11 @@ $hotelsResult = $hotelsStmt->get_result();
 
 
 $userQuery = "SELECT member_id FROM registered_member";
-$userStmt = $db->prepare($hotelsQuery);
+$userStmt = $db->prepare($userQuery);
 $userStmt->execute();
-$userResult = $hotelsStmt->get_result();
+$userResult = $userStmt->get_result();
 
-if(loggedIn()){
+
 // Handle the POST request from the form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hotel_id = $_POST['hotel_id'];
@@ -80,7 +80,6 @@ echo'
         </div>';
     }
 echo '</div>';
-    }
 require("footer.php");
 $db->close();
 ?>
