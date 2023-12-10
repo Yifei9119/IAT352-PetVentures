@@ -21,10 +21,7 @@ if ($res->num_rows == 0) {
   echo "No hotels found.";
   exit;
 }
-// Echo the HTML for the hero image right after your header include
-// echo '<div class="hero-image">';
-// echo '<img src="../images/hotels/dog.jpeg" alt="A backgroup of a dog" class="center">';
-// echo '</div>';
+// Echo the HTML for the landing image right after your header include
 echo "<section class='landing-image'>";
 echo "<div class='absolute-pos'><h1 class='title'>Pet-Friendly Hotels in Canada</h1>";
 echo "<p class='title-p'>Browse through pet-friendly hotels in Canada. PetVentures provides the best accommodations for your pets.</p></div>";

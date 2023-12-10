@@ -65,6 +65,7 @@ while ($row = $res->fetch_assoc()) {
     foreach($roomDetails as $detail){
         echo"<p>".nl2br(htmlspecialchars($detail)) . "</p>";
     }
+    echo "<a href='purchase.php?hotelid=" . urlencode($code) . "'>Reserve</a>";
     echo "</div>"; // Close room-details
     //echo"<section><h2>Rooms</h2><h3>". $row['accommodation']."</h3><p> ".$row['bed'] ." $".$row['price'].$row['room_details']."</p></section>";
 }
