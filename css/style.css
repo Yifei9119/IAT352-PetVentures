@@ -32,6 +32,11 @@ backdrop-filter: blur(6.7px);
 border: 1px solid rgba(255, 255, 255, 0.32);
 }
 
+.service-info{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+
 label{
     display:block;
 }

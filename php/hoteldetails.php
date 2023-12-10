@@ -43,10 +43,12 @@ while ($row = $res->fetch_assoc()) {
         $services = explode(",",$row['services']);
 
         echo "<p>" .nl2br(htmlspecialchars($row['details'])). "</p>";
-        echo "<h2>Services</h2>";
+        
+        echo "<div><h2>Services</h2><div class='service-info'>";
         foreach($services as $service){
          echo"<p>".nl2br(htmlspecialchars($service)) . "</p>";
         }
+        echo "</div></div>";
         echo "<h2>Policies</h2><p>" . nl2br(htmlspecialchars(isset($row['policies']) ? $row['policies'] : '')) . "</p>";
 
         echo "</div>"; // Close hotel-info
@@ -56,6 +58,7 @@ while ($row = $res->fetch_assoc()) {
     $hotelDisplayed = true;
     echo "<div class='room-details'>";
     echo "<h2>Rooms</h2>";
+    echo '<img src="../images/rooms/' . htmlspecialchars($row['room_image']) . '" alt="' . htmlspecialchars($row['accommodation']) . '">';
     echo "<h3>" . htmlspecialchars($row['accommodation']) . "</h3>";
     echo "<p> " . htmlspecialchars($row['bed']) . " $" . htmlspecialchars($row['price']). "</p>";
     $roomDetails = explode("++", $row['room_details']);
