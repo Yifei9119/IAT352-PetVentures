@@ -1,4 +1,10 @@
 <?php
+include_once("../helper/function.php");
+$userQuery = "SELECT first_name, last_name, member_id FROM registered_member WHERE email=?";
+$userStmt = $db->prepare($userQuery);
+$userStmt->bind_param('s', $current_user);
+$userStmt->execute();
+$userResult = mysqli_stmt_get_result($userStmt);
 echo '
 <html>
 <head>
@@ -28,10 +34,25 @@ echo '
         <input id="submit" type="submit" value="Search">
         </div>
         </form>
-        <div>
           ';
-if (isset($_SESSION['valid_user']))
-    echo "<a href=\"logout.php\">Logout</a>";
+if (isset($_SESSION['valid_user'])){
+echo '<div class="dropdown">
+  <button class="dropbtn">'; 
+  while($user = $userResult->fetch_assoc()){
+    if(!empty($user['first_name']) && !empty($user['last_name'])){
+    echo   '<img src="../images/other/avatar.svg"><p>'.
+    $user['first_name'] . " ". $user['last_name'][0] .'</p>';
+
+    }
+  } 
+  echo'</button>
+  <div class="dropdown-content">
+    <a href="#">Bookings</a>
+    <a href="#">Favourite List</a>
+    <a href="logout.php">Logout</a>
+  </div>
+</div>';
+}
 else{
     echo "<a href=\"login.php\">Login</a>";
 echo '

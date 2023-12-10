@@ -5,8 +5,8 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include_once("../helper/function.php");
-require("header.php");
+// include_once("../helper/function.php");
+require_once("header.php");
 
   // Define a query string to select product codes and names from the products table
   $query_str = "SELECT hotel.hotel_id, hotel.name, hotel.image, hotel.province, MIN(room.price) as price FROM hotel INNER JOIN room ON hotel.hotel_id = room.hotel_id GROUP BY hotel_id";

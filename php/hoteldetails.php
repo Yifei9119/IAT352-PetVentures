@@ -2,8 +2,8 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include_once("../helper/function.php");
-require("header.php");
+// include_once("../helper/function.php");
+require_once("header.php");
 
 $hotelDisplayed = false;
 // Retrieve and trim the hotel code from the GET request
@@ -31,7 +31,7 @@ $avgRatingStmt = $db->prepare($avgRatingQuery);
 $avgRatingStmt->bind_param('i', $code); // $code is the hotel ID obtained from $_GET['hotelid']
 $avgRatingStmt->execute();
 $avgRatingResult = $avgRatingStmt->get_result();
-// $stmt->bind_result($hotel_id,$name,$details,$services,$location,$policies,$contact,$avg_rating,$province, $image);
+
 // Fetch the result and display product details
 echo "<div class='hotel-details-wrapper'>"; // Wrapper for hotel details and availability
 echo "<div class='hotel-details-container'>"; // Container for all content
@@ -80,33 +80,7 @@ while ($row = $res->fetch_assoc()) {
     echo "</div>"; // Close room-details
     //echo"<section><h2>Rooms</h2><h3>". $row['accommodation']."</h3><p> ".$row['bed'] ." $".$row['price'].$row['room_details']."</p></section>";
 }
-echo "</div>"; // Close .hotel-details
 
-echo "<div class='availability-check'>";
-// Form for checking availability
-echo "<h2>Check Availability</h2>";
-echo "<form action='check_availability.php' method='post'>";
-echo "<label for='check-in'>Check-in</label>";
-echo "<input type='date' id='check-in' name='check-in'>";
-echo "<label for='check-out'>Check-out</label>";
-echo "<input type='date' id='check-out' name='check-out'>";
-echo "<label for='rooms'>Rooms</label>";
-echo "<select id='rooms' name='rooms'>";
-echo "<option value='1'>1 Room</option>";
-// ... More options ...
-echo "</select>";
-echo "<label for='guests'>Guests</label>";
-echo "<select id='guests' name='guests'>";
-echo "<option value='3'>3 Adults</option>";
-// ... More options ...
-echo "</select>";
-echo "<button type='submit'>Check Availability</button>";
-echo "</form>";
-echo "</div>"; // Close availability-check
-
-echo "</div>"; // Close hotel-detail-container
-
-$res->free_result();
 // Now display the reviews
 echo "<div class='hotel-reviews'>";
 echo "<h2>User Reviews</h2>";
@@ -179,6 +153,34 @@ $avgRatingResult->free_result();
 // }
 
 // $stmt->close();
+echo "</div>"; // Close .hotel-details
+
+echo "<div class='availability-check'>";
+// Form for checking availability
+echo "<h2>Check Availability</h2>";
+echo "<form action='check_availability.php' method='post'>";
+echo "<label for='check-in'>Check-in</label>";
+echo "<input type='date' id='check-in' name='check-in'>";
+echo "<label for='check-out'>Check-out</label>";
+echo "<input type='date' id='check-out' name='check-out'>";
+echo "<label for='rooms'>Rooms</label>";
+echo "<select id='rooms' name='rooms'>";
+echo "<option value='1'>1 Room</option>";
+// ... More options ...
+echo "</select>";
+echo "<label for='guests'>Guests</label>";
+echo "<select id='guests' name='guests'>";
+echo "<option value='3'>3 Adults</option>";
+// ... More options ...
+echo "</select>";
+echo "<button type='submit'>Check Availability</button>";
+echo "</form>";
+echo "</div>"; // Close availability-check
+
+echo "</div>"; // Close hotel-detail-container
+
+$res->free_result();
+
 
 include('footer.php');
 $db->close();
