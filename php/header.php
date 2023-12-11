@@ -10,7 +10,8 @@ include_once("../helper/function.php");
     <link rel="stylesheet" href="../css/registerLogin.css">
     <link rel="stylesheet" href="../css/hotel.css">
     <script src="../js/jquery-3.6.1.js"></script>
-    <script src="../js/script.js"></script>
+    <script src="../js/add_favorite.js"></script>
+
 </head>
 
 <body>
@@ -25,17 +26,13 @@ echo "<script>let isLogin = " . (isset($_SESSION['valid_user']) ? 'true' : 'fals
             <a href="index.php"><img src="../images/logo/logo.svg" alt="logo"></a>
             <form action="searchResults.php" method="POST" style="display:flex; justify-content: center;">
                 <div class="search">
-<!--                    <label> Place </label>-->
-<!--                    <input id="search" name="search" type="text" placeholder="Country">-->
+                   <label> Destination </label>
+                   <input id="search" name="search" type="text" placeholder="Enter keyword, place, or title">
                     <?php
-                    dropdownButton("Province", ["All", "Alberta", "Ontario", "British Columbia", "Quebec"]);
+                    //dropdownButton("Province", ["All", "Alberta", "Ontario", "British Columbia", "Quebec"]);
                     ?>
-                </div>
-                <div class="search">
-                    <!--                    <label> Place </label>-->
-                    <!--                    <input id="search" name="search" type="text" placeholder="Country">-->
                     <?php
-                    dropdownButton("Availability", ["All", "1", "2", "3", "4", "5"]);
+                    // dropdownButton("Availability", ["All", "1", "2", "3", "4", "5"]);
                     ?>
                 </div>
                 <div class="search">

@@ -30,6 +30,11 @@ h1 {
   text-align: center;
 }
 
+.flex-inline{
+    display:flex;
+    gap:2rem;
+}
+
 /* navbar */
 .nav {
   z-index: 1;
@@ -83,14 +88,16 @@ form {
   align-items: flex-end;
 }
 
-.search label {
+
+.search label{
   font-size: 0.7rem;
 }
 
 #search,
-#enddate, startdate {
+#enddate, #startdate {
   padding: 5px;
   margin: 0;
+  display: block;
 }
 
 #search {
@@ -162,6 +169,18 @@ form {
   height: 37rem;
   position: relative;
   z-index: -1;
+}
+
+.flex-inline.filter{
+    margin: 0 20vw;
+    margin-bottom: 2rem;
+    background-color: rgb(0,0,0,0.05);
+    border-radius: 10px;
+    padding-left:2rem;
+}
+
+.filter{
+    margin-top:0.78rem;
 }
 
 .absolute-pos {
@@ -275,4 +294,21 @@ hr {
   width: 29rem;
   font-size: 1.15rem;
   color: white;
+}
+
+/* Style for the form inputs */
+input[type=text], input[type=email], input[type=password], input[type=submit], input[type=date], select{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+select{
+    width:fit-content;
+    display:inline-block;
+    margin-left:0.75rem;
+    padding:5px;
 }
