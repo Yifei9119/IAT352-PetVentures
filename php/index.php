@@ -1,5 +1,4 @@
-<script src="../js/jquery-3.6.1.js"></script>
-<script src="../js/add_favorite.js"></script>
+
 <?php
 // session_start();
 ini_set('display_errors', 1);

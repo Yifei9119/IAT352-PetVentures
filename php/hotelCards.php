@@ -1,31 +1,54 @@
+<script src="../js/jquery-3.6.1.js"></script>
+<script src="../js/add_favorite.js"></script>
 <?php
 include_once("../helper/function.php");
 $db = connection('localhost', 'root', '', 'hotel_models');
 
 
-if (empty($_POST['Province'])){
-    $query_str = "SELECT hotel.hotel_id, hotel.name, hotel.image, hotel.province, MIN(room.price) as price FROM hotel INNER JOIN room ON hotel.hotel_id = room.hotel_id GROUP BY hotel_id";
-    $res = $db->query($query_str);
+if (!empty(($_POST['Province']))) {
+    $_SESSION['Province'] = $_POST['Province'];
 }
-else{
-    $province = $_POST['Province'];
-    $query_str = "SELECT hotel.hotel_id, hotel.name, hotel.image, hotel.province, MIN(room.price) as price FROM hotel INNER JOIN room ON hotel.hotel_id = room.hotel_id WHERE hotel.province = ? GROUP BY hotel_id";
-    $stmt = $db->prepare($query_str);
 
+if (!empty(($_POST['Availability']))) {
+    $_SESSION['Availability'] = $_POST['Availability'];
+}
+
+$query_str = "SELECT hotel.hotel_id, hotel.name, hotel.image, hotel.province, MIN(room.price) as price FROM hotel INNER JOIN room ON hotel.hotel_id = room.hotel_id";
+$conditions = array();
+$params = array();
+$types = '';
+
+if (isset($_SESSION['Province']) && $_SESSION['Province'] != "All") {
+    $conditions[] = "hotel.province = ?";
+    $params[] = $_SESSION['Province'];
+    $types .= 's';
+}
+
+if (isset($_SESSION['Availability']) && $_SESSION['Availability'] != "All") {
+    $conditions[] = "room.availability = ?";
+    $params[] = (int)$_SESSION['Availability'];
+    $types .= 'i';
+}
+
+if (count($conditions) > 0) $query_str .= "  WHERE " . implode(" AND ", $conditions) . " GROUP BY hotel_id";
+else $query_str .= " GROUP BY hotel_id";
+
+$stmt = $db->prepare($query_str);
     if ($stmt === false) {
-        die("Prepare error: " . $db->error);
+        echo "Prepare error: " . $db->error;
+        exit();
     }
 
-    $stmt->bind_param('s', $province); // 'i' 表示参数是一个整数
+    if ($types != '') {
+        $stmt->bind_param($types, ...$params);
+    }
 
     if (!$stmt->execute()) {
-        die("Execute error: " . $stmt->error);
+        echo "Execute error: " . $stmt->error;
+        exit();
     }
 
     $res = $stmt->get_result();
-
-    $stmt->close();
-}
 
 if ($res === false) {
 
@@ -42,4 +65,4 @@ if ($res->num_rows == 0) {
 while ($row = $res->fetch_assoc()) {
     // Format each hotel model as a link
     format_hotel_name_as_link($row["hotel_id"], $row["name"], $row['price'], $row['province'], $row['image'], "hoteldetails.php");
-};
+}

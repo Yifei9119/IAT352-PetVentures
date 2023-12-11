@@ -3,17 +3,17 @@ $(document).ready(function() {
 //     location.href = "accountInfo.php";
 // }
 
-    updateHotelCardsByDropdown();
-
+    updateHotelCardsByDropdown("Province");
+    updateHotelCardsByDropdown("Availability");
 });
 
-function updateHotelCardsByDropdown(){
-    $("#Province").on("change", function (){
+function updateHotelCardsByDropdown(buttonId){
+    $("#" + buttonId).on("change", function (){
         let result = $(this).val();
         $.ajax({
             url: "hotelCards.php",
             type: "POST",
-            data: {'Province': result},
+            data: {[buttonId]: result},
             success: function (response){
                 $("#hotel-cards").html(response);
             },

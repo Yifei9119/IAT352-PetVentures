@@ -36,7 +36,14 @@ $userResult = mysqli_stmt_get_result($userStmt);
 <!--                    <label> Place </label>-->
 <!--                    <input id="search" name="search" type="text" placeholder="Country">-->
                     <?php
-                    dropdownButton("Province", ["Alberta", "Ontario", "British Colombia", "Quebec"]);
+                    dropdownButton("Province", ["All", "Alberta", "Ontario", "British Colombia", "Quebec"]);
+                    ?>
+                </div>
+                <div class="search">
+                    <!--                    <label> Place </label>-->
+                    <!--                    <input id="search" name="search" type="text" placeholder="Country">-->
+                    <?php
+                    dropdownButton("Availability", ["All", "1", "2", "3", "4", "5"]);
                     ?>
                 </div>
                 <div class="search">
