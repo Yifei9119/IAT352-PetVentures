@@ -12,21 +12,38 @@ include_once("../helper/function.php");
 </head>
 
 <body>
+<<<<<<< Updated upstream
+=======
+    <?php
+//session_start();
+echo "<script>let isLogin = " . (isset($_SESSION['valid_user']) ? 'true' : 'false') . ";</script>";
+$userQuery = "SELECT first_name, last_name, member_id FROM registered_member WHERE member_id=?";
+global $db;
+$userStmt = $db->prepare($userQuery);
+$userStmt->bind_param('s', $current_user);
+$userStmt->execute();
+$userResult = mysqli_stmt_get_result($userStmt);
+
+?>
+>>>>>>> Stashed changes
     <div class="nav">
         <header>
             <a href="index.php"><img src="../images/logo/logo.svg" alt="logo"></a>
             <form action="searchResults.php" method="POST" style="display:flex; justify-content: center;">
                 <div class="search">
-                    <label> Place </label>
-                    <input id="search" name="search" type="text" placeholder="Country">
+<!--                    <label> Place </label>-->
+<!--                    <input id="search" name="search" type="text" placeholder="Country">-->
+                    <?php
+                    dropdownButton("Province", ["Alberta", "Ontario", "BC"]);
+                    ?>
                 </div>
                 <div class="search">
                     <label>Check in</label>
-                    <input id="date" name="startdate" type="date">
+                    <input id="startdate" name="startdate" type="date">
                 </div>
                 <div class="search">
                     <label>Check out</label>
-                    <input id="date" name="enddate" type="date">
+                    <input id="enddate" name="enddate" type="date">
                 </div>
                 <div class="search">
                     <input id="submit" type="submit" value="Search">
