@@ -1,221 +1,271 @@
 * {
-    box-sizing: border-box;
-  }
+  box-sizing: border-box;
+}
 
-header{
-  font-family: 'Verdana', sans-serif;
-  font-size:1.25rem;
-  display:flex;
+header {
+  font-family: "Verdana", sans-serif;
+  font-size: 1.25rem;
+  display: flex;
   justify-content: space-between;
-  height:58px;
+  height: 58px;
 }
 
-body{
-    font-family: 'Verdana', sans-serif;
-    margin:0;
+body {
+  font-family: "Verdana", sans-serif;
+  margin: 0;
 }
 
-label{
-    font-size: 1rem;
-    display:block;
+label {
+  font-size: 1rem;
+  display: block;
 }
 
-img{
-    width:100%;
-    height:auto;
+img {
+  width: 100%;
+  height: auto;
 }
 
-h1{
-    font-family: 'Verdana', sans-serif;
-    text-align: center;
+h1 {
+  font-family: "Verdana", sans-serif;
+  text-align: center;
 }
 
 /* navbar */
-.nav{
-    z-index:1;
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    /* From https://css.glass */
-background: rgba(255, 255, 255, 0.4);
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(6.7px);
-border: 1px solid rgba(255, 255, 255, 0.32);
+.nav {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6.7px);
+  border: 1px solid rgba(255, 255, 255, 0.32);
 }
-.logo{
-    filter: drop-shadow(0.5px 0.5px 0px rgb(0,0,0,50%));
+.logo {
+  filter: drop-shadow(0.5px 0.5px 0px rgb(0, 0, 0, 50%));
 }
-.loginRegister{
-    display:flex;
-    gap: 0.5rem;
-}
-
-.loginRegister a{
-    text-decoration: none;
-    font-size:1rem;
-    color:#412f29;
-    padding: 0.5rem 1rem;
-    background-color:#FFC107;
-    margin:auto;
-    border-radius: 4px;
+.loginRegister {
+  display: flex;
+  gap: 0.5rem;
 }
 
-.loginRegister .register{
-    background-color:transparent;
+.loginRegister a {
+  text-decoration: none;
+  font-size: 1rem;
+  color: #412f29;
+  padding: 0.5rem 1rem;
+  background-color: #ffc107;
+  margin: auto;
+  border-radius: 4px;
 }
 
-header a{
-    margin:auto 0;
-    margin-left:1rem;
-    height:fit-content;
+.loginRegister .register {
+  background-color: transparent;
 }
 
-header form{
-    flex-wrap: wrap;
-    align-content: center;
+header a {
+  margin: auto 0;
+  margin-left: 1rem;
+  height: fit-content;
 }
 
-form{
-    margin:0;
-    gap:0.5rem;
-    align-items:flex-end;
+header form {
+  flex-wrap: wrap;
+  align-content: center;
 }
 
-.search label{
-    font-size: 0.7rem;
+form {
+  margin: 0;
+  gap: 0.5rem;
+  align-items: flex-end;
 }
 
-#search, #date{
-    padding:5px;
-    margin:0;
+.search label {
+  font-size: 0.7rem;
+}
+
+#search,
+#date {
+  padding: 5px;
+  margin: 0;
 }
 
 #search {
-    width:12rem;
+  width: 12rem;
 }
 
 .dropbtn {
-    width:fit-content;
-    height:auto;
-    display:flex;
-    min-width:160px;
-    background-color: transparent;
-    border: none;
-    padding:0.5rem;
-  }
-  .dropbtn img{
-    width:2.5rem;
-    margin:auto;
-  }
-  .dropbtn p{
-    font-size: 1.15rem;
-    margin:auto;
-    margin-left: 0;
-  }
-  .dropdown {
-    position: relative;
-    height:fit-content;
-    margin:auto 0;
-    margin-right:1rem;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    right:0;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  .dropdown-content a {
-    color: black;
-    font-size: 1rem;
-    padding: 1rem;
-    text-decoration: none;
-    display: block;
-    margin:0;
-  }
-  
-  .dropdown-content a:hover {background-color: #ddd;}
-  
-  .dropdown:hover .dropdown-content {display: block;}
+  width: fit-content;
+  height: auto;
+  display: flex;
+  min-width: 160px;
+  background-color: transparent;
+  border: none;
+  padding: 0.5rem;
+}
+.dropbtn img {
+  width: 2.5rem;
+  margin: auto;
+}
+.dropbtn p {
+  font-size: 1.15rem;
+  margin: auto;
+  margin-left: 0;
+}
+.dropdown {
+  position: relative;
+  height: fit-content;
+  margin: auto 0;
+  margin-right: 1rem;
+}
 
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
 
+.dropdown-content a {
+  color: black;
+  font-size: 1rem;
+  padding: 1rem;
+  text-decoration: none;
+  display: block;
+  margin: 0;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 
 /* landing page */
-.padding-top{
-    padding-top:5rem;
+.padding-top {
+  padding-top: 5rem;
 }
 
-.landing-image{
-    background-image: url(../images/other/landing-photo.jpg);
-    background-size: cover;
-    background-position: center;
-    width:100%;
-    height:37rem;
-    position:relative;
-    z-index:-1;
+.landing-image {
+  background-image: url(../images/other/landing-photo.jpg);
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 37rem;
+  position: relative;
+  z-index: -1;
 }
 
-.absolute-pos{
-    position:absolute;
-    bottom:31%;
-    left:9%;
-    text-shadow: 1px 1px 1px #412f29;
+.absolute-pos {
+  position: absolute;
+  bottom: 31%;
+  left: 9%;
+  text-shadow: 1px 1px 1px #412f29;
 }
 
-.title{
-    font-family: 'Verdana', sans-serif;
-    text-align: left;
-    font-size: 3.5rem;
-    margin:1rem 0;
-    width:35rem;
-    color: #FFC107;
-    text-shadow: 0 1px 0 rgb(239,148,65,80%), 0 2px 0 rgb(239,148,65,75%), 0 3px 0 rgb(239,148,65,70%), 0 4px 0 rgba(0,0,0,.2), 0 3px 5px rgba(0,0,0,.2), 0 5px 4px rgba(0,0,0,.3);
+.title {
+  font-family: "Verdana", sans-serif;
+  text-align: left;
+  font-size: 3.5rem;
+  margin: 1rem 0;
+  width: 35rem;
+  color: #ffc107;
+  text-shadow: 0 1px 0 rgb(239, 148, 65, 80%), 0 2px 0 rgb(239, 148, 65, 75%),
+    0 3px 0 rgb(239, 148, 65, 70%), 0 4px 0 rgba(0, 0, 0, 0.2),
+    0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 4px rgba(0, 0, 0, 0.3);
 }
 
-.title-p{
-    font-family: 'Verdana', sans-serif;
-    width:29rem;
-    font-size:1.15rem;
-    color:white;
+.title-p {
+  font-family: "Verdana", sans-serif;
+  width: 29rem;
+  font-size: 1.15rem;
+  color: white;
 }
 
 /* review */
 .main-content {
-    padding-top: 50px; 
+  padding-top: 50px;
 }
-.review-form-container, .reviews-container {
-    margin: 1rem auto;
-    padding: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 0.5rem;
-    max-width: 800px;
+.review-form-container,
+.reviews-container {
+  margin: 1rem auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  max-width: 800px;
 }
 
-.review-form-container h2, .reviews-container h2 {
-    color: #333;
-    margin-bottom: 0.5rem;
+.review-form-container h2,
+.reviews-container h2 {
+  color: #333;
+  margin-bottom: 0.5rem;
 }
 
 .review-form-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .review-form-container label {
-    margin-top: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .review-form-container input[type="number"],
 .review-form-container select,
 .review-form-container textarea {
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 0.25rem;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+}
+
+.booking-room-wrapper,
+.booking-card {
+  max-width: 50vw;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.booking-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  height: 100vh;
+}
+
+.booking-confirmation-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+hr {
+  border: 1px solid #ddd;
+  margin: 2rem 0;
+}
+
+.booking-history {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
