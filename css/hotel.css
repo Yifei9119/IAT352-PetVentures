@@ -178,15 +178,6 @@ padding: 0 1rem;
     gap:2rem;
 }
 
-/* .availability-check input[type='submit']{
-    padding: 10px;
-    background-color: #5cb85c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-} */
-
 .availability-check button:hover {
     background-color: #4cae4c;
 }
@@ -206,23 +197,6 @@ padding: 0 1rem;
 .review .rating {
     color: gold;
     font-size: 1.2em;
-}
-
-.write-review-button {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-.write-review-button:hover {
-    background-color: #0056b3;
-    color: white;
-    text-decoration: none;
 }
 
 .main-content {

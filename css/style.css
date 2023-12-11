@@ -51,7 +51,7 @@ border: 1px solid rgba(255, 255, 255, 0.32);
     gap: 0.5rem;
 }
 
-.loginRegister a{
+.loginRegister a, .write-review-button{
     text-decoration: none;
     font-size:1rem;
     color:#412f29;

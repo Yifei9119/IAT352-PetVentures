@@ -85,11 +85,6 @@ while ($row = $res->fetch_assoc()) {
 echo "<div class='hotel-reviews'>";
 echo "<h2>User Reviews</h2>";
 
-if (loggedIn()) {
-    // Display a button that links to the review submission page
-    echo "<a href='submit_review.php?hotelid=" . urlencode($code) . "' class='write-review-button'>Write Review</a>";
-}
-
 
 if ($reviewsResult->num_rows > 0) {
     while ($review = $reviewsResult->fetch_assoc()) {
@@ -106,6 +101,15 @@ if ($reviewsResult->num_rows > 0) {
     }
 } else {
     echo "<p>No reviews yet. Be the first to write a review!</p>";
+}
+
+if (loggedIn()) {
+    // Display a button that links to the review submission page
+    echo "<a href='submit_review.php?hotelid=" . urlencode($code) . "' class='write-review-button'>Write Review</a>";
+}
+else{
+     // Display a button that links to the login page
+     echo "<a href='login.php' class='write-review-button'>Write Review</a>";
 }
 
 

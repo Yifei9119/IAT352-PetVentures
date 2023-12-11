@@ -31,7 +31,7 @@ input[type=text], input[type=email], input[type=password], input[type=submit], i
 }
 
 /* Style for the submit button */
-input[type=submit] {
+input[type=submit]{
     background-color: #FFC107;
     color: #412f29;
     cursor: pointer;
@@ -45,8 +45,8 @@ input[type=submit] {
     font-size: 0.85rem;
 }
 
-/* Hover effect for the submit button */
-input[type=submit]:hover, .loginRegister a:hover {
+/* Hover effect for the primary button */
+input[type=submit]:hover, .loginRegister a:hover, .write-review-button:hover  {
     opacity: 0.8;
 }
 
