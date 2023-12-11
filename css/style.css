@@ -183,39 +183,3 @@ form{
     font-size:1.15rem;
     color:white;
 }
-
-/* review */
-.main-content {
-    padding-top: 50px; 
-}
-.review-form-container, .reviews-container {
-    margin: 1rem auto;
-    padding: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 0.5rem;
-    max-width: 800px;
-}
-
-.review-form-container h2, .reviews-container h2 {
-    color: #333;
-    margin-bottom: 0.5rem;
-}
-
-.review-form-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.review-form-container label {
-    margin-top: 0.5rem;
-}
-
-.review-form-container input[type="number"],
-.review-form-container select,
-.review-form-container textarea {
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 0.25rem;
-}

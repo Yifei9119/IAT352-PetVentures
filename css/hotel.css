@@ -1,3 +1,28 @@
+/* favourite button */
+.svg-star {
+    width: 35px;
+}
+
+.style .svg-star-color{
+    fill: #FFC107;
+}
+.svg-button{
+    background-color: transparent;
+    border:none;
+    margin-top:1.2rem;
+    height:fit-content;
+    z-index:1;
+    position:absolute;
+    right:12px;
+    top:16rem;
+}
+
+.hotel-favourite-grid{
+    display:grid;
+    grid-template-columns: 5fr 1fr;
+}
+
+/* hotel card */
 #hotel-cards{
     display:grid;
     grid-template-columns: 1fr 1fr;
@@ -6,13 +31,7 @@
     column-gap: 6rem;
     margin:0 20vw;
 }
-.svg-star {
-    width: 35px;
-}
 
-.style .svg-star-color{
-    fill: #d0d06d;
-}
 .hotel-card{
     box-shadow:0 4px 30px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
@@ -116,6 +135,7 @@ padding: 0 1rem;
     margin-top: 20px;
 }
 
+/* availability form */
 .availability-check {
     flex-grow: 1;
     margin-left: 20px; /* Spacing between the content and the sidebar */
@@ -165,6 +185,9 @@ padding: 0 1rem;
     background-color: #4cae4c;
 }
 
+
+/* review */
+
 .review {
     border-bottom: 1px solid #ccc;
     padding: 10px 0;
@@ -194,4 +217,39 @@ padding: 0 1rem;
     background-color: #0056b3;
     color: white;
     text-decoration: none;
+}
+
+.main-content {
+    padding-top: 50px; 
+}
+.review-form-container, .reviews-container {
+    margin: 1rem auto;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    max-width: 800px;
+}
+
+.review-form-container h2, .reviews-container h2 {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.review-form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.review-form-container label {
+    margin-top: 0.5rem;
+}
+
+.review-form-container input[type="number"],
+.review-form-container select,
+.review-form-container textarea {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
 }
