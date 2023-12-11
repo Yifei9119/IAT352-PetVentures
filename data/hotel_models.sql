@@ -35,7 +35,7 @@ CREATE TABLE `booking` (
   `options` varchar(500) DEFAULT NULL,
   `total_price` varchar(255) NOT NULL,
   `room_id` varchar(255) NOT NULL,
-  `member_id` int(40) NOT NULL
+  `member_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -47,7 +47,7 @@ DROP TABLE IF EXISTS `reviews`;
 CREATE TABLE `reviews` (
   `id` int(40) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `hotel_id` varchar(50) NOT NULL,
-  `member_id` int(40) NOT NULL,
+  `member_id` varchar(255) NOT NULL,
   `rating` varchar(40) NOT NULL,
   `comment` varchar(300) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `created_at` DATE DEFAULT CURRENT_TIMESTAMP
@@ -62,7 +62,7 @@ DROP TABLE IF EXISTS `favourite_list`;
 CREATE TABLE `favourite_list` (
   `favourite_id` varchar(255) NOT NULL,
   `hotel_id` varchar(50) NOT NULL,
-  `member_id` int(40) NOT NULL
+  `member_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -108,7 +108,7 @@ INSERT INTO `hotel` (`hotel_id`, `name`, `details`, `services`, `location`, `pol
 DROP TABLE IF EXISTS `payment`;
 CREATE TABLE `payment` (
   `payment_id` varchar(50) NOT NULL,
-  `member_id` int(10) NOT NULL,
+  `member_id` varchar(255) NOT NULL,
   `booking_id` int(50) NOT NULL,
   `payment_status` tinyint(1) NOT NULL,
   `amount` varchar(100) NOT NULL
@@ -121,7 +121,7 @@ CREATE TABLE `payment` (
 --
 DROP TABLE IF EXISTS `registered_member`;
 CREATE TABLE `registered_member` (
-  `member_id` int(10) NOT NULL,
+  `member_id` varchar(255) NOT NULL,
   `first_name` varchar(80) NOT NULL,
   `last_name` varchar(80) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -194,12 +194,6 @@ INSERT INTO `room` (`hotel_id`, `room_id`, `accommodation`, `room_details`, `ame
 -- AUTO_INCREMENT for dumped tables
 --
 
---
--- AUTO_INCREMENT for table `registered_member`
---
-ALTER TABLE `registered_member`
-  MODIFY `member_id` int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT;
-
 
 --
 -- AUTO_INCREMENT for table `booking`
@@ -221,6 +215,14 @@ ALTER TABLE `hotel`
   ADD UNIQUE KEY `name` (`name`);
 
 --
+-- Indexes for table `registered_member`
+--
+ALTER TABLE `registered_member`
+  ADD UNIQUE KEY `email` (`email`),
+  ADD PRIMARY KEY `member_id` (`member_id`),
+  ADD UNIQUE KEY `member_id` (`member_id`);
+  
+--
 -- Indexes for table `payment`
 --
 ALTER TABLE `payment`
@@ -228,12 +230,6 @@ ALTER TABLE `payment`
   ADD FOREIGN KEY (`member_id`) REFERENCES `registered_member`(`member_id`),
   ADD FOREIGN KEY (`booking_id`) REFERENCES `booking`(`booking_id`);
 
---
--- Indexes for table `registered_member`
---
-ALTER TABLE `registered_member`
-  ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `member_id` (`member_id`);
 
 --
 -- Indexes for table `favourite_list`

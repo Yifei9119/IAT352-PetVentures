@@ -64,7 +64,7 @@
   .hotel-details-wrapper {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    padding-top: 100px; 
+    padding: 7rem 0; 
     max-width: 1200px; 
     margin: 0 auto; 
 }
@@ -96,7 +96,7 @@
 
 .service-info{
     display:grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .hotel-info.card{
