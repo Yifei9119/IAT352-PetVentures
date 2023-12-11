@@ -163,17 +163,18 @@ echo "<label for='check-in'>Check-in</label>";
 echo "<input type='date' id='check-in' name='check-in'>";
 echo "<label for='check-out'>Check-out</label>";
 echo "<input type='date' id='check-out' name='check-out'>";
-echo "<label for='rooms'>Rooms</label>";
+
+echo "<div class='flex-inline'><div><label for='rooms'>Rooms</label>";
 echo "<select id='rooms' name='rooms'>";
 echo "<option value='1'>1 Room</option>";
 // ... More options ...
-echo "</select>";
-echo "<label for='guests'>Guests</label>";
+echo "</select></div>";
+echo "<div><label for='guests'>Guests</label>";
 echo "<select id='guests' name='guests'>";
 echo "<option value='3'>3 Adults</option>";
 // ... More options ...
-echo "</select>";
-echo "<button type='submit'>Check Availability</button>";
+echo "</select></div></div>";
+echo "<input type='submit' value='Check Availability'>";
 echo "</form>";
 echo "</div>"; // Close availability-check
 

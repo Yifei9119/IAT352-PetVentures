@@ -46,7 +46,7 @@ input[type=submit] {
 }
 
 /* Hover effect for the submit button */
-input[type=submit]:hover {
+input[type=submit]:hover, .loginRegister a:hover {
     opacity: 0.8;
 }
 

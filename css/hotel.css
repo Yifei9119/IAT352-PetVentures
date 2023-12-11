@@ -116,7 +116,8 @@ padding: 0 1rem;
 
 .hotel-img-detail {
     max-width: 100%; /* Image can fill the container */
-    height: auto; /* Maintain aspect ratio */
+    height: 28rem;
+    object-fit: cover;
     border-radius: 10px; /* Optional rounded corners */
 }
 
@@ -138,12 +139,12 @@ padding: 0 1rem;
 .availability-check {
     flex-grow: 1;
     margin-left: 20px; /* Spacing between the content and the sidebar */
-    padding: 20px;
+    padding: 2rem;
     border: 1px solid #ccc;
     border-radius: 10px;
     margin-top:20px;
-    height:fit-content;
-
+    height:28rem;
+    width:fit-content;
 }
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -161,6 +162,7 @@ padding: 0 1rem;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    align-items: flex-start;
 }
 
 .availability-check input[type='date'],
@@ -171,14 +173,19 @@ padding: 0 1rem;
     border-radius: 5px;
 }
 
-.availability-check button {
+.flex-inline{
+    display:flex;
+    gap:2rem;
+}
+
+/* .availability-check input[type='submit']{
     padding: 10px;
     background-color: #5cb85c;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
+} */
 
 .availability-check button:hover {
     background-color: #4cae4c;
