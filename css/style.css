@@ -93,12 +93,6 @@ form {
   font-size: 0.7rem;
 }
 
-/* #search,
-#enddate, #startdate {
-  padding: 5px;
-  margin: 0;
-  display: block;
-} */
 
 #search {
   width: 20rem;
@@ -216,6 +210,99 @@ form {
     font-size: 2.5rem;
     margin-top:0;
 
+}
+/* review */
+.main-content {
+  padding-top: 50px;
+}
+.review-form-container,
+.reviews-container {
+  margin: 1rem auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  width:fit-content;
+}
+
+.review-form-container h2,
+.reviews-container h2 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.review-form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.review-form-container label {
+  margin-top: 0.5rem;
+}
+
+.review-form-container input[type="number"],
+.review-form-container select,
+.review-form-container textarea {
+  padding: 0.5rem;
+margin:0;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  min-width:4rem;
+  margin-bottom:0.5rem;
+
+}
+.review-form-container textarea{
+    width:100%;
+}
+
+.booking-room-wrapper,
+.booking-card {
+  max-width: 50vw;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.booking-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  height: 100vh;
+}
+
+.booking-confirmation-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+hr {
+  border: 1px solid #ddd;
+  margin: 2rem 0;
+}
+
+.booking-history {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title-p {
+  font-family: "Verdana", sans-serif;
+  width: 29rem;
+  font-size: 1.15rem;
+  color: white;
 }
 
 /* Style for the form inputs */
