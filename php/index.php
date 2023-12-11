@@ -30,7 +30,7 @@ echo "<section class='landing-image'>";
 echo "<div class='absolute-pos'><h1 class='title'>Pet-Friendly Hotels in Canada</h1>";
 echo "<p class='title-p'>Browse through pet-friendly hotels in Canada. PetVentures provides the best accommodations for your pets.</p></div>";
 echo "</section>";
-  echo "<section class='padding-top'>";
+  echo "<section class='section-padding'>";
   // Iterate through each row in the query result
   echo "<div id=hotel-cards>";
   while ($row = $res->fetch_assoc()) {

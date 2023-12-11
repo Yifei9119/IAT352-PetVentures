@@ -146,8 +146,8 @@ form{
 
 
 /* landing page */
-.padding-top{
-    padding-top:5rem;
+.section-padding{
+    padding:5rem 0;
 }
 
 .landing-image{

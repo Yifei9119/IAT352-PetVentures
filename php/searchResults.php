@@ -15,13 +15,14 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
     //Search query.
         $showTitle=false;
        $query_str = "SELECT hotel.hotel_id, hotel.name, hotel.image, hotel.province, MIN(room.price) as price FROM hotel INNER JOIN room ON hotel.hotel_id = room.hotel_id WHERE hotel.province LIKE CONCAT('%',?,'%') GROUP BY hotel_id";
-       //** remember to edit to use prepare statements */
+      
+    //prepare and bind
        $stmt = $db->prepare($query_str);
        $stmt->bind_param('s',$Name);
        $stmt->execute();
        $res = mysqli_stmt_get_result($stmt);
     //Query execution
-        echo "<section class='padding-top'>";
+        echo "<section class='section-padding'>";
        //Fetching result from database.
        // Iterate through each row in the query result
        if ($res->num_rows == 0){
@@ -33,7 +34,7 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
         //  echo "<li onclick='fill'>";
         if($showTitle==false)
         echo "<h1>Pet-Friendly Hotels in ". $row['province']."</h1><div id=hotel-cards>";
-    $showTitle=true;
+        $showTitle=true;
         format_hotel_name_as_link($row["hotel_id"], $row["name"], $row['price'], $row['province'], $row['image'], "hoteldetails.php");
        }}
        echo "</div></section>";
