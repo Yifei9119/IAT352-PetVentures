@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Dec 10, 2023 at 03:14 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- 主机： localhost
+-- 生成日期： 2023-12-11 12:17:42
+-- 服务器版本： 10.4.28-MariaDB
+-- PHP 版本： 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -16,61 +16,53 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-DROP DATABASE IF EXISTS hotel_models;
-CREATE DATABASE hotel_models;
-use hotel_models;
+
 --
--- Database: `hotel_models`
+-- 数据库： `hotel_models`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `booking`
+-- 表的结构 `booking`
 --
-DROP TABLE IF EXISTS `booking`;
+
 CREATE TABLE `booking` (
-  `booking_id` int(50) NOT NULL,
+  `booking_id` int(10) NOT NULL,
   `pet_info` mediumtext DEFAULT NULL,
   `options` varchar(500) DEFAULT NULL,
   `total_price` varchar(255) NOT NULL,
   `room_id` varchar(255) NOT NULL,
-  `member_id` varchar(255) NOT NULL
+  `member_id` int(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reviews`
+-- 表的结构 `favourite_list`
 --
-DROP TABLE IF EXISTS `reviews`;
-CREATE TABLE `reviews` (
-  `id` int(40) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `hotel_id` varchar(50) NOT NULL,
-  `member_id` varchar(255) NOT NULL,
-  `rating` varchar(40) NOT NULL,
-  `comment` varchar(300) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `created_at` DATE DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `favourite_list`
---
-DROP TABLE IF EXISTS `favourite_list`;
 CREATE TABLE `favourite_list` (
-  `favourite_id` varchar(255) NOT NULL,
   `hotel_id` varchar(50) NOT NULL,
-  `member_id` varchar(255) NOT NULL
+  `member_id` int(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- 转存表中的数据 `favourite_list`
+--
+
+INSERT INTO `favourite_list` (`hotel_id`, `member_id`) VALUES
+('2', 1),
+('5', 1),
+('6', 1),
+('7', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hotel`
+-- 表的结构 `hotel`
 --
-DROP TABLE IF EXISTS `hotel`;
+
 CREATE TABLE `hotel` (
   `hotel_id` varchar(20) NOT NULL,
   `name` varchar(100) NOT NULL,
@@ -85,7 +77,7 @@ CREATE TABLE `hotel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `hotel`
+-- 转存表中的数据 `hotel`
 --
 
 INSERT INTO `hotel` (`hotel_id`, `name`, `details`, `services`, `location`, `policies`, `contact`, `avg_rating`, `province`, `image`) VALUES
@@ -103,12 +95,12 @@ INSERT INTO `hotel` (`hotel_id`, `name`, `details`, `services`, `location`, `pol
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payment`
+-- 表的结构 `payment`
 --
-DROP TABLE IF EXISTS `payment`;
+
 CREATE TABLE `payment` (
   `payment_id` varchar(50) NOT NULL,
-  `member_id` varchar(255) NOT NULL,
+  `member_id` int(10) NOT NULL,
   `booking_id` int(50) NOT NULL,
   `payment_status` tinyint(1) NOT NULL,
   `amount` varchar(100) NOT NULL
@@ -117,11 +109,11 @@ CREATE TABLE `payment` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `registered_member`
+-- 表的结构 `registered_member`
 --
-DROP TABLE IF EXISTS `registered_member`;
+
 CREATE TABLE `registered_member` (
-  `member_id` varchar(255) NOT NULL,
+  `member_id` int(10) NOT NULL,
   `first_name` varchar(80) NOT NULL,
   `last_name` varchar(80) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -130,12 +122,34 @@ CREATE TABLE `registered_member` (
   `booking_history` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- 转存表中的数据 `registered_member`
+--
+
+INSERT INTO `registered_member` (`member_id`, `first_name`, `last_name`, `email`, `password`, `contact_number`, `booking_history`) VALUES
+(1, 'ggg', 'fff', 'xxx@tt.com', '$2y$10$0Dgntad6hv26qAo7mL8n0uIMNIPCzSdTVo9b/WzASoj9Eh6kF5PEe', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `room`
+-- 表的结构 `reviews`
 --
-DROP TABLE IF EXISTS `room`;
+
+CREATE TABLE `reviews` (
+  `id` int(40) NOT NULL,
+  `hotel_id` varchar(50) NOT NULL,
+  `member_id` int(40) NOT NULL,
+  `rating` varchar(40) NOT NULL,
+  `comment` varchar(300) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `created_at` date DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `room`
+--
+
 CREATE TABLE `room` (
   `hotel_id` varchar(100) NOT NULL,
   `room_id` varchar(100) NOT NULL,
@@ -150,22 +164,14 @@ CREATE TABLE `room` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `room`
+-- 转存表中的数据 `room`
 --
 
 INSERT INTO `room` (`hotel_id`, `room_id`, `accommodation`, `room_details`, `amenities`, `bed`, `price`, `availability`, `view`, `room_image`) VALUES
 ('0', 'R0', 'Room, 2 Double', '213-sq-foot room with city views++Internet - Free WiFi++Entertainment - 32-inch TV with cable channels++Food & Drink - Refrigerator, microwave, and coffee/tea maker++Sleep - Blackout drapes/curtains and bed sheets++Bathroom - Private bathroom, shower/tub combination, free toiletries, and a hair dryer++Practical - Iron/ironing board, desk, and phone; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning and daily housekeeping++Non-Smoking, pet friendly', 'Free breakfast, Free self parking, Non-Smoking, Television, Pet-friendly room, In-room climate control (air conditioning), Blackout drapes/curtains, Refrigerator, Coffee/tea maker, Daily housekeeping, Free WiFi, Phone, Desk, Dial-up internet access, Free local calls, Towels provided, Bedsheets provided, TV size measurement: inch, Shower/tub combination, Private bathroom, Free toiletries, Hair dryer, TV size: 32, Iron/ironing board, Cable/satellite TV service, Rollaway/extra beds (surcharge), Alarm clock, Microwave, Cable TV service, Free cribs/infant beds', '2 Double Beds', '90', 1, 'city view', 'Super8-double.webp'),
 ('1', 'R1', 'Fairmont, Room, Queen', '175 sq feet++Relax - In-room massage available++Internet - WiFi 25+ Mbps and wired++Internet access++Entertainment - LCD television with pay movies++Food & Drink - Coffee/tea maker, minibar (fees may apply), electric kettle, and room service (limited hours)++Sleep - Pillowtop bed, premium bedding, a down duvet, a pillow menu, and blackout drapes/curtains++Bathroom - Private bathroom, shower/tub combination, bathrobes, and designer toiletries++Practical - Safe, free newspaper, and iron/ironing board; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning, daily housekeeping, and heating++Eco-friendly - Recycling bin++Smoking And Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability\r\n', 'No Smoking, Heating, Television, Smoking and Non-Smoking, Local map, Premium bedding, Electric kettle, Pillow menu, Guidebooks or recommendations, Pillowtop mattress, Soundproofed rooms, In-room childcare (surcharge), In-room climate control (air conditioning), Blackout drapes/curtains, Minibar, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Hypo-allergenic bedding available, Phone, Desk, Designer toiletries, Wired internet access (surcharge), WiFi speed - 25+ Mbps, Towels provided, Bedsheets provided, Recycling, Connecting/adjoining rooms available, Wireless internet access, TV size measurement: inch, Shower/tub combination, In-room massage available, Private bathroom, Bathrobes, Down comforter, Free toiletries, Hair dryer, Iron/ironing board, Rollaway/extra beds (surcharge), Pay movies, In-room safe, LCD TV, Free newspaper, Free cribs/infant beds, Room service (limited hours)', '1 Queen Bed', '409', 3, '', 'FairmontLeChateau-queen.webp'),
-('1', 'R2', 'Fairmont, Room, King', '175 sq feet++Relax - In-room massage available++Internet - WiFi 25+ Mbps and wired++Internet access++Entertainment - LCD television with pay movies++Food & Drink - Coffee/tea maker, minibar (fees may apply), electric kettle, and room service (limited hours)++Sleep - Pillowtop bed, premium bedding, a down duvet, a pillow menu, and blackout drapes/curtains++Bathroom - Private bathroom, shower/tub combination, bathrobes, and designer toiletries++Practical - Safe, free newspaper, and iron/ironing board; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning, daily housekeeping, and heating++Eco-friendly - Recycling bin++Smoking And Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'No Smoking, Heating, Television, Smoking and Non-Smoking, Local map, Premium bedding, Electric kettle, Pillow menu, Guidebooks or recommendations, Pillowtop mattress, Soundproofed rooms, In-room childcare (surcharge), In-room climate control (air conditioning), Blackout drapes/curtains, Minibar, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Hypo-allergenic bedding available, Phone, Desk, Designer toiletries, Wired internet access (surcharge), WiFi speed - 25+ Mbps, Towels provided, Bedsheets provided, Recycling, Connecting/adjoining rooms available, Wireless internet access, TV size measurement: inch, Shower/tub combination, In-room massage available, Private bathroom, Bathrobes, Down comforter, Free toiletries, Hair dryer, Iron/ironing board, Rollaway/extra beds (surcharge), Pay movies, In-room safe, LCD TV, Free newspaper, Free cribs/infant beds, Room service (limited hours)', '1 King Bed', '419', 1, '', 'FairmontLeChateau-king.webp'),
-('1', 'R3', 'Fairmont, Room, 2 Double', '175 sq feet++Relax - In-room massage available++Internet - WiFi 25+ Mbps and wired++Internet access++Entertainment - LCD television with pay movies++Food & Drink - Coffee/tea maker, minibar (fees may apply), electric kettle, and room service (limited hours)++Sleep - Pillowtop bed, premium bedding, a down duvet, a pillow menu, and blackout drapes/curtains++Bathroom - Private bathroom, shower/tub combination, bathrobes, and designer toiletries++Practical - Safe, free newspaper, and iron/ironing board; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning, daily housekeeping, and heating++Eco-friendly - Recycling bin++Smoking And Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'Heating, Television, Smoking and Non-Smoking, Local maps, Premium bedding, Electric kettle, Pillow menu, Guidebooks or recommendations, Pillowtop mattress, Soundproofed rooms, In-room childcare (surcharge), In-room climate control (air conditioning), Blackout drapes/curtains, Minibar, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Hypo-allergenic bedding available, Phone, Desk, Designer toiletries, Wired internet access (surcharge), WiFi speed - 25+ Mbps, Towels provided, Bedsheets provided, Recycling, Connecting/adjoining rooms available, Wireless internet access, TV size measurement: inch, Shower/tub combination, In-room massage available, Private bathroom, Bathrobes, Down comforter, Free toiletries, Hair dryer, Iron/ironing board, Rollaway/extra beds (surcharge), Pay movies, In-room safe, LCD TV, Free newspaper, Free cribs/infant beds, Room service (limited hours)', '2 Double Beds', '419', 1, '', 'FairmontLeChateau-double.webp'),
-('1', 'R4', 'Deluxe Room, Queen', '175-sq-foot room with courtyard views++Relax - In-room massage available++Internet - WiFi 25+ Mbps and wired++Internet access++Entertainment - LCD television with pay movies++Food & Drink - Coffee/tea maker, minibar (fees may apply), electric kettle, and room service (limited hours)++Sleep - Pillowtop bed, premium bedding, a down duvet, a pillow menu, and blackout drapes/curtains++Bathroom - Private bathroom, shower/tub combination, bathrobes, and designer toiletries++Practical - Safe, free newspaper, and iron/ironing board; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning, daily housekeeping, and heating++Eco-friendly - Recycling bin++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'Non-smoking, Heating, Television, Local maps, Premium bedding, Electric kettle, Pillow menu, Guidebooks or recommendations, Pillowtop mattress, Soundproofed rooms, In-room childcare (surcharge), In-room climate control (air conditioning), Blackout drapes/curtains, Minibar, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Hypo-allergenic bedding available, Phone, Desk, Designer toiletries, Wired internet access (surcharge), WiFi speed - 25+ Mbps, Towels provided, Bedsheets provided, Recycling, Connecting/adjoining rooms available, Wireless internet access, TV size measurement: inch, Shower/tub combination, In-room massage available, Private bathroom, Bathrobes, Down comforter, Free toiletries, Hair dryer, Iron/ironing board, Rollaway/extra beds (surcharge), Pay movies, In-room safe, LCD TV, Free newspaper, Free cribs/infant beds, Room service (limited hours)', '1 Queen Bed', '539', 1, 'courtyard view', 'FairmontLeChateau-deluxequeen.webp'),
-('1', 'R5', 'Deluxe Room, King', '175-sq-foot room with courtyard views++Relax - In-room massage available++Internet - WiFi 25+ Mbps and wired++Internet access++Entertainment - LCD television with pay movies++Food & Drink - Coffee/tea maker, minibar (fees may apply), electric kettle, and room service (limited hours)++Sleep - Pillowtop bed, premium bedding, a down duvet, a pillow menu, and blackout drapes/curtains++Bathroom - Private bathroom, shower/tub combination, bathrobes, and designer toiletries++Practical - Safe, free newspaper, and iron/ironing board; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning, daily housekeeping, and heating++Eco-friendly - Recycling bin++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'Non-smoking, Heating, Television, Local maps, Premium bedding, Electric kettle, Pillow menu, Guidebooks or recommendations, Pillowtop mattress, Soundproofed rooms, In-room childcare (surcharge), In-room climate control (air conditioning), Blackout drapes/curtains, Minibar, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Hypo-allergenic bedding available, Phone, Desk, Designer toiletries, Wired internet access (surcharge), WiFi speed - 25+ Mbps, Towels provided, Bedsheets provided, Recycling, Connecting/adjoining rooms available, Wireless internet access, TV size measurement: inch, Shower/tub combination, In-room massage available, Private bathroom, Bathrobes, Down comforter, Free toiletries, Hair dryer, Iron/ironing board, Rollaway/extra beds (surcharge), Pay movies, In-room safe, LCD TV, Free newspaper, Free cribs/infant beds, Room service (limited hours)', '1 King Bed', '549', 1, 'courtyard view', 'FairmontLeChateau-deluxeking.webp'),
-('1', 'R6', 'Deluxe Room, 2 Double', '175-sq-foot room with courtyard views++Relax - In-room massage available++Internet - WiFi 25+ Mbps and wired++Internet access++Entertainment - LCD television with pay movies++Food & Drink - Coffee/tea maker, minibar (fees may apply), electric kettle, and room service (limited hours)++Sleep - Pillowtop bed, premium bedding, a down duvet, a pillow menu, and blackout drapes/curtains++Bathroom - Private bathroom, shower/tub combination, bathrobes, and designer toiletries++Practical - Safe, free newspaper, and iron/ironing board; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning, daily housekeeping, and heating++Eco-friendly - Recycling bin++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'Non-smoking, Heating, Television, Local maps, Premium bedding, Electric kettle, Pillow menu, Guidebooks or recommendations, Pillowtop mattress, Soundproofed rooms, In-room childcare (surcharge), In-room climate control (air conditioning), Blackout drapes/curtains, Minibar, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Hypo-allergenic bedding available, Phone, Desk, Designer toiletries, Wired internet access (surcharge), WiFi speed - 25+ Mbps, Towels provided, Bedsheets provided, Recycling, Connecting/adjoining rooms available, Wireless internet access, TV size measurement: inch, Shower/tub combination, In-room massage available, Private bathroom, Bathrobes, Down comforter, Free toiletries, Hair dryer, Iron/ironing board, Rollaway/extra beds (surcharge), Pay movies, In-room safe, LCD TV, Free newspaper, Free cribs/infant beds, Room service (limited hours)', '2 Double Beds', '559', 2, 'courtyard view', 'FairmontLeChateau-deluxedouble.webp'),
-('1', 'R7', 'Fairmont Gold, Signature Room', '325 sq feet++Relax - In-room massage available++Internet - WiFi 25+ Mbps and wired++Internet access++Entertainment - LCD television with pay movies++Food & Drink - Coffee/tea maker, minibar (fees may apply), electric kettle, and room service (limited hours)++Sleep - Pillowtop bed, premium bedding, a down duvet, a pillow menu, and blackout drapes/curtains++Bathroom - Private bathroom, shower/tub combination, bathrobes, and designer toiletries++Practical - Safe, free newspaper, and iron/ironing board; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning, daily housekeeping, and heating++Eco-friendly - Recycling bin++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'No Smoking, Heating, Club level room, Television, Smoking and Non-Smoking, Local maps, Turndown service, Premium bedding, Electric kettle, Pillow menu, Guidebooks or recommendations, Pillowtop mattress, Soundproofed rooms, In-room childcare (surcharge), In-room climate control (air conditioning), Blackout drapes/curtains, Minibar, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Hypo-allergenic bedding available, Phone, Desk, Designer toiletries, Wired internet access (surcharge), WiFi speed - 25+ Mbps, Towels provided, Bedsheets provided, Recycling, Connecting/adjoining rooms available, Shower only, Wireless internet access, TV size measurement: inch, In-room massage available, Private bathroom, Bathrobes, Down comforter, Free toiletries, Hair dryer, Iron/ironing board, Rollaway/extra beds (surcharge), Pay movies, In-room safe, LCD TV, Free newspaper, Free cribs/infant beds, Room service (limited hours)', '2 Double Beds', '609', 1, '', 'FairmontLeChateau-golddouble.webp'),
 ('2', 'R10', 'The Algonquin Suite', '410-sq-foot room with lake views++Internet - WiFi++Entertainment - 50-inch LCD TV with premium channels and Netflix++Food & Drink - Refrigerator, coffee/tea maker, room service (limited hours), and free bottled water++Sleep - Pillowtop bed, a pillow menu, blackout drapes/curtains, and bed sheets++Bathroom - Private bathroom, shower/tub combination, bathrobes, and free toiletries++Practical - Safe, iron/ironing board, and laptop workspace; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Daily housekeeping and climate-controlled heating and air conditioning++Accessibility - Bathroom grab bars, closed-captioned TV, wheelchair accessible, roll-in shower, wheelchair-width doorways, height-adjustable showerhead, lever door handles, visual fire alarm, low-height view port in door, low-height electrical outlets in bathroom, and low-height door lock++Eco-friendly - Eco-friendly toiletries and recycling bin++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'No Smoking, Wheelchair-width doorways, In-room climate control (heating), Closed captioned TV, In-room climate control (air conditioning), Blackout drapes/curtains, Desk, Premium TV channels, Eco-friendly toiletries, Recycling, Connecting/adjoining rooms available, Transfer shower, Visual fire alarm, Lever door handles, Toothbrush and toothpaste available on request, Wheelchair accessible, Cable/satellite TV service, Rollaway/extra beds (surcharge), Pay movies, Cable TV service, Room service (limited hours), Non-Smoking, Television, Champagne service, Height-adjustable showerhead, Grab bar - near toilet, Pillow menu, Refrigerator (surcharge), Pillowtop mattress, Laptop-friendly workspace, Refrigerator, Wardrobe or closet, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Phone, Towels provided, Highchair, Bedsheets provided, Lowered electrical outlets in bathroom, Netflix, Lowered peephole/view port in door, Lowered locks/deadbolt, Wireless internet access, Mobile key entry, Streaming services, TV size measurement: inch, Shower/tub combination, Private bathroom, Bathrobes, Free toiletries, Hair dryer, TV size: 50, Iron/ironing board, In-room safe, LCD TV, Free bottled water, Free cribs/infant beds', '1 King Bed', '309', 1, 'Lake View', 'WestinHarbour-king.webp'),
 ('2', 'R11', 'Room, 2 Double', '300-sq-foot room with city views++Internet - WiFi++Entertainment - 50-inch LCD TV with premium channels and Netflix++Food & Drink - Refrigerator, coffee/tea maker, room service (limited hours), and free bottled water++Sleep - Pillowtop bed, a pillow menu, blackout drapes/curtains, and bed sheets++Bathroom - Private bathroom, shower/tub combination, bathrobes, and free toiletries++Practical - Safe, iron/ironing board, and laptop workspace; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Daily housekeeping and climate-controlled heating and air conditioning++Accessibility - Bathroom grab bars, closed-captioned TV, wheelchair accessible, roll-in shower, wheelchair-width doorways, height-adjustable showerhead, lever door handles, visual fire alarm, low-height view port in door, low-height electrical outlets in bathroom, and low-height door lock++Eco-friendly - Eco-friendly toiletries and recycling bin++Non-Smoking++Room/bed type depends on availability at check-in++Connecting/adjoining rooms can be requested, subject to availability', 'Wheelchair-width doorways, Bathroom grab bars, In-room climate control (heating), Closed captioned TV, In-room climate control (air conditioning), Blackout drapes/curtains, Desk, Premium TV channels, Eco-friendly toiletries, Roll-in shower, Recycling, Connecting/adjoining rooms available, Transfer shower, Visual fire alarm, Lever door handles, Toothbrush and toothpaste available on request, Wheelchair accessible, Cable/satellite TV service, Rollaway/extra beds (surcharge), Pay movies, Cable TV service, Room service (limited hours), Non-Smoking, Television, Champagne service, Height-adjustable showerhead, Grab bar - near toilet, Pillow menu, Refrigerator (surcharge), Pillowtop mattress, Laptop-friendly workspace, Refrigerator, Wardrobe or closet, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Phone, Towels provided, Highchair, Bedsheets provided, Lowered electrical outlets in bathroom, Netflix, Lowered peephole/view port in door, Lowered locks/deadbolt, Wireless internet access, Mobile key entry, Streaming services, TV size measurement: inch, Shower/tub combination, Private bathroom, Bathrobes, Free toiletries, Hair dryer, TV size: 50, Iron/ironing board, In-room safe, LCD TV, Free bottled water, Room and bed type depend on availability check-in', '2 Double Beds', '319', 5, 'City View', 'WestinHarbour-double.webp'),
-('2', 'R8', 'King Room', '300-sq-foot room with city views++Internet - WiFi++Entertainment - 50-inch LCD TV with premium channels and Netflix++Food & Drink - Refrigerator, coffee/tea maker, room service (limited hours), and free bottled water++Sleep - Pillowtop bed, a pillow menu, blackout drapes/curtains, and bed sheets++Bathroom - Private bathroom, shower/tub combination, bathrobes, and free toiletries++Practical - Safe, iron/ironing board, and laptop workspace; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Daily housekeeping and climate-controlled heating and air conditioning++Accessibility - Bathroom grab bars, closed-captioned TV, wheelchair accessible, roll-in shower, wheelchair-width doorways, height-adjustable showerhead, lever door handles, visual fire alarm, low-height view port in door, low-height electrical outlets in bathroom, and low-height door lock++Eco-friendly - Eco-friendly toiletries and recycling bin++Non-Smoking++Room/bed type depends on availability at check-in++Connecting/adjoining rooms can be requested, subject to availability', 'Wheelchair-width doorways, Bathroom grab bars, In-room climate control (heating), Closed captioned TV, In-room climate control (air conditioning), Blackout drapes/curtains, Desk, Premium TV channels, Eco-friendly toiletries, Roll-in shower, Recycling, Connecting/adjoining rooms available, Transfer shower, Visual fire alarm, Lever door handles, Toothbrush and toothpaste available on request, Wheelchair accessible, Cable/satellite TV service, Rollaway/extra beds (surcharge), Pay movies, Cable TV service, Room service (limited hours), Non-Smoking, Television, Champagne service, Height-adjustable showerhead, Grab bar - near toilet, Pillow menu, Refrigerator (surcharge), Pillowtop mattress, Laptop-friendly workspace, Refrigerator, Wardrobe or closet, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Phone, Towels provided, Highchair, Bedsheets provided, Lowered electrical outlets in bathroom, Netflix, Lowered peephole/view port in door, Lowered locks/deadbolt, Wireless internet access, Mobile key entry, Streaming services, TV size measurement: inch, Shower/tub combination, Private bathroom, Bathrobes, Free toiletries, Hair dryer, TV size: 50, Iron/ironing board, In-room safe, LCD TV, Free bottled water, Room and bed type depend on availability check-in, Free cribs/infant beds', '1 King Bed', '299', 3, 'City View', 'WestinHarbour-king.webp'),
-('2', 'R9', 'Deluxe King Room', '330-sq-foot room with lake views++Internet - WiFi++Entertainment - 50-inch LCD TV with premium channels and Netflix++Food & Drink - Refrigerator, coffee/tea maker, room service (limited hours), and free bottled water++Sleep - Pillowtop bed, a pillow menu, blackout drapes/curtains, and bed sheets++Bathroom - Private bathroom, shower/tub combination, bathrobes, and free toiletries++Practical - Safe, iron/ironing board, and laptop workspace; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Daily housekeeping and climate-controlled heating and air conditioning++Accessibility - Bathroom grab bars, closed-captioned TV, wheelchair accessible, roll-in shower, wheelchair-width doorways, height-adjustable showerhead, lever door handles, visual fire alarm, low-height view port in door, low-height electrical outlets in bathroom, and low-height door lock++Eco-friendly - Eco-friendly toiletries and recycling bin++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'Wheelchair-width doorways, In-room climate control (heating), Closed captioned TV, In-room climate control (air conditioning), Blackout drapes/curtains, Desk, Premium TV channels, Eco-friendly toiletries, Recycling, Connecting/adjoining rooms available, Transfer shower, Visual fire alarm, Lever door handles, Toothbrush and toothpaste available on request, Wheelchair accessible, Cable/satellite TV service, Rollaway/extra beds (surcharge), Pay movies, Cable TV service, Room service (limited hours), Non-Smoking, Television, Champagne service, Height-adjustable showerhead, Grab bar - near toilet, Pillow menu, Refrigerator (surcharge), Pillowtop mattress, Laptop-friendly workspace, Refrigerator, Wardrobe or closet, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Phone, Towels provided, Highchair, Bedsheets provided, Lowered electrical outlets in bathroom, Netflix, Lowered peephole/view port in door, Lowered locks/deadbolt, Wireless internet access, Mobile key entry, Streaming services, TV size measurement: inch, Shower/tub combination, Private bathroom, Bathrobes, Free toiletries, Hair dryer, TV size: 50, Iron/ironing board, In-room safe, LCD TV, Free bottled water, Free cribs/infant beds', '1 King Bed', '309', 1, 'Lake View', 'WestinHarbour-king.webp'),
 ('3', 'R12', 'Deluxe Room, King', '350-sq-foot with mountain views++Internet - WiFi++Entertainment - Flat-screen TV with premium channels and pay movies++Food & Drink - Refrigerator, coffee/tea maker, and room service (limited hours)++Sleep - Premium bedding, a down duvet, blackout drapes/curtains, and bed sheets++Bathroom - Private bathroom, shower/tub combination, slippers, and designer toiletries++Practical - Safe, free newspaper, and iron/ironing board; free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning and daily housekeeping++Eco-friendly - Recycling bin++Smoking And Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'No Smoking, Smoking and Non-Smoking, Local maps, Premium bedding, Guidebooks or recommendations, In-room childcare (surcharge), In-room climate control (air conditioning), Electrical adapters/chargers, Blackout drapes/curtains, Refrigerator, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Hypo-allergenic bedding available, Desk, Designer toiletries, Free local calls, Restaurant dining guide, Child-size slippers, Towels provided, Premium TV channels, Bedsheets provided, Recycling, Connecting/adjoining rooms available, Slippers, Shower/tub combination, Private bathroom, Down comforter, Free toiletries, Hair dryer, Iron/ironing board, Pay movies, In-room safe, Flat-panel TV, Free newspaper, Free cribs/infant beds, Room service (limited hours)', '1 King Bed', '679', 3, 'Mountain View', 'FairmontBanff-king.webp'),
 ('3', 'R13', 'Deluxe Room, Queen', '220-sq-foot with mountain views++Internet - WiFi++Entertainment - Flat-screen TV with premium channels and pay movies++Food & Drink - Refrigerator, coffee/tea maker, and room service (limited hours)++Sleep - Premium bedding, a down duvet, blackout drapes/curtains, and bed sheets++Bathroom - Private bathroom, shower/tub combination, slippers, and designer toiletries++Practical - Safe, free newspaper, and iron/ironing board; free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning and daily housekeeping++Eco-friendly - Recycling bin++Smoking And Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'No Smoking, Smoking and Non-Smoking, Local maps, Premium bedding, Guidebooks or recommendations, In-room childcare (surcharge), In-room climate control (air conditioning), Electrical adapters/chargers, Blackout drapes/curtains, Refrigerator, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Hypo-allergenic bedding available, Desk, Designer toiletries, Free local calls, Restaurant dining guide, Child-size slippers, Towels provided, Premium TV channels, Bedsheets provided, Recycling, Connecting/adjoining rooms available, Slippers, Shower/tub combination, Private bathroom, Down comforter, Free toiletries, Hair dryer, Iron/ironing board, Pay movies, In-room safe, Flat-panel TV, Free newspaper, Free cribs/infant beds, Room service (limited hours)', '1 Queen Bed', '679', 3, 'Mountain View', 'FairmontBanff-queen.webp'),
 ('3', 'R14', 'Deluxe Room, 2 Queen', '350-sq-foot++Internet - WiFi++Entertainment - Flat-screen TV with premium channels and pay movies++Food & Drink - Refrigerator, coffee/tea maker, and room service (limited hours)++Sleep - Premium bedding, a down duvet, blackout drapes/curtains, and bed sheets++Bathroom - Private bathroom, shower/tub combination, slippers, and designer toiletries++Practical - Safe, free newspaper, and iron/ironing board; free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning and daily housekeeping++Eco-friendly - Recycling bin++Smoking And Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'No Smoking, Smoking and Non-Smoking, Local maps, Premium bedding, Guidebooks or recommendations, In-room childcare (surcharge), In-room climate control (air conditioning), Electrical adapters/chargers, Blackout drapes/curtains, Refrigerator, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Hypo-allergenic bedding available, Desk, Designer toiletries, Free local calls, Restaurant dining guide, Child-size slippers, Towels provided, Premium TV channels, Bedsheets provided, Recycling, Connecting/adjoining rooms available, Slippers, Shower/tub combination, Private bathroom, Down comforter, Free toiletries, Hair dryer, Iron/ironing board, Pay movies, In-room safe, Flat-panel TV, Free newspaper, Free cribs/infant beds, Room service (limited hours)', '2 Queen Beds', '749', 3, '', 'FairmontBanff-2queen.webp'),
@@ -174,6 +180,7 @@ INSERT INTO `room` (`hotel_id`, `room_id`, `accommodation`, `room_details`, `ame
 ('4', 'R17', 'Queen Room, 2 Queen', 'Balcony with mountain views++Internet - Free WiFi++Entertainment - 42-inch TV with satellite channels and pay movies++Food & Drink - Coffee/tea maker, and room service (limited hours)++Sleep - Bed sheets++Bathroom - Shower, bathrobes, and a hair dryer++Practical - Iron/ironing board++Comfort - Heating and ceiling fan++Need to Know - Weekly housekeeping++Non-Smoking', 'Towels provided, Heating, Bedsheets provided, Non-Smoking, Television, Shower only, Satellite TV service, Limited housekeeping, TV size measurement: inch, Shower/tub combination, Bathrobes, Coffee/tea maker, Ceiling fan, Hair dryer, TV size: 42, Free WiFi, Iron/ironing board, Pay movies, Room service (limited hours), Weekly housekeeping provided', '2 Queen Beds', '409', 3, 'Mountain View', 'HarrisonHotSprings-2queen.webp'),
 ('5', 'R18', 'Superior Room, 2 Queen', '391 sq feet++Internet - Free WiFi++Entertainment - 42-inch flat-screen TV with cable channels and pay movies++Food & Drink - Refrigerator, coffee/tea maker, and room service (limited hours)++Sleep - Blackout drapes/curtains and bed sheets++Bathroom - Private bathroom, shower/tub combination, free toiletries, and a hair dryer++Practical -  Free local calls, safe, and iron/ironing board; free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning and daily housekeeping++Accessibility - Wheelchair accessible++Need to Know - No rollaway/extra beds available++Non-Smoking, pet friendly++Connecting/adjoining rooms can be requested, subject to availability', 'Free self parking, Non-Smoking, Television, Satellite TV service, Pet-friendly room, In-room climate control (air conditioning), Blackout drapes/curtains, Refrigerator, Wardrobe or closet, Bathtub or shower, Coffee/tea maker, Ceiling fan, Daily housekeeping, Free WiFi, HDTV, Phone, Free local calls, No rollaway/extra beds, Towels provided, Bedsheets provided, Soap, Connecting/adjoining rooms available, Toilet paper, Shower only, Wireless internet access, Shampoo, Braille signage\r\nTV size measurement: inch, Shower/tub combination, Private bathroom, Free toiletries, Wheelchair accessible, Hair dryer, Partially open bathroom, TV size: 42, Iron/ironing board, Pay movies, In-room safe, LCD TV, Flat-panel TV, Cable TV service, Free cribs/infant beds, Room service (limited hours)', '2 Queen Beds', '219', 3, '', 'FantasylandHotel-2queen.webp'),
 ('6', 'R19', 'Room, King', '355 sq feet++Internet - Free WiFi++Entertainment - 36-inch flat-screen TV with satellite channels++Food & Drink - Coffee/tea maker, minibar (fees may apply), room service (limited hours), and microwave (on request)++Sleep - Pillowtop bed, premium bedding, and bed sheets++Bathroom - Private bathroom, shower/tub combination, bathrobes, and designer toiletries++Practical - Safe, iron/ironing board, and desk; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Air conditioning++Accessibility - Wheelchair accessible++Need to Know - Housekeeping on request++Non-Smoking, pet friendly++Connecting/adjoining rooms can be requested, subject to availability', 'No Smoking, Non-Smoking, Television, Height-adjustable showerhead, Premium bedding, Grab bar - near toilet, Satellite TV service, Pillowtop mattress, Pet-friendly room, Microwave (on request), In-room childcare (surcharge), Minibar, Free wired internet, Coffee/tea maker, Free WiFi, Hypo-allergenic bedding available, Phone, Desk, Designer toiletries, Free local calls, Towels provided, Bedsheets provided, Roll-in shower, Lowered electrical outlets in bathroom, Connecting/adjoining rooms available, Lever door handles, Mobile key entry, TV size measurement: inch, Shower/tub combination, Private bathroom, Bathrobes, Wheelchair accessible, Hair dryer, Air conditioning, TV size: 36, Iron/ironing board, Housekeeping on request, Rollaway/extra beds (surcharge), In-room safe, Flat-panel TV, Free cribs/infant beds, Room service (limited hours)', '1 King Bed', '413', 1, '', 'KananaskisMountain-king.webp'),
+('1', 'R2', 'Fairmont, Room, King', '175 sq feet++Relax - In-room massage available++Internet - WiFi 25+ Mbps and wired++Internet access++Entertainment - LCD television with pay movies++Food & Drink - Coffee/tea maker, minibar (fees may apply), electric kettle, and room service (limited hours)++Sleep - Pillowtop bed, premium bedding, a down duvet, a pillow menu, and blackout drapes/curtains++Bathroom - Private bathroom, shower/tub combination, bathrobes, and designer toiletries++Practical - Safe, free newspaper, and iron/ironing board; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning, daily housekeeping, and heating++Eco-friendly - Recycling bin++Smoking And Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'No Smoking, Heating, Television, Smoking and Non-Smoking, Local map, Premium bedding, Electric kettle, Pillow menu, Guidebooks or recommendations, Pillowtop mattress, Soundproofed rooms, In-room childcare (surcharge), In-room climate control (air conditioning), Blackout drapes/curtains, Minibar, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Hypo-allergenic bedding available, Phone, Desk, Designer toiletries, Wired internet access (surcharge), WiFi speed - 25+ Mbps, Towels provided, Bedsheets provided, Recycling, Connecting/adjoining rooms available, Wireless internet access, TV size measurement: inch, Shower/tub combination, In-room massage available, Private bathroom, Bathrobes, Down comforter, Free toiletries, Hair dryer, Iron/ironing board, Rollaway/extra beds (surcharge), Pay movies, In-room safe, LCD TV, Free newspaper, Free cribs/infant beds, Room service (limited hours)', '1 King Bed', '419', 1, '', 'FairmontLeChateau-king.webp'),
 ('6', 'R20', 'Room, 2 Queen', '350 sq feet++Internet - Free WiFi and wired Internet access++Entertainment - 36-inch flat-screen TV with satellite channels++Food & Drink - Coffee/tea maker, minibar (fees may apply), room service (limited hours), and microwave (on request)++Sleep - Pillowtop bed, premium bedding, and bed sheets++Bathroom - Private bathroom, shower/tub combination, bathrobes, and designer toiletries++Practical - Safe, iron/ironing board, and desk; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Air conditioning++Accessibility - Wheelchair accessible++Need to Know - Housekeeping on request++Non-Smoking, pet friendly++Connecting/adjoining rooms can be requested, subject to availability', 'No Smoking, Non-Smoking, Television, Height-adjustable showerhead, Premium bedding, Grab bar - near toilet, Satellite TV service, Pillowtop mattress, Pet-friendly room, Microwave (on request), In-room childcare (surcharge), Minibar, Free wired internet, Coffee/tea maker, Free WiFi, Hypo-allergenic bedding available, Phone, Desk, Designer toiletries, Free local calls, Towels provided, Bedsheets provided, Roll-in shower, Lowered electrical outlets in bathroom, Connecting/adjoining rooms available, Lever door handles, Mobile key entry, TV size measurement: inch, Shower/tub combination, Private bathroom, Bathrobes, Wheelchair accessible, Hair dryer, Air conditioning, TV size: 36, Iron/ironing board, Housekeeping on request, Rollaway/extra beds (surcharge), In-room safe, Flat-panel TV, Free cribs/infant beds, Room service (limited hours)', '2 Queen Beds', '413', 2, '', 'KananaskisMountain-2queen.webp'),
 ('6', 'R21', 'Deluxe Room, King', '350 sq feet++Internet - Free WiFi and wired Internet access++Entertainment - 36-inch flat-screen TV with satellite channels++Food & Drink - Coffee/tea maker, minibar (fees may apply), room service (limited hours), and microwave (on request)++Sleep - Pillowtop bed, premium bedding, and bed sheets++Bathroom - Private bathroom, shower/tub combination, bathrobes, and designer toiletries++Practical - Safe, iron/ironing board, and desk; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Air conditioning++Accessibility - Wheelchair accessible++Need to Know - Housekeeping on request++Non-Smoking, pet friendly++Connecting/adjoining rooms can be requested, subject to availability', 'No Smoking, Non-Smoking, Television, Height-adjustable showerhead, Premium bedding, Grab bar - near toilet, Satellite TV service, Pillowtop mattress, Pet-friendly room, Microwave (on request), In-room childcare (surcharge), Minibar, Free wired internet, Coffee/tea maker, Free WiFi, Hypo-allergenic bedding available, Phone, Desk, Designer toiletries, Free local calls, Towels provided, Bedsheets provided, Roll-in shower, Lowered electrical outlets in bathroom, Connecting/adjoining rooms available, Lever door handles, Mobile key entry, TV size measurement: inch, Shower/tub combination, Private bathroom, Bathrobes, Wheelchair accessible, Hair dryer, Air conditioning, TV size: 36, Iron/ironing board, Housekeeping on request, Rollaway/extra beds (surcharge), In-room safe, Flat-panel TV, Free cribs/infant beds, Room service (limited hours)', '1 King Bed', '449', 1, '', 'KananaskisMountain-deluxeking.webp'),
 ('7', 'R23', 'Room, Queen', 'Overlooking the mountains++Internet - Free WiFi++Entertainment - Cable channels++Food & Drink - Refrigerator++Sleep - Bed sheets++Bathroom - Private bathroom, bathtub or shower, free toiletries, and towels++Practical - Phone++Comfort - Air conditioning and daily housekeeping++Need to Know - Toothbrush and toothpaste not available++Non-Smoking', 'No Smoking, Towels provided, Bedsheets provided, Non-Smoking, Television, Wireless internet access, Toothbrush and toothpaste not available, Private bathroom, Refrigerator, Bathtub or shower, Free toiletries, Daily housekeeping, Air conditioning, Free WiFi, Phone, Cable TV service, Free local calls', '1 Queen Bed', '129', 5, 'Mountain View', 'RundleMountain-queen.webp'),
@@ -183,85 +190,137 @@ INSERT INTO `room` (`hotel_id`, `room_id`, `accommodation`, `room_details`, `ame
 ('7', 'R27', 'Suite, King, Jetted Tub', 'Overlooking the mountains++Internet - Free WiFi++Entertainment - Cable channels++Food & Drink - Refrigerator++Sleep - Bed sheets++Bathroom - Private bathroom, bathtub or shower (jetted bathtub available in some rooms)++Practical - Phone++Comfort - Air conditioning and daily housekeeping++Need to Know - Toothbrush and toothpaste not available++Non-Smoking', 'No Smoking, Towels provided, Bedsheets provided, Non-Smoking, Television, Wireless internet access, Toothbrush and toothpaste not available, Private bathroom, Refrigerator, Bathtub or shower, Free toiletries, Daily housekeeping, Air conditioning, Free WiFi, Phone, Jetted bathtub, Cable TV service, Free local calls', '1 King Bed', '199', 1, '', 'RundleMountain-king.webp'),
 ('8', 'R28', 'Deluxe Room, 2 Queen', '323-sq-foot room with courtyard views++Relax - Fireplace++Internet - Free WiFi++Entertainment - 42-inch LCD TV with cable channels++Sleep - Blackout drapes/curtains and bed sheets++Bathroom - Private bathroom, slippers, and a bathtub or shower with a hydromassage showerhead++Practical - Free long-distance calls, iron/ironing board, and desk; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning, daily housekeeping, and heating++Accessibility - Lever door handles++Need to Know - Weekly housekeeping, toothbrush and toothpaste not available++Non-Smoking, renovated in February 2019, pet friendly++Room is accessed via exterior corridors\r\n', 'Heating, Telephone accessibility kit, Non-Smoking, Television, Closed captioned TV, Limited housekeeping, Pet-friendly room, In-room climate control (air conditioning), Blackout drapes/curtains\r\nHydromassage showerhead, Bathtub or shower, Daily housekeeping, Individually decorated, Free WiFi, Individually furnished, Access via exterior corridors, Phone, Desk, Free local calls, Weekly housekeeping provided, Towels provided, Bedsheets provided, Visual fire alarm, Toothbrush and toothpaste not available, Lever door handles, TV size measurement: inch, Slippers, Private bathroom, Free toiletries, Hair dryer, TV size: 42, Iron/ironing board, Rollaway/extra beds (surcharge), Fireplace, LCD TV, Cable TV service, Free cribs/infant beds, Free long-distance calls', '2 Queen Beds', '199', 1, 'Courtyard View', 'OldStone-deluxe2queen.webp'),
 ('8', 'R29', 'Historic Main Mill Superior Room', '323-sq-foot room with pool views++Relax - Fireplace++Internet - Free WiFi++Entertainment - 42-inch LCD TV with cable channels++Food & Drink - Espresso maker and free bottled water++Sleep - Blackout drapes/curtains and bed sheets++Bathroom - Private bathroom, slippers, and a bathtub or shower with a hydromassage showerhead++Practical - Free long-distance calls, iron/ironing board, and desk; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning, daily housekeeping, and heating++Accessibility - Lever door handles++Need to Know - Weekly housekeeping, toothbrush and toothpaste not available++Non-Smoking, renovated in February 2019, pet friendly\r\n', 'Heating, Telephone accessibility kit, Non-Smoking, Television, Closed captioned TV, Limited housekeeping, Pet-friendly room, In-room climate control (air conditioning), Blackout drapes/curtains\r\nHydromassage showerhead, Bathtub or shower, Daily housekeeping, Individually decorated, Free WiFi, Individually furnished, Access via exterior corridors, Phone, Desk, Free local calls, Weekly housekeeping provided, Towels provided, Bedsheets provided, Visual fire alarm, Toothbrush and toothpaste not available, Lever door handles, TV size measurement: inch, Slippers, Private bathroom, Free toiletries, Hair dryer, TV size: 42, Iron/ironing board, Rollaway/extra beds (surcharge), Fireplace, LCD TV, Cable TV service, Free cribs/infant beds, Free long-distance calls', '2 Queen Beds', '199', 1, 'Pool View', 'OldStone-superior2queen.webp'),
+('1', 'R3', 'Fairmont, Room, 2 Double', '175 sq feet++Relax - In-room massage available++Internet - WiFi 25+ Mbps and wired++Internet access++Entertainment - LCD television with pay movies++Food & Drink - Coffee/tea maker, minibar (fees may apply), electric kettle, and room service (limited hours)++Sleep - Pillowtop bed, premium bedding, a down duvet, a pillow menu, and blackout drapes/curtains++Bathroom - Private bathroom, shower/tub combination, bathrobes, and designer toiletries++Practical - Safe, free newspaper, and iron/ironing board; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning, daily housekeeping, and heating++Eco-friendly - Recycling bin++Smoking And Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'Heating, Television, Smoking and Non-Smoking, Local maps, Premium bedding, Electric kettle, Pillow menu, Guidebooks or recommendations, Pillowtop mattress, Soundproofed rooms, In-room childcare (surcharge), In-room climate control (air conditioning), Blackout drapes/curtains, Minibar, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Hypo-allergenic bedding available, Phone, Desk, Designer toiletries, Wired internet access (surcharge), WiFi speed - 25+ Mbps, Towels provided, Bedsheets provided, Recycling, Connecting/adjoining rooms available, Wireless internet access, TV size measurement: inch, Shower/tub combination, In-room massage available, Private bathroom, Bathrobes, Down comforter, Free toiletries, Hair dryer, Iron/ironing board, Rollaway/extra beds (surcharge), Pay movies, In-room safe, LCD TV, Free newspaper, Free cribs/infant beds, Room service (limited hours)', '2 Double Beds', '419', 1, '', 'FairmontLeChateau-double.webp'),
 ('8', 'R30', 'Deluxe Room, 2 Queen (Ground Floor)', 'Overlooking the courtyard++Relax - Fireplace++Internet - Free WiFi++Entertainment - 42-inch LCD TV with cable channels++Sleep - Blackout drapes/curtains and bed sheets++Bathroom - Private bathroom, slippers, and a bathtub or shower with a hydromassage showerhead++Practical - Free long-distance calls, iron/ironing board, and desk; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning, daily housekeeping, and heating++Accessibility - Lever door handles++Need to Know - Weekly housekeeping, toothbrush and toothpaste not available++Non-Smoking, renovated in February 2019, pet friendly\r\n', 'Heating, Telephone accessibility kit, Non-Smoking, Television, Closed captioned TV, Limited housekeeping, Pet-friendly room, In-room climate control (air conditioning), Blackout drapes/curtains\r\nHydromassage showerhead, Bathtub or shower, Daily housekeeping, Individually decorated, Free WiFi, Individually furnished, Access via exterior corridors, Phone, Desk, Free local calls, Weekly housekeeping provided, Towels provided, Bedsheets provided, Visual fire alarm, Toothbrush and toothpaste not available, Lever door handles, TV size measurement: inch, Slippers, Private bathroom, Free toiletries, Hair dryer, TV size: 42, Iron/ironing board, Rollaway/extra beds (surcharge), Fireplace, LCD TV, Cable TV service, Free cribs/infant beds, Free long-distance calls', '2 Queen Beds', '209', 1, 'Courtyard View', 'OldStone-2queen.webp'),
 ('9', 'R31', 'Room, King', '300-sq-foot room with city views++Internet - Free wired internet access++Entertainment - 55-inch TV with cable channels, pay movies, iPod dock++Food & Drink - Mini-fridge, coffee/tea maker, room service (limited hours), and free bottled water++Sleep - Pillowtop bed, a down duvet, blackout drapes/curtains, and bed sheets++Bathroom - Private bathroom, shower/tub combination, free toiletries, and a hair dryer++Practical - Laptop-compatible safe, iron/ironing board, and desk; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Air conditioning and climate-controlled heating++Accessibility - Lever door handles++Eco-friendly - Eco-friendly toiletries, reusable coffee/tea filters, eco-friendly cleaning supplies, and compost bin++Need to Know - Housekeeping on request++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'Non-Smoking, Television, In-room climate control (heating), Height-adjustable showerhead, Closed captioned TV, Refrigerator (surcharge), Pillowtop mattress, Composting, Blackout drapes/curtains, Wardrobe or closet, Free wired internet, Coffee/tea maker, Phone, In-room safe (laptop compatible), Desk\r\niPod docking station, Towels provided, Eco-friendly toiletries, Eco-friendly cleaning products provided, Bedsheets provided, Lowered electrical outlets in bathroom, Recycling, LED light bulbs, Lowered peephole/view port in door, Mini-fridge, Connecting/adjoining rooms available, Reusable coffee/tea filters, Shower only, Lever door handles, TV size measurement: inch, Shower/tub combination, Private bathroom, Down comforter, Free toiletries, Hair dryer, Air conditioning, TV size: 55, Iron/ironing board, Housekeeping on request, Rollaway/extra beds (surcharge), Pay movies, Cable TV service, Free bottled water, Free cribs/infant beds, Room service (limited hours)', '1 King Bed', '279', 2, 'City View', 'SheratonCentre-king.webp'),
-('9', 'R32', 'Room, Queen', '280-sq-foot room with city views++Internet - Free wired internet access++Entertainment - 55-inch TV with cable channels, pay movies, iPod dock++Food & Drink - Mini-fridge, coffee/tea maker, room service (limited hours), and free bottled water++Sleep - Pillowtop bed, a down duvet, blackout drapes/curtains, and bed sheets++Bathroom - Private bathroom, shower/tub combination, free toiletries, and a hair dryer++Practical - Laptop-compatible safe, iron/ironing board, and desk; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Air conditioning and climate-controlled heating++Accessibility - Lever door handles++Eco-friendly - Eco-friendly toiletries, reusable coffee/tea filters, eco-friendly cleaning supplies, and compost bin++Need to Know - Housekeeping on request++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'Non-Smoking, Television, In-room climate control (heating), Height-adjustable showerhead, Closed captioned TV, Refrigerator (surcharge), Pillowtop mattress, Composting, Blackout drapes/curtains, Wardrobe or closet, Free wired internet, Coffee/tea maker, Phone, In-room safe (laptop compatible), Desk\r\niPod docking station, Towels provided, Eco-friendly toiletries, Eco-friendly cleaning products provided, Bedsheets provided, Lowered electrical outlets in bathroom, Recycling, LED light bulbs, Lowered peephole/view port in door, Mini-fridge, Connecting/adjoining rooms available, Reusable coffee/tea filters, Shower only, Lever door handles, TV size measurement: inch, Shower/tub combination, Private bathroom, Down comforter, Free toiletries, Hair dryer, Air conditioning, TV size: 55, Iron/ironing board, Housekeeping on request, Rollaway/extra beds (surcharge), Pay movies, Cable TV service, Free bottled water, Free cribs/infant beds, Room service (limited hours)', '1 Queen Bed', '279', 2, 'City View', 'SheratonCentre-queen.webp');
+('9', 'R32', 'Room, Queen', '280-sq-foot room with city views++Internet - Free wired internet access++Entertainment - 55-inch TV with cable channels, pay movies, iPod dock++Food & Drink - Mini-fridge, coffee/tea maker, room service (limited hours), and free bottled water++Sleep - Pillowtop bed, a down duvet, blackout drapes/curtains, and bed sheets++Bathroom - Private bathroom, shower/tub combination, free toiletries, and a hair dryer++Practical - Laptop-compatible safe, iron/ironing board, and desk; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Air conditioning and climate-controlled heating++Accessibility - Lever door handles++Eco-friendly - Eco-friendly toiletries, reusable coffee/tea filters, eco-friendly cleaning supplies, and compost bin++Need to Know - Housekeeping on request++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'Non-Smoking, Television, In-room climate control (heating), Height-adjustable showerhead, Closed captioned TV, Refrigerator (surcharge), Pillowtop mattress, Composting, Blackout drapes/curtains, Wardrobe or closet, Free wired internet, Coffee/tea maker, Phone, In-room safe (laptop compatible), Desk\r\niPod docking station, Towels provided, Eco-friendly toiletries, Eco-friendly cleaning products provided, Bedsheets provided, Lowered electrical outlets in bathroom, Recycling, LED light bulbs, Lowered peephole/view port in door, Mini-fridge, Connecting/adjoining rooms available, Reusable coffee/tea filters, Shower only, Lever door handles, TV size measurement: inch, Shower/tub combination, Private bathroom, Down comforter, Free toiletries, Hair dryer, Air conditioning, TV size: 55, Iron/ironing board, Housekeeping on request, Rollaway/extra beds (surcharge), Pay movies, Cable TV service, Free bottled water, Free cribs/infant beds, Room service (limited hours)', '1 Queen Bed', '279', 2, 'City View', 'SheratonCentre-queen.webp'),
+('9', 'R33', 'Club Room, King', '300-sq-foot room with city views++Club Level - Club Lounge access++Internet - Free wired internet access++Entertainment - 55-inch TV with cable channels, pay movies, iPod dock++Food & Drink - Mini-fridge, coffee/tea maker, room service (limited hours), and free bottled water++Sleep - Pillowtop bed, a down duvet, blackout drapes/curtains, and bed sheets++Bathroom - Private bathroom, shower/tub combination, free toiletries, and a hair dryer++Practical - Laptop-compatible safe, iron/ironing board, and desk; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Air conditioning and climate-controlled heating++Accessibility - Lever door handles++Eco-friendly - Eco-friendly toiletries, reusable coffee/tea filters, eco-friendly cleaning supplies, and compost bin++Need to Know - Housekeeping on request++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'No Smoking, Non-Smoking, Club level room, Television, In-room climate control (heating), Height-adjustable showerhead, Closed captioned TV, Refrigerator (surcharge), Pillowtop mattress, Composting, Blackout drapes/curtains, Wardrobe or closet, Free wired internet, Coffee/tea maker, Phone, In-room safe (laptop compatible), Desk\r\niPod docking station, Towels provided, Eco-friendly toiletries, Eco-friendly cleaning products provided, Bedsheets provided, Lowered electrical outlets in bathroom, Recycling, LED light bulbs, Lowered peephole/view port in door, Mini-fridge, Connecting/adjoining rooms available, Reusable coffee/tea filters, Shower only, Lever door handles, TV size measurement: inch, Shower/tub combination, Private bathroom, Down comforter, Free toiletries, Hair dryer, Air conditioning, TV size: 55, Iron/ironing board, Housekeeping on request, Rollaway/extra beds (surcharge), Pay movies, Cable TV service, Free bottled water, Free cribs/infant beds, Room service (limited hours)', '1 King Bed', '279', 2, 'City View', 'SheratonCentre-king.webp'),
+('1', 'R4', 'Deluxe Room, Queen', '175-sq-foot room with courtyard views++Relax - In-room massage available++Internet - WiFi 25+ Mbps and wired++Internet access++Entertainment - LCD television with pay movies++Food & Drink - Coffee/tea maker, minibar (fees may apply), electric kettle, and room service (limited hours)++Sleep - Pillowtop bed, premium bedding, a down duvet, a pillow menu, and blackout drapes/curtains++Bathroom - Private bathroom, shower/tub combination, bathrobes, and designer toiletries++Practical - Safe, free newspaper, and iron/ironing board; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning, daily housekeeping, and heating++Eco-friendly - Recycling bin++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'Non-smoking, Heating, Television, Local maps, Premium bedding, Electric kettle, Pillow menu, Guidebooks or recommendations, Pillowtop mattress, Soundproofed rooms, In-room childcare (surcharge), In-room climate control (air conditioning), Blackout drapes/curtains, Minibar, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Hypo-allergenic bedding available, Phone, Desk, Designer toiletries, Wired internet access (surcharge), WiFi speed - 25+ Mbps, Towels provided, Bedsheets provided, Recycling, Connecting/adjoining rooms available, Wireless internet access, TV size measurement: inch, Shower/tub combination, In-room massage available, Private bathroom, Bathrobes, Down comforter, Free toiletries, Hair dryer, Iron/ironing board, Rollaway/extra beds (surcharge), Pay movies, In-room safe, LCD TV, Free newspaper, Free cribs/infant beds, Room service (limited hours)', '1 Queen Bed', '539', 1, 'courtyard view', 'FairmontLeChateau-deluxequeen.webp'),
+('1', 'R5', 'Deluxe Room, King', '175-sq-foot room with courtyard views++Relax - In-room massage available++Internet - WiFi 25+ Mbps and wired++Internet access++Entertainment - LCD television with pay movies++Food & Drink - Coffee/tea maker, minibar (fees may apply), electric kettle, and room service (limited hours)++Sleep - Pillowtop bed, premium bedding, a down duvet, a pillow menu, and blackout drapes/curtains++Bathroom - Private bathroom, shower/tub combination, bathrobes, and designer toiletries++Practical - Safe, free newspaper, and iron/ironing board; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning, daily housekeeping, and heating++Eco-friendly - Recycling bin++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'Non-smoking, Heating, Television, Local maps, Premium bedding, Electric kettle, Pillow menu, Guidebooks or recommendations, Pillowtop mattress, Soundproofed rooms, In-room childcare (surcharge), In-room climate control (air conditioning), Blackout drapes/curtains, Minibar, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Hypo-allergenic bedding available, Phone, Desk, Designer toiletries, Wired internet access (surcharge), WiFi speed - 25+ Mbps, Towels provided, Bedsheets provided, Recycling, Connecting/adjoining rooms available, Wireless internet access, TV size measurement: inch, Shower/tub combination, In-room massage available, Private bathroom, Bathrobes, Down comforter, Free toiletries, Hair dryer, Iron/ironing board, Rollaway/extra beds (surcharge), Pay movies, In-room safe, LCD TV, Free newspaper, Free cribs/infant beds, Room service (limited hours)', '1 King Bed', '549', 1, 'courtyard view', 'FairmontLeChateau-deluxeking.webp'),
+('1', 'R6', 'Deluxe Room, 2 Double', '175-sq-foot room with courtyard views++Relax - In-room massage available++Internet - WiFi 25+ Mbps and wired++Internet access++Entertainment - LCD television with pay movies++Food & Drink - Coffee/tea maker, minibar (fees may apply), electric kettle, and room service (limited hours)++Sleep - Pillowtop bed, premium bedding, a down duvet, a pillow menu, and blackout drapes/curtains++Bathroom - Private bathroom, shower/tub combination, bathrobes, and designer toiletries++Practical - Safe, free newspaper, and iron/ironing board; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning, daily housekeeping, and heating++Eco-friendly - Recycling bin++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'Non-smoking, Heating, Television, Local maps, Premium bedding, Electric kettle, Pillow menu, Guidebooks or recommendations, Pillowtop mattress, Soundproofed rooms, In-room childcare (surcharge), In-room climate control (air conditioning), Blackout drapes/curtains, Minibar, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Hypo-allergenic bedding available, Phone, Desk, Designer toiletries, Wired internet access (surcharge), WiFi speed - 25+ Mbps, Towels provided, Bedsheets provided, Recycling, Connecting/adjoining rooms available, Wireless internet access, TV size measurement: inch, Shower/tub combination, In-room massage available, Private bathroom, Bathrobes, Down comforter, Free toiletries, Hair dryer, Iron/ironing board, Rollaway/extra beds (surcharge), Pay movies, In-room safe, LCD TV, Free newspaper, Free cribs/infant beds, Room service (limited hours)', '2 Double Beds', '559', 2, 'courtyard view', 'FairmontLeChateau-deluxedouble.webp'),
+('1', 'R7', 'Fairmont Gold, Signature Room', '325 sq feet++Relax - In-room massage available++Internet - WiFi 25+ Mbps and wired++Internet access++Entertainment - LCD television with pay movies++Food & Drink - Coffee/tea maker, minibar (fees may apply), electric kettle, and room service (limited hours)++Sleep - Pillowtop bed, premium bedding, a down duvet, a pillow menu, and blackout drapes/curtains++Bathroom - Private bathroom, shower/tub combination, bathrobes, and designer toiletries++Practical - Safe, free newspaper, and iron/ironing board; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Climate-controlled air conditioning, daily housekeeping, and heating++Eco-friendly - Recycling bin++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'No Smoking, Heating, Club level room, Television, Smoking and Non-Smoking, Local maps, Turndown service, Premium bedding, Electric kettle, Pillow menu, Guidebooks or recommendations, Pillowtop mattress, Soundproofed rooms, In-room childcare (surcharge), In-room climate control (air conditioning), Blackout drapes/curtains, Minibar, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Hypo-allergenic bedding available, Phone, Desk, Designer toiletries, Wired internet access (surcharge), WiFi speed - 25+ Mbps, Towels provided, Bedsheets provided, Recycling, Connecting/adjoining rooms available, Shower only, Wireless internet access, TV size measurement: inch, In-room massage available, Private bathroom, Bathrobes, Down comforter, Free toiletries, Hair dryer, Iron/ironing board, Rollaway/extra beds (surcharge), Pay movies, In-room safe, LCD TV, Free newspaper, Free cribs/infant beds, Room service (limited hours)', '2 Double Beds', '609', 1, '', 'FairmontLeChateau-golddouble.webp'),
+('2', 'R8', 'King Room', '300-sq-foot room with city views++Internet - WiFi++Entertainment - 50-inch LCD TV with premium channels and Netflix++Food & Drink - Refrigerator, coffee/tea maker, room service (limited hours), and free bottled water++Sleep - Pillowtop bed, a pillow menu, blackout drapes/curtains, and bed sheets++Bathroom - Private bathroom, shower/tub combination, bathrobes, and free toiletries++Practical - Safe, iron/ironing board, and laptop workspace; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Daily housekeeping and climate-controlled heating and air conditioning++Accessibility - Bathroom grab bars, closed-captioned TV, wheelchair accessible, roll-in shower, wheelchair-width doorways, height-adjustable showerhead, lever door handles, visual fire alarm, low-height view port in door, low-height electrical outlets in bathroom, and low-height door lock++Eco-friendly - Eco-friendly toiletries and recycling bin++Non-Smoking++Room/bed type depends on availability at check-in++Connecting/adjoining rooms can be requested, subject to availability', 'Wheelchair-width doorways, Bathroom grab bars, In-room climate control (heating), Closed captioned TV, In-room climate control (air conditioning), Blackout drapes/curtains, Desk, Premium TV channels, Eco-friendly toiletries, Roll-in shower, Recycling, Connecting/adjoining rooms available, Transfer shower, Visual fire alarm, Lever door handles, Toothbrush and toothpaste available on request, Wheelchair accessible, Cable/satellite TV service, Rollaway/extra beds (surcharge), Pay movies, Cable TV service, Room service (limited hours), Non-Smoking, Television, Champagne service, Height-adjustable showerhead, Grab bar - near toilet, Pillow menu, Refrigerator (surcharge), Pillowtop mattress, Laptop-friendly workspace, Refrigerator, Wardrobe or closet, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Phone, Towels provided, Highchair, Bedsheets provided, Lowered electrical outlets in bathroom, Netflix, Lowered peephole/view port in door, Lowered locks/deadbolt, Wireless internet access, Mobile key entry, Streaming services, TV size measurement: inch, Shower/tub combination, Private bathroom, Bathrobes, Free toiletries, Hair dryer, TV size: 50, Iron/ironing board, In-room safe, LCD TV, Free bottled water, Room and bed type depend on availability check-in, Free cribs/infant beds', '1 King Bed', '299', 3, 'City View', 'WestinHarbour-king.webp');
 INSERT INTO `room` (`hotel_id`, `room_id`, `accommodation`, `room_details`, `amenities`, `bed`, `price`, `availability`, `view`, `room_image`) VALUES
-('9', 'R33', 'Club Room, King', '300-sq-foot room with city views++Club Level - Club Lounge access++Internet - Free wired internet access++Entertainment - 55-inch TV with cable channels, pay movies, iPod dock++Food & Drink - Mini-fridge, coffee/tea maker, room service (limited hours), and free bottled water++Sleep - Pillowtop bed, a down duvet, blackout drapes/curtains, and bed sheets++Bathroom - Private bathroom, shower/tub combination, free toiletries, and a hair dryer++Practical - Laptop-compatible safe, iron/ironing board, and desk; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Air conditioning and climate-controlled heating++Accessibility - Lever door handles++Eco-friendly - Eco-friendly toiletries, reusable coffee/tea filters, eco-friendly cleaning supplies, and compost bin++Need to Know - Housekeeping on request++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'No Smoking, Non-Smoking, Club level room, Television, In-room climate control (heating), Height-adjustable showerhead, Closed captioned TV, Refrigerator (surcharge), Pillowtop mattress, Composting, Blackout drapes/curtains, Wardrobe or closet, Free wired internet, Coffee/tea maker, Phone, In-room safe (laptop compatible), Desk\r\niPod docking station, Towels provided, Eco-friendly toiletries, Eco-friendly cleaning products provided, Bedsheets provided, Lowered electrical outlets in bathroom, Recycling, LED light bulbs, Lowered peephole/view port in door, Mini-fridge, Connecting/adjoining rooms available, Reusable coffee/tea filters, Shower only, Lever door handles, TV size measurement: inch, Shower/tub combination, Private bathroom, Down comforter, Free toiletries, Hair dryer, Air conditioning, TV size: 55, Iron/ironing board, Housekeeping on request, Rollaway/extra beds (surcharge), Pay movies, Cable TV service, Free bottled water, Free cribs/infant beds, Room service (limited hours)', '1 King Bed', '279', 2, 'City View', 'SheratonCentre-king.webp');
-
-
---
--- AUTO_INCREMENT for dumped tables
---
-
+('2', 'R9', 'Deluxe King Room', '330-sq-foot room with lake views++Internet - WiFi++Entertainment - 50-inch LCD TV with premium channels and Netflix++Food & Drink - Refrigerator, coffee/tea maker, room service (limited hours), and free bottled water++Sleep - Pillowtop bed, a pillow menu, blackout drapes/curtains, and bed sheets++Bathroom - Private bathroom, shower/tub combination, bathrobes, and free toiletries++Practical - Safe, iron/ironing board, and laptop workspace; rollaway/extra beds and free cribs/infant beds available on request++Comfort - Daily housekeeping and climate-controlled heating and air conditioning++Accessibility - Bathroom grab bars, closed-captioned TV, wheelchair accessible, roll-in shower, wheelchair-width doorways, height-adjustable showerhead, lever door handles, visual fire alarm, low-height view port in door, low-height electrical outlets in bathroom, and low-height door lock++Eco-friendly - Eco-friendly toiletries and recycling bin++Non-Smoking++Connecting/adjoining rooms can be requested, subject to availability', 'Wheelchair-width doorways, In-room climate control (heating), Closed captioned TV, In-room climate control (air conditioning), Blackout drapes/curtains, Desk, Premium TV channels, Eco-friendly toiletries, Recycling, Connecting/adjoining rooms available, Transfer shower, Visual fire alarm, Lever door handles, Toothbrush and toothpaste available on request, Wheelchair accessible, Cable/satellite TV service, Rollaway/extra beds (surcharge), Pay movies, Cable TV service, Room service (limited hours), Non-Smoking, Television, Champagne service, Height-adjustable showerhead, Grab bar - near toilet, Pillow menu, Refrigerator (surcharge), Pillowtop mattress, Laptop-friendly workspace, Refrigerator, Wardrobe or closet, Coffee/tea maker, WiFi (surcharge), Daily housekeeping, Phone, Towels provided, Highchair, Bedsheets provided, Lowered electrical outlets in bathroom, Netflix, Lowered peephole/view port in door, Lowered locks/deadbolt, Wireless internet access, Mobile key entry, Streaming services, TV size measurement: inch, Shower/tub combination, Private bathroom, Bathrobes, Free toiletries, Hair dryer, TV size: 50, Iron/ironing board, In-room safe, LCD TV, Free bottled water, Free cribs/infant beds', '1 King Bed', '309', 1, 'Lake View', 'WestinHarbour-king.webp');
 
 --
--- AUTO_INCREMENT for table `booking`
+-- 转储表的索引
+--
+
+--
+-- 表的索引 `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `booking_id` int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT;
-COMMIT;
+  ADD PRIMARY KEY (`booking_id`),
+  ADD KEY `member_id` (`member_id`),
+  ADD KEY `room_id` (`room_id`);
 
 --
--- Indexes for dumped tables
+-- 表的索引 `favourite_list`
 --
-
+ALTER TABLE `favourite_list`
+  ADD KEY `hotel_id` (`hotel_id`),
+  ADD KEY `member_id` (`member_id`);
 
 --
--- Indexes for table `hotel`
+-- 表的索引 `hotel`
 --
 ALTER TABLE `hotel`
   ADD UNIQUE KEY `hotel_id` (`hotel_id`),
   ADD UNIQUE KEY `name` (`name`);
 
 --
--- Indexes for table `registered_member`
---
-ALTER TABLE `registered_member`
-  ADD UNIQUE KEY `email` (`email`),
-  ADD PRIMARY KEY `member_id` (`member_id`),
-  ADD UNIQUE KEY `member_id` (`member_id`);
-  
---
--- Indexes for table `payment`
+-- 表的索引 `payment`
 --
 ALTER TABLE `payment`
   ADD PRIMARY KEY (`payment_id`),
-  ADD FOREIGN KEY (`member_id`) REFERENCES `registered_member`(`member_id`),
-  ADD FOREIGN KEY (`booking_id`) REFERENCES `booking`(`booking_id`);
-
-
---
--- Indexes for table `favourite_list`
---
-ALTER TABLE `favourite_list`
-  ADD PRIMARY KEY (`favourite_id`),
-ADD FOREIGN KEY (`hotel_id`) REFERENCES `hotel`(`hotel_id`),
-ADD FOREIGN KEY (`member_id`) REFERENCES `registered_member`(`member_id`);
+  ADD KEY `member_id` (`member_id`),
+  ADD KEY `booking_id` (`booking_id`);
 
 --
--- Indexes for table `room`
+-- 表的索引 `registered_member`
+--
+ALTER TABLE `registered_member`
+  ADD PRIMARY KEY (`member_id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `member_id` (`member_id`);
+
+--
+-- 表的索引 `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `hotel_id` (`hotel_id`),
+  ADD KEY `member_id` (`member_id`);
+
+--
+-- 表的索引 `room`
 --
 ALTER TABLE `room`
   ADD PRIMARY KEY (`room_id`),
   ADD UNIQUE KEY `room_id` (`room_id`),
-ADD FOREIGN KEY (`hotel_id`) REFERENCES `hotel`(`hotel_id`);
+  ADD KEY `hotel_id` (`hotel_id`);
 
 --
--- Indexes for table `booking`
+-- 在导出的表使用AUTO_INCREMENT
+--
+
+--
+-- 使用表AUTO_INCREMENT `booking`
 --
 ALTER TABLE `booking`
-  ADD FOREIGN KEY (`member_id`) REFERENCES `registered_member`(`member_id`),
-  ADD FOREIGN KEY (`room_id`) REFERENCES `room`(`room_id`);
+  MODIFY `booking_id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
--- Indexes for table `reviews`
+-- 使用表AUTO_INCREMENT `registered_member`
+--
+ALTER TABLE `registered_member`
+  MODIFY `member_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- 使用表AUTO_INCREMENT `reviews`
 --
 ALTER TABLE `reviews`
-ADD FOREIGN KEY (`hotel_id`) REFERENCES `hotel`(`hotel_id`),
-ADD FOREIGN KEY (`member_id`) REFERENCES `registered_member`(`member_id`);
+  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT;
 
+--
+-- 限制导出的表
+--
 
+--
+-- 限制表 `booking`
+--
+ALTER TABLE `booking`
+  ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `registered_member` (`member_id`),
+  ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`);
+
+--
+-- 限制表 `favourite_list`
+--
+ALTER TABLE `favourite_list`
+  ADD CONSTRAINT `favourite_list_ibfk_1` FOREIGN KEY (`hotel_id`) REFERENCES `hotel` (`hotel_id`),
+  ADD CONSTRAINT `favourite_list_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `registered_member` (`member_id`);
+
+--
+-- 限制表 `payment`
+--
+ALTER TABLE `payment`
+  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `registered_member` (`member_id`),
+  ADD CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`booking_id`);
+
+--
+-- 限制表 `reviews`
+--
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`hotel_id`) REFERENCES `hotel` (`hotel_id`),
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `registered_member` (`member_id`);
+
+--
+-- 限制表 `room`
+--
+ALTER TABLE `room`
+  ADD CONSTRAINT `room_ibfk_1` FOREIGN KEY (`hotel_id`) REFERENCES `hotel` (`hotel_id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -179,7 +179,7 @@ function handleData($db, $uid, $table, $id, $condition)
 
 function dropdownButton($label, $options){
     echo "<label>" . ucwords($label);
-    echo "<select name='" . $label . "'>";
+    echo "<select name='" . $label . "' id='" . $label . "'>";
     foreach ($options as $opt){
         echo "<option value='" . $opt . "'>" . $opt . "</option>";
     }

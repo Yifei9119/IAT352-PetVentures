@@ -9,6 +9,8 @@ include_once("../helper/function.php");
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/registerLogin.css">
     <link rel="stylesheet" href="../css/hotel.css">
+    <script src="../js/jquery-3.6.1.js"></script>
+    <script src="../js/script.js"></script>
 </head>
 
 <body>
@@ -34,7 +36,7 @@ $userResult = mysqli_stmt_get_result($userStmt);
 <!--                    <label> Place </label>-->
 <!--                    <input id="search" name="search" type="text" placeholder="Country">-->
                     <?php
-                    dropdownButton("Province", ["Alberta", "Ontario", "BC"]);
+                    dropdownButton("Province", ["Alberta", "Ontario", "British Colombia", "Quebec"]);
                     ?>
                 </div>
                 <div class="search">

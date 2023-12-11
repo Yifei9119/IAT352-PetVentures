@@ -9,21 +9,7 @@ error_reporting(E_ALL);
 require_once("header.php");
 
   // Define a query string to select product codes and names from the products table
-  $query_str = "SELECT hotel.hotel_id, hotel.name, hotel.image, hotel.province, MIN(room.price) as price FROM hotel INNER JOIN room ON hotel.hotel_id = room.hotel_id GROUP BY hotel_id";
 
-  $res = $db->query($query_str);
- 
-if ($res === false) {
-  
-  echo "Error: " . htmlspecialchars($db->error);
-  
-  exit;
-}
-
-if ($res->num_rows == 0) {
-  echo "No hotels found.";
-  exit;
-}
 // Echo the HTML for the landing image right after your header include
 
 echo "<section class='landing-image'>";
@@ -33,10 +19,7 @@ echo "</section>";
   echo "<section class='section-padding'>";
   // Iterate through each row in the query result
   echo "<div id=hotel-cards>";
-  while ($row = $res->fetch_assoc()) {
-    // Format each hotel model as a link
-    format_hotel_name_as_link($row["hotel_id"], $row["name"], $row['price'], $row['province'], $row['image'], "hoteldetails.php");
-  };
+  require ("hotelCards.php");
   echo "</div></section>";
 
   if(loggedIn()){
@@ -44,6 +27,6 @@ echo "</section>";
   }
   
   include('footer.php');
-  $res->free_result();
-  $db->close();
+//  $res->free_result();
+//  $db->close();
 ?>
