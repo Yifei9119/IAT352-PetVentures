@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 require_once("header.php");
 
 $hotelDisplayed = false;
+$roomDisplayed = false;
 // Retrieve and trim the hotel code from the GET request
 $code = trim($_GET['hotelid']);
 // Retrieve and trim any message passed in the GET request, using @ to suppress errors if 'message' is not set
@@ -68,7 +69,9 @@ while ($row = $res->fetch_assoc()) {
     }
     $hotelDisplayed = true;
   echo "<section>";
-    echo "<h2>Rooms</h2>";
+  if ($roomDisplayed == false) {
+    echo "<h2>Rooms</h2>";}
+    $roomDisplayed = true;
     echo "<div class='room-cards'><div class='room-container'>";
     echo '<img src="../images/rooms/' . htmlspecialchars($row['room_image']) . '" alt="' . htmlspecialchars($row['accommodation']) . '">';
     echo "<div class='room-details'>";
@@ -89,7 +92,7 @@ echo "<div class='hotel-reviews'>";
 echo "<h2>User Reviews</h2>";
 
 
-if ($reviewsResult->num_rows > 0) {
+if ($reviewsResult->num_rows>0) {
     while ($review = $reviewsResult->fetch_assoc()) {
         if (!empty($review['rating']) && !empty($review['comment'] && !empty($review['created_at']))) {
             $userInitials = $review['first_name'] ." ". $review['last_name'][0].".";

@@ -12,7 +12,6 @@ $hotelsStmt = $db->prepare($hotelsQuery);
 $hotelsStmt->execute();
 $hotelsResult = $hotelsStmt->get_result();
 
-$userResult = userResult($db, $current_user);
 // Handle the POST request from the form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hotel_id = $_POST['hotel_id'];
@@ -22,8 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Insert the review into the database
     $insertQuery = "INSERT INTO reviews (hotel_id, member_id, rating, comment) VALUES (?, ?, ?, ?)";
     $insertStmt = $db->prepare($insertQuery);
-    while($user = $userResult->fetch_assoc()){
-    $insertStmt->bind_param("iiis", $hotel_id, $user,$rating, $comment);
+
+    $insertStmt->bind_param("isis", $hotel_id, $current_user,$rating, $comment);
     $insertStmt->execute();
 
     if ($insertStmt->affected_rows > 0) {
@@ -31,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "<p>Error: " . $insertStmt->error . "</p>";
     }
-}
+
 
     $insertStmt->close();
 }
@@ -57,9 +56,9 @@ echo'
             }
         echo'</select>
         <label for="rating">Rating:</label>
-        <input type="number" id="rating" name="rating" required min="1" max="5">
+        <input type="number" id="rating" name="rating" required min="1" max="5" placeholder="1">
         <label for="comment">Comment:</label>
-        <textarea id="comment" name="comment" required></textarea>
+        <textarea id="comment" name="comment" rows="4" required></textarea>
         <input type="submit" value="Submit Review">
     </form>
 </div>
@@ -77,7 +76,6 @@ echo'
 echo '</div>';
 require("footer.php");
 $hotelsResult->free_result();
-$userResult->free_result();
 $reviewsResult->free_result();
 $db->close();
 ?>
