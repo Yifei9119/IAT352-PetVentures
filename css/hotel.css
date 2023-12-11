@@ -1,3 +1,27 @@
+/* favourite button */
+.svg-star {
+    width: 35px;
+}
+
+.style .svg-star-color{
+    fill: #FFC107;
+}
+.svg-button{
+    background-color: transparent;
+    border:none;
+    margin-top:1.2rem;
+    height:fit-content;
+    position:absolute;
+    right:12px;
+    top:16rem;
+}
+
+.hotel-favourite-grid{
+    display:grid;
+    grid-template-columns: 5fr 1fr;
+}
+
+/* hotel card */
 #hotel-cards{
     display:grid;
     grid-template-columns: 1fr 1fr;
@@ -6,13 +30,7 @@
     column-gap: 6rem;
     margin:0 20vw;
 }
-.svg-star {
-    width: 35px;
-}
 
-.style .svg-star-color{
-    fill: #d0d06d;
-}
 .hotel-card{
     box-shadow:0 4px 30px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
@@ -98,7 +116,8 @@ padding: 0 1rem;
 
 .hotel-img-detail {
     max-width: 100%; /* Image can fill the container */
-    height: auto; /* Maintain aspect ratio */
+    height: 28rem;
+    object-fit: cover;
     border-radius: 10px; /* Optional rounded corners */
 }
 
@@ -116,15 +135,16 @@ padding: 0 1rem;
     margin-top: 20px;
 }
 
+/* availability form */
 .availability-check {
     flex-grow: 1;
     margin-left: 20px; /* Spacing between the content and the sidebar */
-    padding: 20px;
+    padding: 2rem;
     border: 1px solid #ccc;
     border-radius: 10px;
     margin-top:20px;
-    height:fit-content;
-
+    height:28rem;
+    width:fit-content;
 }
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -142,6 +162,7 @@ padding: 0 1rem;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    align-items: flex-start;
 }
 
 .availability-check input[type='date'],
@@ -152,18 +173,17 @@ padding: 0 1rem;
     border-radius: 5px;
 }
 
-.availability-check button {
-    padding: 10px;
-    background-color: #5cb85c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.flex-inline{
+    display:flex;
+    gap:2rem;
 }
 
 .availability-check button:hover {
     background-color: #4cae4c;
 }
+
+
+/* review */
 
 .review {
     border-bottom: 1px solid #ccc;
@@ -179,19 +199,37 @@ padding: 0 1rem;
     font-size: 1.2em;
 }
 
-.write-review-button {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
+.main-content {
+    padding-top: 50px; 
+}
+.review-form-container, .reviews-container {
+    margin: 1rem auto;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    max-width: 800px;
 }
 
-.write-review-button:hover {
-    background-color: #0056b3;
-    color: white;
-    text-decoration: none;
+.review-form-container h2, .reviews-container h2 {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.review-form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.review-form-container label {
+    margin-top: 0.5rem;
+}
+
+.review-form-container input[type="number"],
+.review-form-container select,
+.review-form-container textarea {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
 }

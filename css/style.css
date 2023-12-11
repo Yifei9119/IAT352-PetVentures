@@ -51,7 +51,8 @@ h1 {
   gap: 0.5rem;
 }
 
-.loginRegister a {
+.loginRegister a,
+.write-review-button {
   text-decoration: none;
   font-size: 1rem;
   color: #412f29;
@@ -149,8 +150,8 @@ form {
 }
 
 /* landing page */
-.padding-top {
-  padding-top: 5rem;
+.section-padding {
+  padding: 5rem 0;
 }
 
 .landing-image {
@@ -268,4 +269,10 @@ hr {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.title-p {
+  font-family: "Verdana", sans-serif;
+  width: 29rem;
+  font-size: 1.15rem;
+  color: white;
 }
