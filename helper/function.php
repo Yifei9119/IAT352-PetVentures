@@ -94,17 +94,14 @@ if (!empty($_SESSION['valid_user'])) {
 }
 
 // Select current user's query
-// function userResult(){
-//     $userQuery = "SELECT first_name, last_name, member_id FROM registered_member WHERE member_id=?";
-//     global $db;
-//     $userStmt = $db->prepare($userQuery);
-//     $userStmt->bind_param('s', $current_user);
-//     $userStmt->execute();
-//     $userResult = mysqli_stmt_get_result($userStmt);
-//     $subject = mysqli_fetch_assoc($userResult);
-//     mysqli_free_result($userResult);
-//     return $subject;
-//     }
+function userResult($db, $current_user){
+    $userQuery = "SELECT * FROM registered_member WHERE member_id=?";
+    $userStmt = $db->prepare($userQuery);
+    $userStmt->bind_param('s', $current_user);
+    $userStmt->execute();
+    $userResult = mysqli_stmt_get_result($userStmt);
+    return $userResult;
+    }
 
 // Function to redirect user to a specified URL
 function redirect_to($url)

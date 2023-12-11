@@ -9,21 +9,9 @@ include_once("../helper/function.php");
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/registerLogin.css">
     <link rel="stylesheet" href="../css/hotel.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <?php 
-
-$userQuery = "SELECT first_name, last_name, member_id FROM registered_member WHERE member_id=?";
-global $db;
-$userStmt = $db->prepare($userQuery);
-$userStmt->bind_param('s', $current_user);
-$userStmt->execute();
-$userResult = mysqli_stmt_get_result($userStmt);
-
-?>
     <div class="nav">
         <header>
             <a href="index.php"><img src="../images/logo/logo.svg" alt="logo"></a>
@@ -46,8 +34,9 @@ $userResult = mysqli_stmt_get_result($userStmt);
             </form>
             <?php
 if (isset($_SESSION['valid_user'])){
+  $userResult = userResult($db, $current_user);
 echo '<div class="dropdown">
-  <button class="dropbtn">';
+  <button id="accountInfo" class="dropbtn">';
   while($user = $userResult->fetch_assoc()){
     if(!empty($user['first_name']) && !empty($user['last_name'])){
     echo   '<img src="../images/other/avatar.svg"><p>'.

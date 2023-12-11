@@ -12,14 +12,7 @@ $hotelsStmt = $db->prepare($hotelsQuery);
 $hotelsStmt->execute();
 $hotelsResult = $hotelsStmt->get_result();
 
-
-$userQuery = "SELECT member_id FROM registered_member WHERE member_id=?";
-$userStmt = $db->prepare($userQuery);
-$userStmt->bind_param('s', $current_user);
-$userStmt->execute();
-$userResult = mysqli_stmt_get_result($userStmt);
-
-
+$userResult = userResult($db, $current_user);
 // Handle the POST request from the form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hotel_id = $_POST['hotel_id'];
