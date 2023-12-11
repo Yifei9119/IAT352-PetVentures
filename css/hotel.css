@@ -173,11 +173,6 @@ padding: 0 1rem;
     border-radius: 5px;
 }
 
-.flex-inline{
-    display:flex;
-    gap:2rem;
-}
-
 .availability-check button:hover {
     background-color: #4cae4c;
 }

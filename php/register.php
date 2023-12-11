@@ -31,7 +31,6 @@ if (isset($_POST['submit'])) { // detect form submission
       	$stmt = $db->prepare($query);
 		$stmt->bind_param('sssss',$email,$pw_encrypted,$fname,$lname, $username);
 		$stmt->execute();
-        echo $query;
 
         // Redirect to the login page after successful registration
         redirect_to('login.php');

@@ -20,6 +20,23 @@
     border-radius: 5px;
 }
 
+/* Style for the form inputs */
+input[type=text], input[type=email], input[type=password], input[type=submit], input[type=date], select{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+select{
+    width:fit-content;
+    display:inline-block;
+    margin-left:1rem;
+    padding:5px;
+}
+
 /* Style for the submit button */
 input[type=submit]{
     background-color: #FFC107;

@@ -26,8 +26,8 @@ echo "<script>let isLogin = " . (isset($_SESSION['valid_user']) ? 'true' : 'fals
             <a href="index.php"><img src="../images/logo/logo.svg" alt="logo"></a>
             <form action="searchResults.php" method="POST" style="display:flex; justify-content: center;">
                 <div class="search">
-                   <label> Destination </label>
-                   <input id="search" name="search" type="text" placeholder="Enter keyword, place, or title">
+                   <!-- <label> Destination </label> -->
+                   <input id="search" name="search" type="text" placeholder="Enter keyword, place, or title" required>
                     <?php
                     //dropdownButton("Province", ["All", "Alberta", "Ontario", "British Columbia", "Quebec"]);
                     ?>
@@ -35,14 +35,14 @@ echo "<script>let isLogin = " . (isset($_SESSION['valid_user']) ? 'true' : 'fals
                     // dropdownButton("Availability", ["All", "1", "2", "3", "4", "5"]);
                     ?>
                 </div>
-                <div class="search">
+                <!-- <div class="search">
                     <label>Check in</label>
                     <input id="startdate" name="startdate" type="date">
                 </div>
                 <div class="search">
                     <label>Check out</label>
                     <input id="enddate" name="enddate" type="date">
-                </div>
+                </div> -->
                 <div class="search">
                     <input id="submit" type="submit" value="Search">
                 </div>

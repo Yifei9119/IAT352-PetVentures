@@ -4,7 +4,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 // include_once("../helper/function.php");
 require_once("header.php");
-// **IMPORTANT this whole page needs to be updated using js**
 
 //Getting value of "search" variable from "script.js".
 if (isset($_POST['search']) && !empty($_POST['search'])) {
@@ -14,11 +13,11 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
        $Name = $_POST['search'];
     //Search query.
         $showTitle=false;
-       $query_str = "SELECT hotel.hotel_id, hotel.name, hotel.image, hotel.province, MIN(room.price) as price FROM hotel INNER JOIN room ON hotel.hotel_id = room.hotel_id WHERE hotel.province LIKE CONCAT('%',?,'%') GROUP BY hotel_id";
+       $query_str = "SELECT hotel.hotel_id, hotel.name, hotel.image, hotel.province, MIN(room.price) as price FROM hotel INNER JOIN room ON hotel.hotel_id = room.hotel_id WHERE hotel.province LIKE CONCAT('%',?,'%') OR hotel.name LIKE CONCAT('%',?,'%') GROUP BY hotel_id";
       
     //prepare and bind
        $stmt = $db->prepare($query_str);
-       $stmt->bind_param('s',$Name);
+       $stmt->bind_param('ss',$Name, $Name);
        $stmt->execute();
        $res = mysqli_stmt_get_result($stmt);
     //Query execution
@@ -26,14 +25,14 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
        //Fetching result from database.
        // Iterate through each row in the query result
        if ($res->num_rows == 0){
-        echo "<h1>No Results Found</h1>";
+        echo "<h1>No Results Found For '$Name'</h1>";
         echo "<p style='text-align:center;'>Please search for other places or return to home page</p>";
        }
        else{
        while ($row = $res->fetch_assoc()) {
         //  echo "<li onclick='fill'>";
         if($showTitle==false)
-        echo "<h1>Pet-Friendly Hotels in ". $row['province']."</h1><div id=hotel-cards>";
+        echo "<h1>Search Results For '$Name'</h1><div id=hotel-cards>";
         $showTitle=true;
         format_hotel_name_as_link($row["hotel_id"], $row["name"], $row['price'], $row['province'], $row['image'], "hoteldetails.php");
        }}
@@ -57,10 +56,6 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
     //       echo"</a>";
   
     // }}
-}
-else{
-    //use js to show the error
-    echo"<p class='padding-top' style='text-align:center;'>Please type in the search bar</p>";
 }
     include('footer.php');
 ?>
