@@ -58,7 +58,7 @@ echo '<div class="dropdown">
   echo'</button>
   <div class="dropdown-content">
     <a href="member_bookings.php">Bookings</a>
-    <a href="favouriteList.php">Favourite List</a>
+    <a href="favoriteList.php">Favourite List</a>
     <a href="logout.php">Logout</a>
   </div>
 </div>';
