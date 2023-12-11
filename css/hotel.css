@@ -103,8 +103,21 @@
 padding: 0 1rem;
 }
 
+.room-cards{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.room-container {
+    box-shadow:0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+.room-container img{
+    height:10rem;
+    object-fit: cover;
+    border-radius: 20px 20px 0 0;
+}
 .room-details {
-    /* padding: 0 20px; Padding on sides */
+    padding: 0 2rem;
 }
 
 .hotel-image-container {

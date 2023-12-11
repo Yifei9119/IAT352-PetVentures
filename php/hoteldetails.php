@@ -67,18 +67,21 @@ while ($row = $res->fetch_assoc()) {
 
     }
     $hotelDisplayed = true;
-    echo "<div class='room-details'>";
+  echo "<section>";
     echo "<h2>Rooms</h2>";
+    echo "<div class='room-cards'><div class='room-container'>";
     echo '<img src="../images/rooms/' . htmlspecialchars($row['room_image']) . '" alt="' . htmlspecialchars($row['accommodation']) . '">';
+    echo "<div class='room-details'>";
     echo "<h3>" . htmlspecialchars($row['accommodation']) . "</h3>";
     echo "<p> " . htmlspecialchars($row['bed']) . " $" . htmlspecialchars($row['price']) . "</p>";
     $roomDetails = explode("++", $row['room_details']);
+
     foreach ($roomDetails as $detail) {
         echo "<p>" . nl2br(htmlspecialchars($detail)) . "</p>";
     }
+    echo"</div>";
     echo "<a href='booking.php?roomid=" . urlencode($row['room_id']) . "'>Reserve</a>";
-    echo "</div>"; // Close room-details
-    //echo"<section><h2>Rooms</h2><h3>". $row['accommodation']."</h3><p> ".$row['bed'] ." $".$row['price'].$row['room_details']."</p></section>";
+    echo "</div></div></section>"; // Close room-details
 }
 
 // Now display the reviews
