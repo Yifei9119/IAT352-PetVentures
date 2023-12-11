@@ -185,9 +185,6 @@ echo "</div>"; // Close availability-check
 echo "</div>"; // Close hotel-detail-container
 
 $res->free_result();
-
-
 include('footer.php');
 $db->close();
-
 ?>
