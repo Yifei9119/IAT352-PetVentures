@@ -1,7 +1,8 @@
 $(document).ready(function() {
-// document.getElementById("accountInfo").onclick = function () {
-//     location.href = "accountInfo.php";
-// }
+
+ document.getElementById("accountInfo").onclick = function () {
+    location.href = "accountInfo.php";
+}
 
     updateHotelCardsByDropdown("Province");
     updateHotelCardsByDropdown("Availability");
