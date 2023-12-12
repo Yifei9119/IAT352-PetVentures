@@ -1,5 +1,8 @@
 <?php
 include_once("../helper/function.php");
+// Establish database connection
+$db = connection('localhost', 'root', '', 'hotel_models');
+
 //require_once("header.php");
 //ini_set('display_errors', 1);
 //ini_set('display_startup_errors', 1);
@@ -7,9 +10,11 @@ include_once("../helper/function.php");
 $table = "favourite_list";
 $postKey = "addFavorite_guideId";
 //echo "???";
-if (empty($_SESSION['valid_user']) || empty($_POST[$postKey])) return;
-$user_id = $_SESSION['valid_user'];
-$hotelId = $_POST[$postKey];
+if (!empty($_SESSION['valid_user']) && !empty($_POST[$postKey])){
+    $user_id = $_SESSION['valid_user'];
+    $hotelId = $_POST[$postKey];
 // echo $hotelId . " ";
 
-handleData($db, $user_id, $table, $hotelId, "hotel_id");
+    handleData($db, $user_id, $table, $hotelId, "hotel_id");
+}
+

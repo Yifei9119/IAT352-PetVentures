@@ -141,7 +141,7 @@ function handleData($db, $uid, $table, $id, $condition)
     }
 //    echo $query;
 //return;
-    $stmt->bind_param('si', $id, $uid);
+    $stmt->bind_param('ss', $id, $uid);
     if (!$stmt->execute()) {
         echo "Execute error: " . $stmt->error;
         return null;
@@ -163,14 +163,14 @@ function handleData($db, $uid, $table, $id, $condition)
             echo "Prepare failed: (" . $db->errno . ") " . $db->error;
             return;
         }
-        $deleteStmt->bind_param('si', $id, $uid);
+        $deleteStmt->bind_param('ss', $id, $uid);
         if (!$deleteStmt->execute()) {
             echo "Execute failed: (" . $deleteStmt->errno . ") " . $deleteStmt->error;
             return;
         }
         $deleteStmt->close();
     } else {
-        $insert = "INSERT INTO " . $table . " (member_id, $condition) VALUES (" . $uid . ", " . $id . ")";
+        $insert = "INSERT INTO " . $table . " (member_id, $condition) VALUES ('" . $uid . "', " . $id . ")";
 //        echo $insert;
 //        return;
         $db->query($insert);

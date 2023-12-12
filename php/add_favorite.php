@@ -1,6 +1,7 @@
 <?php
 include_once("../helper/function.php");
-
+// Establish database connection
+$db = connection('localhost', 'root', '', 'hotel_models');
 receiveData($db, $_SESSION["valid_user"], "favourite_list", "hotel_id");
 function receiveData($db, $user_id, $table, $hotelType){
     $query = "SELECT * FROM " . $table . " WHERE member_id = ?";
@@ -9,7 +10,7 @@ function receiveData($db, $user_id, $table, $hotelType){
         echo "Prepare error: " . $db->error;
         return null;
     }
-    $stmt->bind_param('i', $user_id);
+    $stmt->bind_param('s', $user_id);
     if (!$stmt->execute()) {
         echo "Execute error: " . $stmt->error;
         return null;

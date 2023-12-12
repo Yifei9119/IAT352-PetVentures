@@ -10,7 +10,7 @@ $db = connection('localhost', 'root', '', 'hotel_models');
 ////ini_set('display_startup_errors', 1);
 ////error_reporting(E_ALL);
 $favoriteHotelIds = queryFavoriteHotels($db);
-echo "???";
+//echo "???";
 foreach ($favoriteHotelIds as $hotelId){
     $hotel = queryHotelById($db, $hotelId);
 //    echo $hotel['name'];
