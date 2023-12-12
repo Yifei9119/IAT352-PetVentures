@@ -1,10 +1,7 @@
-<script src="../js/add_favorite.js"></script>
-
 <?php
-include_once("../helper/function.php");
 require_once("header.php");
 
-$db = connection('localhost', 'root', '', 'hotel_models');
+
 
 ////ini_set('display_errors', 1);
 ////ini_set('display_startup_errors', 1);
@@ -32,7 +29,7 @@ function queryFavoriteHotels($db)
     }
 
 // 将变量绑定到预处理语句的参数
-    $stmt->bind_param('i', $_SESSION["valid_user"]); // 'i' 表示参数是一个整数
+    $stmt->bind_param('s', $_SESSION["valid_user"]); // 'i' 表示参数是一个整数
 
 // 执行查询
     if (!$stmt->execute()) {

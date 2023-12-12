@@ -1,7 +1,6 @@
 <?php
 include_once("../helper/function.php");
-// Establish database connection
-$db = connection('localhost', 'root', '', 'hotel_models');
+
 
 //require_once("header.php");
 //ini_set('display_errors', 1);

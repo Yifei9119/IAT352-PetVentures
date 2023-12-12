@@ -61,7 +61,7 @@ while ($row = $res->fetch_assoc()) {
             echo "<p>" . nl2br(htmlspecialchars($service)) . "</p>";
         }
         echo "</div></div>";
-        echo "<h2>Policies</h2><p>" . nl2br(htmlspecialchars(isset($row['policies']) ? $row['policies'] : '')) . "</p>";
+        // echo "<h2>Policies</h2><p>" . nl2br(htmlspecialchars(isset($row['policies']) ? $row['policies'] : '')) . "</p>";
 
         echo "</div>"; // Close hotel-info
         //echo "</div>"; // Close hotel-content
@@ -128,72 +128,35 @@ echo "</div>"; // Close the hotel-reviews div
 $reviewsResult->free_result();
 $avgRatingResult->free_result();
 
-// Display add to favourite form if the user is logged in and the product is not already in the watchlist
-// if(loggedIn() && !inWatchlist($code) ) {
-// 	echo "<form action=\"addtowatchlist.php\" method=\"post\">\n";
-// 	echo "<input type=\"hidden\" name=\"productCode\" value=$code>\n";
-// 	echo "<input type=\"submit\" value=\"Add To Watchlist\">\n";
-// 	echo "</form>\n";
-// } else if (!empty($msg) ) {
-// 	echo $msg;
-// } else if (loggedIn()) {
-// 	echo "This model is already in your <a href=\"showwatchlist.php\">watchlist</a>.";
-// }
 
-// Check if the user is logged in before showing the review button
-// if (isset($_SESSION['user_id'])) {
-//     $hotel_id = $_GET['hotelid']; // Ensure you have the hotel's ID available
-//     echo "<a href='submit_review.php?hotelid=" . $hotel_id . "' class='review-button'>Write Review</a>";
-// } else {
-//     echo "<p>You must be <a href='login.php'>logged in</a> to write a review.</p>";
-// }
 
-// $hotel_id = $_GET['hotelid'];
-// $query = "SELECT * FROM reviews WHERE hotel_id = ?";
-// $stmt = $db->prepare($query);
-// $stmt->bind_param("i", $hotel_id);
-// $stmt->execute();
-// $result = $stmt->get_result();
 
-// if ($result->num_rows > 0) {
-//     echo "<h2>User Reviews</h2>";
-//     while ($review = $result->fetch_assoc()) {
-//         echo "<div class='review'>";
-//         echo "<p>Rating: " . htmlspecialchars($review['rating']) . "</p>";
-//         echo "<p>Comment: " . htmlspecialchars($review['comment']) . "</p>";
-//         echo "</div>";
-//     }
-// } else {
-//     echo "<p>No reviews yet.</p>";
-// }
+// echo "</div>"; // Close .hotel-details
 
-// $stmt->close();
-echo "</div>"; // Close .hotel-details
+// echo "<div class='availability-check'>";
+// // Form for checking availability
+// echo "<h2>Check Availability</h2>";
+// echo "<form action='check_availability.php' method='post'>";
+// echo "<label for='check-in'>Check-in</label>";
+// echo "<input type='date' id='check-in' name='check-in'>";
+// echo "<label for='check-out'>Check-out</label>";
+// echo "<input type='date' id='check-out' name='check-out'>";
 
-echo "<div class='availability-check'>";
-// Form for checking availability
-echo "<h2>Check Availability</h2>";
-echo "<form action='check_availability.php' method='post'>";
-echo "<label for='check-in'>Check-in</label>";
-echo "<input type='date' id='check-in' name='check-in'>";
-echo "<label for='check-out'>Check-out</label>";
-echo "<input type='date' id='check-out' name='check-out'>";
+// echo "<div class='flex-inline'><div><label for='rooms'>Rooms</label>";
+// echo "<select id='rooms' name='rooms'>";
+// echo "<option value='1'>1 Room</option>";
+// // ... More options ...
+// echo "</select></div>";
+// echo "<div><label for='guests'>Guests</label>";
+// echo "<select id='guests' name='guests'>";
+// echo "<option value='3'>3 Adults</option>";
+// // ... More options ...
+// echo "</select></div></div>";
+// echo "<input type='submit' value='Check Availability'>";
+// echo "</form>";
+// echo "</div>"; // Close availability-check
 
-echo "<div class='flex-inline'><div><label for='rooms'>Rooms</label>";
-echo "<select id='rooms' name='rooms'>";
-echo "<option value='1'>1 Room</option>";
-// ... More options ...
-echo "</select></div>";
-echo "<div><label for='guests'>Guests</label>";
-echo "<select id='guests' name='guests'>";
-echo "<option value='3'>3 Adults</option>";
-// ... More options ...
-echo "</select></div></div>";
-echo "<input type='submit' value='Check Availability'>";
-echo "</form>";
-echo "</div>"; // Close availability-check
-
-echo "</div>"; // Close hotel-detail-container
+// echo "</div>"; // Close hotel-detail-container
 
 $res->free_result();
 include('footer.php');

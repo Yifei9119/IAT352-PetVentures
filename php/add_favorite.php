@@ -1,8 +1,6 @@
 <?php
 include_once("../helper/function.php");
-// Establish database connection
-$db = connection('localhost', 'root', '', 'hotel_models');
-receiveData($db, $_SESSION["valid_user"], "favourite_list", "hotel_id");
+
 function receiveData($db, $user_id, $table, $hotelType){
     $query = "SELECT * FROM " . $table . " WHERE member_id = ?";
     $stmt = $db->prepare($query);
