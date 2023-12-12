@@ -8,11 +8,15 @@ require_once("header.php");
 ////error_reporting(E_ALL);
 $favoriteHotelIds = queryFavoriteHotels($db);
 //echo "???";
+echo "<section class='section-padding'>";
+echo "<h1>My Favourite List</h1>";
+echo "<div id='hotel-cards'>";
 foreach ($favoriteHotelIds as $hotelId){
     $hotel = queryHotelById($db, $hotelId);
 //    echo $hotel['name'];
     format_hotel_name_as_link($hotel["hotel_id"], $hotel["name"], $hotel['price'], $hotel['province'], $hotel['image'], "hoteldetails.php");
 }
+echo "</div>";
 //echo $favoriteHotelIds[5];
 
 function queryFavoriteHotels($db)

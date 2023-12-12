@@ -45,7 +45,6 @@ CREATE TABLE `booking` (
 --
 DROP TABLE IF EXISTS `favourite_list`;
 CREATE TABLE `favourite_list` (
-  `favourite_id` varchar(255) NOT NULL,
   `hotel_id` varchar(50) NOT NULL,
   `member_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -220,6 +219,8 @@ ALTER TABLE `booking`
   MODIFY `booking_id` int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT;
 COMMIT;
 
+
+
 --
 -- Indexes for dumped tables
 --
@@ -237,7 +238,6 @@ ALTER TABLE `payment`
 -- Indexes for table `favourite_list`
 --
 ALTER TABLE `favourite_list`
-  ADD PRIMARY KEY (`favourite_id`),
 ADD FOREIGN KEY (`hotel_id`) REFERENCES `hotel`(`hotel_id`),
 ADD FOREIGN KEY (`member_id`) REFERENCES `registered_member`(`member_id`);
 

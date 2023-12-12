@@ -62,16 +62,16 @@
     /* Other styling rules */
 }
   .hotel-details-wrapper {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+    display: flex;
     padding: 7rem 0; 
     max-width: 1200px; 
     margin: 0 auto; 
+    justify-content: center;
 }
 
   .hotel-details-container {
-    width: 100%; 
-    max-width: 100%; 
+    width: 100%;
+    max-width: 800px;
     margin: 20px 0; 
 }
 
