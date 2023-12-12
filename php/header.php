@@ -23,7 +23,7 @@ include_once("../helper/function.php");
   <div class="nav">
     <header>
       <a href="index.php"><img src="../images/logo/logo.svg" alt="logo"></a>
-      <form action="searchResults.php" method="POST" style="display:flex; justify-content: center;">
+      <form action="searchResults.php" id="search" method="POST" style="display:flex; justify-content: center;">
         <div class="search">
           <input id="search" name="search" type="text" placeholder="Enter keyword, place, or title" required>
         </div>
