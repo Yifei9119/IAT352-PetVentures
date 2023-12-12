@@ -68,12 +68,16 @@ while ($row = $res->fetch_assoc()) {
 
     }
     $hotelDisplayed = true;
-  echo "<section>";
+
   if ($roomDisplayed == false) {
-    echo "<h2>Rooms</h2>";}
-    $roomDisplayed = true;
-    echo "<div class='room-cards'><div class='room-container'>";
-    echo '<img src="../images/rooms/' . htmlspecialchars($row['room_image']) . '" alt="' . htmlspecialchars($row['accommodation']) . '">';
+    echo "<section>";
+    echo "<h2>Rooms</h2>";
+    echo "<div class='room-cards'>";
+  }
+  $roomDisplayed = true;
+    
+   echo "<div class='room-container'>";
+    echo '<div><img src="../images/rooms/' . htmlspecialchars($row['room_image']) . '" alt="' . htmlspecialchars($row['accommodation']) . '">';
     echo "<div class='room-details'>";
     echo "<h3>" . htmlspecialchars($row['accommodation']) . "</h3>";
     echo "<p> " . htmlspecialchars($row['bed']) . " $" . htmlspecialchars($row['price']) . "</p>";
@@ -82,16 +86,26 @@ while ($row = $res->fetch_assoc()) {
     foreach ($roomDetails as $detail) {
         echo "<p>" . nl2br(htmlspecialchars($detail)) . "</p>";
     }
-    echo"</div>";
+    echo"</div></div>";
     echo "<a href='booking.php?roomid=" . urlencode($row['room_id']) . "'>Reserve</a>";
-    echo "</div></div></section>"; // Close room-details
+    echo "</div>";
+    
+    // Close room-details
 }
+echo "</div></section>";
 
 // Now display the reviews
 echo "<div class='hotel-reviews'>";
 echo "<h2>User Reviews</h2>";
 
-
+if (loggedIn()) {
+    // Display a button that links to the review submission page
+    echo "<a href='submit_review.php?hotelid=" . urlencode($code) . "' class='write-review-button'>Write Review</a>";
+}
+else{
+     // Display a button that links to the login page
+     echo "<a href='login.php' class='write-review-button'>Write Review</a>";
+}
 if ($reviewsResult->num_rows>0) {
     while ($review = $reviewsResult->fetch_assoc()) {
         if (!empty($review['rating']) && !empty($review['comment'] && !empty($review['created_at']))) {
@@ -107,15 +121,6 @@ if ($reviewsResult->num_rows>0) {
     }
 } else {
     echo "<p>No reviews yet. Be the first to write a review!</p>";
-}
-
-if (loggedIn()) {
-    // Display a button that links to the review submission page
-    echo "<a href='submit_review.php?hotelid=" . urlencode($code) . "' class='write-review-button'>Write Review</a>";
-}
-else{
-     // Display a button that links to the login page
-     echo "<a href='login.php' class='write-review-button'>Write Review</a>";
 }
 
 
