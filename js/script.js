@@ -27,10 +27,12 @@ $(document).ready(function() {
     		});
     });
 
+// redirect to account info after button click on account
  document.getElementById("accountInfo").onclick = function () {
     location.href = "accountInfo.php";
 }
 
+// call functions for filtering province and availability
     updateHotelCardsByDropdown("Province");
     updateHotelCardsByDropdown("Availability");
 });

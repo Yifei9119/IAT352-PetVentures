@@ -17,7 +17,11 @@ $res = mysqli_stmt_get_result($stmt);
 
 <div class="booking-history">
     <h1>Booked Rooms</h1>
+    
     <?php
+    if($res->num_rows == 0){
+        echo "<p style='text-align:center;'>Nothing Added to Booking List. Browse our home page and add your first booking</p><a class='no-results' href='index.php'>Browse Hotels</a>";
+        }
     while ($row = $res->fetch_assoc()) {
         format_booking_details($row['booking_id'], $row['room_id'], $row['total_price'], $row['room_image'], $row['accommodation']);
         // To-do: add in booking times?

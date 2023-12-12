@@ -38,24 +38,6 @@ function connection($dbhost, $dbuser, $dbpass, $dbname)
     return $conn;
 }
 
-// function searchbar()
-// {
-//     echo '<form action="searchResults.php" method="POST" style="display:flex; justify-content: center;">
-//     <div>
-//     <label> Place </label>
-//     <input id="search" name="search" type="text" placeholder="Country">
-//     </div>
-//     <div>
-//     <label>Check in</label>
-//     <input id="date" name="startdate" type="date">
-//     </div>
-//     <div>
-//     <label>Check out</label>
-//     <input id="date" name="enddate" type="date">
-//     <input id="submit" type="submit" value="Search">
-//     </div>
-//     </form></div>';
-// }
 function format_hotel_name_as_link($id, $name, $price, $province, $image, $page)
 {
     echo "<div class='hotel-card'>"; // Add this line to wrap each hotel in a card
@@ -73,7 +55,9 @@ function format_hotel_name_as_link($id, $name, $price, $province, $image, $page)
     echo "</button>";
     echo "</div>";
 }
-
+function format_booking_action_link($id,$name,$page) {
+	
+	}
 function format_booking_details($booking_id, $room_id, $price, $image, $accommodation)
 {
     echo "<div class='booking-card'>";
@@ -81,6 +65,7 @@ function format_booking_details($booking_id, $room_id, $price, $image, $accommod
         <img src="../images/rooms/' . $image . '" alt="' . $accommodation . '">
         <h3>' . $accommodation . '</h3>
         <h3>$' . $price . '</h3>';
+        echo "<a class=\"booking-btn\" href=\"delete_member_booking.php?bookingid=$booking_id\">Cancel Booking</a>";
     echo "</div>";
 
 }

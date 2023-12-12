@@ -9,7 +9,12 @@ $favoriteHotelIds = queryFavoriteHotels($db);
 //echo "???";
 echo "<section class='section-padding'>";
 echo "<h1>My Favourite List</h1>";
+if(count($favoriteHotelIds)==0){
+echo "<p style='text-align:center;'>Nothing Added to Favourite List. Browse our home page and add hotels to the list</p><a class='no-results' href='index.php'>Go to Home</a>";
+}
 echo "<div id='hotel-cards'>";
+
+// iterate and show the hotels stored in favourites
 foreach ($favoriteHotelIds as $hotelId){
     $hotel = queryHotelById($db, $hotelId);
 //    echo $hotel['name'];

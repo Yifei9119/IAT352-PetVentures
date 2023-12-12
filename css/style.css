@@ -58,7 +58,7 @@ h1 {
 }
 
 .loginRegister a, .room-container a,
-.write-review-button, .no-results {
+.write-review-button, .no-results, .booking-btn {
   text-decoration: none;
   font-size: 1rem;
   color: #412f29;
