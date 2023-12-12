@@ -115,9 +115,7 @@ CREATE TABLE `registered_member` (
   `first_name` varchar(80) NOT NULL,
   `last_name` varchar(80) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `password` varchar(1000) NOT NULL,
-  `contact_number` varchar(15) DEFAULT NULL,
-  `booking_history` varchar(1000) DEFAULT NULL
+  `password` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

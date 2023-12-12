@@ -1,8 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-// include_once("../helper/function.php");
+
 require_once("header.php");
 // Retrieve room info
 $code = trim($_REQUEST['roomid']);
@@ -29,8 +26,9 @@ if(isset($_POST['submit'])){
         // Save guest details to create new registered_member
         $firstName = !empty($_POST["firstName"]) ? trim($_POST["firstName"]) : "";
         $lastName = !empty($_POST["lastName"]) ? trim($_POST["lastName"]) : "";
-        $contactNumber = !empty($_POST["contactNumber"]) ? trim($_POST["contactNumber"]) : "";
         $email = !empty($_POST["email"]) ? trim($_POST["email"]) : "";
+        $username = !empty($_POST["username"]) ? trim($_POST["username"]) : "";
+        $contactNumber = !empty($_POST["contactNumber"]) ? trim($_POST["contactNumber"]) : "";
 
         // Confirm card details to purchase
         $ccNumber = !empty($_POST["ccNumber"]) ? trim($_POST["ccNumber"]) : "";
@@ -38,20 +36,20 @@ if(isset($_POST['submit'])){
         $ccCVV = !empty($_POST["ccCVV"]) ? trim($_POST["ccCVV"]) : "";
         $ccName = !empty($_POST["ccName"]) ? trim($_POST["ccName"]) : "";
 
-        if (!$firstName || !$lastName || !$contactNumber || !$email || !$ccExpiry || !$ccCVV || !$ccName){
+        if (!$firstName || !$lastName || !$contactNumber || !$username || !$email || !$ccExpiry || !$ccCVV || !$ccName){
             //If not all details have been filled
             $message = "Please fill in all fields.";
-            echo 'FNAME: '.$firstName . ' LNAME: '.$lastName ." Cont: ".$contactNumber . ' Email: '.$email  .' ccName: '.$ccName  .' ccExp: '.$ccExpiry  .' ccCVV: '.$ccCVV  .' ccNum: '.$ccNumber;
+            // echo 'FNAME: '.$firstName . ' LNAME: '.$lastName ." Cont: ".$contactNumber . ' Email: '.$email  .' ccName: '.$ccName  .' ccExp: '.$ccExpiry  .' ccCVV: '.$ccCVV  .' ccNum: '.$ccNumber;
             echo "<script>alert('$message');</script>";
         } else {
             // Add user to database with contact number as password
             $number_encrypted = password_hash($contactNumber, PASSWORD_DEFAULT);
             // Insert query to add to registered_member
-            $query = "INSERT INTO registered_member (email, password, first_name,last_name) ";
-            $query .= "VALUES (?,?,?,?)";
+            $query = "INSERT INTO registered_member (email, password, first_name,last_name, member_id) ";
+            $query .= "VALUES (?,?,?,?,?)";
         
             $stmt = $db->prepare($query);
-            $stmt->bind_param('ssss',$email,$number_encrypted,$firstName,$lastName);
+            $stmt->bind_param('sssss',$email,$number_encrypted,$firstName,$lastName,$username);
             $stmt->execute();
             echo $query;
             $member_id = mysqli_insert_id($db);
@@ -98,6 +96,7 @@ if(isset($_POST['submit'])){
                 echo '<label> Guest Details </label>
                 <input id="firstName" name="firstName" type="text" placeholder="First Name" required>
                 <input id="lastName" name="lastName" type="text" placeholder="Last Name" required>
+                <input id="username" name="username" type="text" placeholder="Username" required>
                 <label for="contactNumber">Phone Number</label>
                 <input id="contactNumber" type="text" name="contactNumber" placeholder="Phone Number">
                 <label for="email">Email Address:</label>
@@ -136,6 +135,6 @@ if(isset($_POST['submit'])){
     ';
 
 $res->free_result();
-include('footer.php');
 $db->close();
+include('footer.php');
 ?>

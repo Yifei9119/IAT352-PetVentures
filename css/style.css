@@ -268,6 +268,7 @@ margin:0;
     width:100%;
 }
 
+/* booking cards */
 .booking-room-wrapper,
 .booking-card {
   max-width: 50vw;
@@ -285,7 +286,8 @@ margin:0;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  height: 100vh;
+  height: fit-content;
+  padding: 7rem 0;
 }
 
 .booking-confirmation-wrapper {
@@ -310,6 +312,7 @@ hr {
   justify-content: center;
   align-items: center;
 }
+
 .title-p {
   font-family: "Verdana", sans-serif;
   width: 29rem;
