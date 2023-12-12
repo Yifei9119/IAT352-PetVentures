@@ -15,7 +15,7 @@ if (!isset($_POST['submit'])) { // detect form submission
     // Retrieve and trim email and password from the POST data if they exist
     $email = !empty($_POST["email"]) ? trim($_POST["email"]) : "";
     $password = !empty($_POST["password"]) ? trim($_POST["password"]) : "";
-    //$user_id= !empty($_POST["member_id"]) ? trim($_POST["member_id"]) : "";
+    $user_id= !empty($_POST["member_id"]) ? trim($_POST["member_id"]) : "";
     // Prepare a query to fetch the user's email and hashed password from the database
     $query = "SELECT member_id, password FROM registered_member";
     $query .= " WHERE email = ?";

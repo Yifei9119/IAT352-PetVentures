@@ -51,14 +51,13 @@ if(isset($_POST['submit'])){
             $stmt = $db->prepare($query);
             $stmt->bind_param('sssss',$email,$number_encrypted,$firstName,$lastName,$username);
             $stmt->execute();
-            echo $query;
-            $member_id = mysqli_insert_id($db);
-
+            // $member_id = mysqli_insert_id($db);
+            $_SESSION['valid_user'] = $username;
             // Create booking with registered_member ID
             $query = "INSERT INTO booking (pet_info, options, total_price, room_id, member_id) ";
             $query .= "VALUES (?,?,?,?,?)";
             $stmt = $db->prepare($query);
-            $stmt->bind_param('sssss',$pet_info,$options,$price,$room_id,$member_id);
+            $stmt->bind_param('sssss',$pet_info,$options,$price,$room_id,$username);
             $stmt->execute();
             // echo $query;
 
