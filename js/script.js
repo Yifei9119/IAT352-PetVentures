@@ -1,6 +1,6 @@
 $(document).ready(function() {
 // get form ID and redirect to search results page with the search value
-    $('#search').on('submit', function (ev) {
+    $('#searchResults').on('submit', function (ev) {
         ev.preventDefault();
         
         // original form action url
