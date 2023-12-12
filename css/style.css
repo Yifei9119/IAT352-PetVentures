@@ -126,6 +126,7 @@ form {
 .dropbtn img {
   width: 2.5rem;
   margin: auto;
+  margin-right: 0.75rem;
 }
 .dropbtn p {
   font-size: 1rem;
@@ -172,12 +173,6 @@ form {
 }
 .section-title{
     padding: 3rem 0;
-}
-.section-title h1{
-    color:#ffc107;
-    font-size: 2.5rem;
-    margin-top:0;
-
 }
 
 .landing-image {

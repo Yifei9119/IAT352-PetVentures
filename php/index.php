@@ -30,7 +30,7 @@ echo "<section class='landing-image'>";
 echo "<div class='absolute-pos'><h1 class='title'>Pet-Friendly Hotels in Canada</h1>";
 echo "<p class='title-p'>Browse through pet-friendly hotels in Canada. PetVentures provides the best accommodations for your pets.</p></div>";
 echo "</section>";
-  echo "<section class='section-padding'>";
+  echo "<section class='section-title'>";
   echo "<h1>Explore Our Hotels</h1>";
   echo "<div class='flex-inline filter'>";
   echo "<label class='filter'>Filter by: </label>";

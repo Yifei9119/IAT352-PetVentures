@@ -26,5 +26,7 @@ $res = mysqli_stmt_get_result($stmt);
 </div>
 
 <?php
+$res->free_result();
+$db->close();
 include('footer.php');
 ?>

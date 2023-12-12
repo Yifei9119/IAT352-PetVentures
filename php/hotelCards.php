@@ -3,7 +3,6 @@
 <?php
 include_once("../helper/function.php");
 // Establish database connection
-$db = connection('localhost', 'root', '', 'hotel_models');
 if (!empty(($_POST['Province']))) {
     $_SESSION['Province'] = $_POST['Province'];
 }
@@ -65,3 +64,7 @@ while ($row = $res->fetch_assoc()) {
     // Format each hotel model as a link
     format_hotel_name_as_link($row["hotel_id"], $row["name"], $row['price'], $row['province'], $row['image'], "hoteldetails.php");
 }
+
+$res->free_result();
+$db->close();
+?>

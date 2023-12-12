@@ -2,7 +2,8 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include('../helper/function.php');
+
+require_once('header.php');
 require_SSL();
 
 // Check if the form is not submitted
@@ -38,8 +39,6 @@ if (!isset($_POST['submit'])) { // detect form submission
     else $message = "Sorry, email and password combination not registered. <a href=\"\">Forgot?</a>";
 }
 
-require('header.php');
-
 ?>
 <div class="flex">
 <div class="form-container">
@@ -72,5 +71,5 @@ require('header.php');
 
 
 <?php 
-	require('footer.php');
+	require_once('footer.php');
 ?>

@@ -61,7 +61,7 @@ while ($row = $res->fetch_assoc()) {
             echo "<p>" . nl2br(htmlspecialchars($service)) . "</p>";
         }
         echo "</div></div>";
-        // echo "<h2>Policies</h2><p>" . nl2br(htmlspecialchars(isset($row['policies']) ? $row['policies'] : '')) . "</p>";
+        echo "<h2>Policies</h2><p>" . nl2br(htmlspecialchars(isset($row['policies']) ? $row['policies'] : '')) . "</p>";
 
         echo "</div>"; // Close hotel-info
         //echo "</div>"; // Close hotel-content
