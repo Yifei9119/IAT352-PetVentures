@@ -92,3 +92,6 @@ function queryHotelById($db, $id)
 
     return $result->fetch_assoc();
 }
+$db->close();
+require_once("footer.php");
+?>

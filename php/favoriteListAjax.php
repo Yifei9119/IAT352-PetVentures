@@ -15,3 +15,6 @@ if (!empty($_SESSION['valid_user']) && !empty($_POST[$postKey])){
     handleData($db, $user_id, $table, $hotelId, "hotel_id");
 }
 
+$db->close();
+?>
+
