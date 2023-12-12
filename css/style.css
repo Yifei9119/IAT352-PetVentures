@@ -57,7 +57,7 @@ h1 {
 }
 
 .loginRegister a, .room-container a,
-.write-review-button {
+.write-review-button, .no-results {
   text-decoration: none;
   font-size: 1rem;
   color: #412f29;
@@ -65,6 +65,12 @@ h1 {
   background-color: #ffc107;
   margin: auto;
   border-radius: 4px;
+}
+
+.no-results{
+    display:flex;
+    text-align: center;
+    width: fit-content;
 }
 
 .room-container a{
@@ -161,7 +167,16 @@ form {
 
 /* landing page */
 .section-padding {
-  padding: 3rem 0;
+  padding: 5rem 0;
+}
+.section-title{
+    padding: 3rem 0;
+}
+.section-title h1{
+    color:#ffc107;
+    font-size: 2.5rem;
+    margin-top:0;
+
 }
 
 .landing-image {
@@ -212,12 +227,6 @@ form {
   color: white;
 }
 
-.section-padding h1{
-    color:#ffc107;
-    font-size: 2.5rem;
-    margin-top:0;
-
-}
 /* review */
 .main-content {
   padding-top: 50px;
