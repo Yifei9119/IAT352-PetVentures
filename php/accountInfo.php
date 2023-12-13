@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 require_once("header.php");
-
+$message = '';
 $userResult = userResult($db, $current_user);
 while ($row = $userResult->fetch_assoc()) {
     $email=$row['email'];
@@ -65,8 +65,10 @@ if (isset($_POST['submit'])) { // detect form submission
             echo $stmt->error;
             exit();
          }
-        // Redirect to the login page after successful registration
-    }
+        // Reload page after successful registration and display success message
+        $message = 'Personal information has been changed successfully';
+        echo"<p class='success-message'>$message</p>";
+    } 
 }
 else {
     $fname = "";

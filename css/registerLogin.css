@@ -61,6 +61,10 @@ input[type=submit]:hover, .loginRegister a:hover, .write-review-button:hover  {
     color: red; /* Or any color you wish for error messages */
 }
 
+.success-message{
+    color:green;
+}
+
 .underline{
     color:#FFC107;
     text-shadow: black 0px 0px;
