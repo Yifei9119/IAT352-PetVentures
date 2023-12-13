@@ -29,11 +29,10 @@ while ($row = $userResult->fetch_assoc()) {
     </div</div>
     ';
 
-    if (empty($_SESSION['message'])) {
+    if (!empty($_SESSION['message'])) {
         echo "<p class='success-message'>" . $_SESSION['message'] . "</p>";
-    } else {
         $_SESSION['message'] = '';
-    }
+    } 
 }
 
 if (isset($_POST['submit'])) { // detect form submission
