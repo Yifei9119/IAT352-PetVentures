@@ -5,7 +5,7 @@ $userResult = userResult($db, $current_user);
 
 // display editing personal information form
 while ($row = $userResult->fetch_assoc()) {
-    $email=$row['email'];
+    $email = $row['email'];
 
     echo '<div class="flex">
     <div class="form-container">
@@ -15,11 +15,8 @@ while ($row = $userResult->fetch_assoc()) {
     <input name="fname" type="text" value="' . $row['first_name'] . '" required>
 </div><div>
     <label for="lname">Last Name:</label>
-    <input type="text" name="lname" value="'. $row['last_name'] .'" required>
+    <input type="text" name="lname" value="' . $row['last_name'] . '" required>
 </div></div>
-
-    <label for="username">Username:</label>
-    <input name="username" type="text" value="'. $row['member_id'].'" required>
 
     <label for="password">Password:</label>
     <input type="password" name="password" required>
@@ -31,49 +28,49 @@ while ($row = $userResult->fetch_assoc()) {
     </form>
     </div</div>
     ';
-    echo "<p class='success-message'>".$_SESSION['message']."</p>";
-    if(!empty($_SESSION['message'])) $_SESSION['message'] = '';
-    
+
+    if (empty($_SESSION['message'])) {
+        echo "<p class='success-message'>" . $_SESSION['message'] . "</p>";
+    } else {
+        $_SESSION['message'] = '';
+    }
 }
 
 if (isset($_POST['submit'])) { // detect form submission
 
-    // detect if each variable is set (fname, lname, email, password, sid, faculty)
+    // detect if each variable is set (fname, lname, password,)
     $fname = !empty($_POST["fname"]) ? trim($_POST["fname"]) : "";
     $lname = !empty($_POST["lname"]) ? trim($_POST["lname"]) : "";
-    $username = !empty($_POST["username"]) ? trim($_POST["username"]) : "";
     $password = !empty($_POST["password"]) ? $_POST["password"] : "";
     $password2 = !empty($_POST["password2"]) ? $_POST["password2"] : "";
-       // Check if passwords match
-    if($password != $password2) {
+    // Check if passwords match
+    if ($password != $password2) {
         $message = "Passwords do not match.";
         echo "<script>alert('$message');</script>";
     }
     // Check if all fields are filled
-    else if (!$fname || !$lname || !$username|| !$password) {
-    	$message = "All fields mandatory.";
+    else if (!$fname || !$lname || !$password) {
+        $message = "All fields mandatory.";
         echo "<script>alert('$message');</script>";
-    }
-    else {
+    } else {
         $pw_encrypted = password_hash($password, PASSWORD_DEFAULT);
-        // Prepare an INSERT query to add the new user to the database
-        $query = "UPDATE registered_member SET password=?, first_name = ?, last_name=?, member_id =? WHERE email=?";
-      
-      	$stmt = $db->prepare($query);
-		$stmt->bind_param('sssss',$pw_encrypted,$fname,$lname,$username, $email);
-		$stmt->execute();
+        // Prepare an UPDATE query to update user info to the database
+        $query = "UPDATE registered_member SET password=?, first_name = ?, last_name=? WHERE email=?";
+
+        $stmt = $db->prepare($query);
+        $stmt->bind_param('ssss', $pw_encrypted, $fname, $lname, $email);
+        $stmt->execute();
 
         if ($stmt->error) {
             echo $stmt->error;
             exit();
-         }
+        }
         // Reload page after successful registration and display success message
         $_SESSION['message'] = 'Personal information has been changed successfully';
         redirect_to('accountInfo.php');
 
-    } 
-}
-else {
+    }
+} else {
     $fname = "";
     $lname = "";
     $username = "";
