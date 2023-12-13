@@ -1,10 +1,9 @@
 <script src="../js/script.js"></script>
 <?php
-// session_start();
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include_once("../helper/function.php");
 require_once("header.php");
 
 // Define a query string to select product codes and names from the products table

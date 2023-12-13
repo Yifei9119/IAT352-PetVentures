@@ -1,8 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-// include_once("../helper/function.php");
+
 require_once("header.php");
 
 // Search for bookings with member id
