@@ -2,7 +2,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include('../helper/function.php');
+require_once('header.php');
 require_SSL();
 
 if (isset($_POST['submit'])) { // detect form submission
@@ -17,10 +17,12 @@ if (isset($_POST['submit'])) { // detect form submission
        // Check if passwords match
     if($password != $password2) {
         $message = "Passwords do not match.";
+        echo "<script>alert('$message');</script>";
     }
     // Check if all fields are filled
     else if (!$fname || !$lname || !$email || !$password) {
-    	$message = "All fields manadatory.";
+    	$message = "All fields mandatory.";
+        echo "<script>alert('$message');</script>";
     }
     else {
         $pw_encrypted = password_hash($password, PASSWORD_DEFAULT);
@@ -42,8 +44,6 @@ else {
     $username = "";
     $email = "";
 }
-
-require('header.php');
 ?>
 <div class="flex">
 <div class="form-container">
@@ -74,27 +74,6 @@ require('header.php');
     </form>
 </div>
 </div>
-
-<!-- 
-            <h2>Register for a Classic Models account</h2>
-            <form action="register.php" method="post">
-                <label for="fname">First Name: <input name="fname" type="text" value="<?php $fname ?>"></label>
-				<br/>
-                <label for="lname">Last Name: <input type="text" name="lname" value="<?php $lname ?>"></label>
-				<br/>
-                <label for="email">Email Address: <input type="email" name="email" value="<?php $email ?>"></label>
-				<br/>
-
-                <label for="password">Password: <input type="password" name="password" value=""></label>
-				<br/>
-                <label for="password2">Password: <input type="password" name="password2" value=""></label>
-				<br/>
-
-
-                <input type="submit" name="submit" value="Register">
-                <?php if(!empty($message)) echo '<p class="message">' . $message . '</p>' ?>
-            </form> -->
-
 
 <?php
 	require('footer.php');

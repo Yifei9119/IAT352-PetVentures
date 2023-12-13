@@ -22,7 +22,7 @@ function require_SSL()
 // Start the session
 session_start();
 // Establish database connection
-$db = connection('localhost', 'root', '', 'hotel_models');
+$db = connection('localhost', 'root', '', 'PetVentures');
 
 // Function to create a database connection and handle connection errors
 function connection($dbhost, $dbuser, $dbpass, $dbname)
