@@ -2,53 +2,52 @@
 <?php
 require_once("header.php");
 include_once("../helper/function.php");
-
+// Querying favorite hotel IDs from the database
 $favoriteHotelIds = queryFavoriteHotels($db);
 
+// Starting the section for displaying favorite hotels
 echo "<section class='section-padding'>";
 echo "<h1>My Favourite List</h1>";
-if(count($favoriteHotelIds)==0){
-echo "<p style='text-align:center;'>Nothing Added to Favourite List. Browse our home page and add hotels to the list</p><a class='no-results' href='index.php'>Go to Home</a>";
+// Checking if the favorite list is empty and displaying a message if it is
+if (count($favoriteHotelIds) == 0) {
+    echo "<p style='text-align:center;'>Nothing Added to Favourite List. Browse our home page and add hotels to the list</p><a class='no-results' href='index.php'>Go to Home</a>";
 }
 echo "<div id='hotel-cards'>";
 
 // iterate and show the hotels stored in favourites
-foreach ($favoriteHotelIds as $hotelId){
+foreach ($favoriteHotelIds as $hotelId) {
     $hotel = queryHotelById($db, $hotelId);
-//    echo $hotel['name'];
+
     format_hotel_name_as_link($hotel["hotel_id"], $hotel["name"], $hotel['price'], $hotel['province'], $hotel['image'], "hoteldetails.php");
 }
 echo "</div>";
 
+// Function to query favorite hotels from the database
 function queryFavoriteHotels($db)
 {
-    // 准备一个带有参数占位符的SQL查询
-    $query = "SELECT hotel_id FROM favourite_list WHERE member_id = ?";
 
-// 创建预处理语句
+    $query = "SELECT hotel_id FROM favourite_list WHERE member_id = ?";
     $stmt = $db->prepare($query);
 
-// 检查是否成功创建预处理语句
+    // Handling prepare statement error
     if ($stmt === false) {
         die("Prepare error: " . $db->error);
     }
 
-// 将变量绑定到预处理语句的参数
-    $stmt->bind_param('s', $_SESSION["valid_user"]); // 'i' 表示参数是一个整数
+    // Binding session user ID to the prepared statement
+    $stmt->bind_param('s', $_SESSION["valid_user"]);
 
-// 执行查询
+    // Executing the statement and handling execution error
     if (!$stmt->execute()) {
         die("Execute error: " . $stmt->error);
     }
 
-// 获取结果
+    // Fetching the result of the query
     $result = $stmt->get_result();
 
-// 接下来，你可以处理查询结果
-// 例如，遍历结果集
+    // Collecting all hotel IDs
     $allRows = [];
     while ($row = $result->fetch_assoc()) {
-        // 处理每一行
         $allRows[] = $row['hotel_id'];
     }
 
@@ -57,39 +56,28 @@ function queryFavoriteHotels($db)
     return $allRows;
 }
 
+// Function to query detailed information of a hotel by its ID
 function queryHotelById($db, $id)
 {
-    // 准备SQL语句
+    
     $query = "SELECT hotel.hotel_id, hotel.name, hotel.image, hotel.province, MIN(room.price) as price FROM hotel INNER JOIN room ON hotel.hotel_id = room.hotel_id WHERE hotel.hotel_id = ? GROUP BY hotel.hotel_id";
-
-//    echo $query;
-//    return;
-// 创建预处理语句
     $stmt = $db->prepare($query);
 
-// 检查预处理语句是否成功创建
+    // Handling prepare statement error
     if ($stmt === false) {
         die("Prepare error: " . $db->error);
     }
 
-// 将变量绑定到预处理语句的参数
-    $stmt->bind_param('s', $id); // 'i' 表示参数是一个整数
+    // Binding the hotel ID to the prepared statement
+    $stmt->bind_param('s', $id); 
 
-// 执行查询
+    // Executing the statement and handling execution error
     if (!$stmt->execute()) {
         die("Execute error: " . $stmt->error);
     }
 
-// 获取结果
     $result = $stmt->get_result();
-
-// 处理结果
-//    while ($row = $result->fetch_assoc()) {
-//        // 使用 $row 数组中的数据
-//        // 例如: echo $row["column_name"];
-//    }
-
-// 关闭语句
+    // Closing the statement
     $stmt->close();
 
     return $result->fetch_assoc();

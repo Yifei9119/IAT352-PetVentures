@@ -114,19 +114,17 @@ function sanitizeInput($var)
     return $var;
 }
 
-
+// Function to handle data operations based on specified conditions
 function handleData($db, $uid, $table, $id, $condition)
 {
     $query = "SELECT * FROM " . $table . " WHERE " . "hotel_id" . " = ? AND member_id = ?";
-//    echo $query;
-//    return;
+
     $stmt = $db->prepare($query);
     if ($stmt === false) {
         echo "Prepare error: " . $db->error;
         return null;
     }
-//    echo $query;
-//return;
+
     $stmt->bind_param('ss', $id, $uid);
     if (!$stmt->execute()) {
         echo "Execute error: " . $stmt->error;
@@ -138,17 +136,17 @@ function handleData($db, $uid, $table, $id, $condition)
         echo "Query error: " . $db->error;
         return null;
     }
-//echo "???";
-//return;
+    // Handling data based on the existence of rows in the result
     if (mysqli_num_rows($result) > 0) {
+    // Deleting data if it already exists
         $deleteQuery = "DELETE FROM " . $table . " WHERE " . "hotel_id" . " = ? AND member_id = ?";
-//    echo $deleteQuery;
-//    return;
         $deleteStmt = $db->prepare($deleteQuery);
+        // Checking for prepare statement error
         if (!$deleteStmt) {
             echo "Prepare failed: (" . $db->errno . ") " . $db->error;
             return;
         }
+        // Binding parameters and executing delete statement
         $deleteStmt->bind_param('ss', $id, $uid);
         if (!$deleteStmt->execute()) {
             echo "Execute failed: (" . $deleteStmt->errno . ") " . $deleteStmt->error;
@@ -157,13 +155,12 @@ function handleData($db, $uid, $table, $id, $condition)
         $deleteStmt->close();
     } else {
         $insert = "INSERT INTO " . $table . " (member_id, $condition) VALUES ('" . $uid . "', " . $id . ")";
-//        echo $insert;
-//        return;
+
         $db->query($insert);
     }
 }
 
-
+// Function to create a dropdown button with provided options
 function dropdownButton($label, $options){
     echo "<label>" . ucwords($label);
     echo "<select name='" . $label . "' id='" . $label . "'>";
