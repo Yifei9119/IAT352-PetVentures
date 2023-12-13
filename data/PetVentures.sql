@@ -16,11 +16,11 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-DROP DATABASE IF EXISTS hotel_models;
-CREATE DATABASE hotel_models;
-use hotel_models;
+DROP DATABASE IF EXISTS PetVentures;
+CREATE DATABASE PetVentures;
+use PetVentures;
 --
--- Database: `hotel_models`
+-- Database: `PetVentures`
 --
 
 -- --------------------------------------------------------
