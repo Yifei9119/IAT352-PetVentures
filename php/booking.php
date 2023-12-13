@@ -20,7 +20,7 @@ while ($row = $res->fetch_assoc()) {
     $price = $row['price'];
 }
 
-if(isset($_POST['submit'])){
+if (isset($_POST['submit'])) {
     // Not logged in
     if (empty($_SESSION['valid_user'])) {
         // Save guest details to create new registered_member
@@ -36,7 +36,7 @@ if(isset($_POST['submit'])){
         $ccCVV = !empty($_POST["ccCVV"]) ? trim($_POST["ccCVV"]) : "";
         $ccName = !empty($_POST["ccName"]) ? trim($_POST["ccName"]) : "";
 
-        if (!$firstName || !$lastName || !$contactNumber || !$username || !$email || !$ccExpiry || !$ccCVV || !$ccName){
+        if (!$firstName || !$lastName || !$contactNumber || !$username || !$email || !$ccExpiry || !$ccCVV || !$ccName) {
             //If not all details have been filled
             $message = "Please fill in all fields.";
             // echo 'FNAME: '.$firstName . ' LNAME: '.$lastName ." Cont: ".$contactNumber . ' Email: '.$email  .' ccName: '.$ccName  .' ccExp: '.$ccExpiry  .' ccCVV: '.$ccCVV  .' ccNum: '.$ccNumber;
@@ -47,9 +47,9 @@ if(isset($_POST['submit'])){
             // Insert query to add to registered_member
             $query = "INSERT INTO registered_member (email, password, first_name,last_name, member_id) ";
             $query .= "VALUES (?,?,?,?,?)";
-        
+
             $stmt = $db->prepare($query);
-            $stmt->bind_param('sssss',$email,$number_encrypted,$firstName,$lastName,$username);
+            $stmt->bind_param('sssss', $email, $number_encrypted, $firstName, $lastName, $username);
             $stmt->execute();
             // $member_id = mysqli_insert_id($db);
             $_SESSION['valid_user'] = $username;
@@ -57,12 +57,12 @@ if(isset($_POST['submit'])){
             $query = "INSERT INTO booking (pet_info, options, total_price, room_id, member_id) ";
             $query .= "VALUES (?,?,?,?,?)";
             $stmt = $db->prepare($query);
-            $stmt->bind_param('sssss',$pet_info,$options,$price,$room_id,$username);
+            $stmt->bind_param('sssss', $pet_info, $options, $price, $room_id, $username);
             $stmt->execute();
             // echo $query;
 
             $bookid = mysqli_insert_id($db);
-            redirect_to("confirm_booking.php?bookid=". $bookid);
+            redirect_to("confirm_booking.php?bookid=" . $bookid);
         }
     } else {
         // User is logged in
@@ -74,12 +74,12 @@ if(isset($_POST['submit'])){
         $query = "INSERT INTO booking (pet_info, options, total_price, room_id, member_id) ";
         $query .= "VALUES (?,?,?,?,?)";
         $stmt = $db->prepare($query);
-		$stmt->bind_param('sssss',$pet_info,$options,$total_price,$room_id,$member_id);
-		$stmt->execute();
+        $stmt->bind_param('sssss', $pet_info, $options, $total_price, $room_id, $member_id);
+        $stmt->execute();
         // echo $query;
 
         $bookid = mysqli_insert_id($db);
-        redirect_to("confirm_booking.php?bookid=". $bookid);
+        redirect_to("confirm_booking.php?bookid=" . $bookid);
     }
 }
 ?>
@@ -90,9 +90,9 @@ if(isset($_POST['submit'])){
         <!-- Check if user is logged in, if not, display Guest Details form -->
         <!-- if not a user, insert information above to registered_member and create the account for the user -->
         <?php
-            echo "<form action='booking.php?roomid=$room_id' method='POST'>";            
-            if (empty($_SESSION['valid_user'])) {
-                echo '<label> Guest Details </label>
+        echo "<form action='booking.php?roomid=$room_id' method='POST'>";
+        if (empty($_SESSION['valid_user'])) {
+            echo '<label> Guest Details </label>
                 <input id="firstName" name="firstName" type="text" placeholder="First Name" required>
                 <input id="lastName" name="lastName" type="text" placeholder="Last Name" required>
                 <input id="username" name="username" type="text" placeholder="Username" required>
@@ -101,8 +101,8 @@ if(isset($_POST['submit'])){
                 <label for="email">Email Address:</label>
                 <input type="email" name="email" value="" placeholder="Email Address" required>
                 <hr>';
-            }
-            ?>
+        }
+        ?>
         <!-- Payment Details -->
         <label for="ccNumber">Card Number</label>
         <input id="ccNumber" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number"
@@ -123,7 +123,7 @@ if(isset($_POST['submit'])){
     </div>
 
     <?php
-//get the id number from the room reserved and display the room information
+    //get the id number from the room reserved and display the room information
     echo '<div class="booking-room-wrapper">
     <h2>Room ' . $room_id . '</h2>
     <img src="../images/rooms/' . $room_image . '" alt="' . $accommodation . '">
@@ -133,7 +133,7 @@ if(isset($_POST['submit'])){
     </div>
     ';
 
-$res->free_result();
-$db->close();
-include('footer.php');
-?>
+    $res->free_result();
+    $db->close();
+    include('footer.php');
+    ?>

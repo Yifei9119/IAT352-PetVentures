@@ -222,6 +222,7 @@ form {
   font-size: 1.15rem;
   color: white;
 }
+  
 
 /* review */
 .main-content {
@@ -314,12 +315,10 @@ hr {
   align-items: center;
 }
 
-.title-p {
-  font-family: "Verdana", sans-serif;
-  width: 29rem;
-  font-size: 1.15rem;
-  color: white;
+.booking-table{
+    text-align: left;
 }
+
 
 /* Style for the form inputs */
 input[type=text], input[type=email], input[type=password], input[type=submit], input[type=date], select{

@@ -57,18 +57,6 @@ if (!isset($_POST['submit'])) { // detect form submission
 </div>
 </div>
 
-	<!-- <h2>Sign in</h2>
-    
-
-    <form action="login.php" method="post">
-    <label for="email">Email Address: <input type="email" name="email" value="<?php $email ?>"></label>
-    <br/>
-    <label for="password">Password: <input type="password" name="password" value=""></label>
-    <br/>
-    <input type="submit" name="submit" value="Submit">
-            </form>
-	<p><a href="register.php">Not registered yet? Register here.</a></p> -->
-
 
 <?php 
 	require_once('footer.php');

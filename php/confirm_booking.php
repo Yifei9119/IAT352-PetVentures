@@ -46,33 +46,19 @@ if (!empty($_REQUEST['bookid'])) {
 <div class="booking-confirmation-wrapper">
     <h1>Booking Successful!</h1>
     <h2>Details</h2>
-    <table>
+    <table class="booking-table">
         <tr>
             <th>Price: </th>
             <th><?php echo $booking_price; ?></th>
         </tr>
         <tr>
-            <th>Pet Info: </th>
-            <!-- <th></th> -->
-        </tr>
-        <tr>
-            <th>Options: </th>
-            <!-- <th></th> -->
-        </tr>
-        </tr>
-        <tr>
             <th>Room ID: </th>
             <th><?php echo $room_id; ?></th>
         </tr>
-        </tr>
+
         <tr>
             <th>Member ID: </th>
             <th><?php echo $member_id; ?></th>
-        </tr>
-        </tr>
-        <tr>
-            <th>Booking Dates: </th>
-            <!-- <th></th> -->
         </tr>
     </table>
 

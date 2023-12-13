@@ -15,6 +15,7 @@ $stmt->execute();
 $res = mysqli_stmt_get_result($stmt);
 ?>
 
+<!-- display booking details -->
 <div class="booking-history">
     <h1>Booked Rooms</h1>
     
@@ -24,7 +25,6 @@ $res = mysqli_stmt_get_result($stmt);
         }
     while ($row = $res->fetch_assoc()) {
         format_booking_details($row['booking_id'], $row['room_id'], $row['total_price'], $row['room_image'], $row['accommodation']);
-        // To-do: add in booking times?
     }
 ?>
 </div>
