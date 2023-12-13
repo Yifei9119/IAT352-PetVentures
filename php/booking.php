@@ -13,6 +13,7 @@ $room_id = "";
 $room_image = "";
 $accommodation = "";
 $price = "";
+
 while ($row = $res->fetch_assoc()) {
     $room_id = $row['room_id'];
     $room_image = $row['room_image'];

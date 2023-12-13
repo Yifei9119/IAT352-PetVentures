@@ -2,11 +2,9 @@
 <?php
 require_once("header.php");
 include_once("../helper/function.php");
-////ini_set('display_errors', 1);
-////ini_set('display_startup_errors', 1);
-////error_reporting(E_ALL);
+
 $favoriteHotelIds = queryFavoriteHotels($db);
-//echo "???";
+
 echo "<section class='section-padding'>";
 echo "<h1>My Favourite List</h1>";
 if(count($favoriteHotelIds)==0){
@@ -21,7 +19,6 @@ foreach ($favoriteHotelIds as $hotelId){
     format_hotel_name_as_link($hotel["hotel_id"], $hotel["name"], $hotel['price'], $hotel['province'], $hotel['image'], "hoteldetails.php");
 }
 echo "</div>";
-//echo $favoriteHotelIds[5];
 
 function queryFavoriteHotels($db)
 {

@@ -5,6 +5,8 @@ error_reporting(E_ALL);
 require_once("header.php");
 $message = '';
 $userResult = userResult($db, $current_user);
+
+// display editing personal information form
 while ($row = $userResult->fetch_assoc()) {
     $email=$row['email'];
 
