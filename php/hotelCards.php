@@ -2,7 +2,7 @@
 <script src="../js/add_favorite.js"></script>
 <?php
 include_once("../helper/function.php");
-// Establish database connection
+
 if (!empty(($_POST['Province']))) {
     $_SESSION['Province'] = $_POST['Province'];
 }

@@ -33,7 +33,7 @@ include_once("../helper/function.php");
         </div>
       </form>
       <?php
-      // check if user has logged_in and display the user's first and last name and dropdown list
+      // check if user has logged_in and display the user's first and last name and the dropdown list
       // otherwise show the login and register buttons
       if (loggedIn()) {
         $userResult = userResult($db, $current_user);

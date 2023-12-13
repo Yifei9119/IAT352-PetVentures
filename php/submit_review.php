@@ -1,10 +1,6 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-// include_once("../helper/function.php");
-require_once("header.php");
 
+require_once("header.php");
 
 // Fetch hotels for the dropdown
 $hotelsQuery = "SELECT hotel_id, name FROM hotel";
@@ -22,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $insertQuery = "INSERT INTO reviews (hotel_id, member_id, rating, comment) VALUES (?, ?, ?, ?)";
     $insertStmt = $db->prepare($insertQuery);
 
-    $insertStmt->bind_param("isis", $hotel_id, $current_user,$rating, $comment);
+    $insertStmt->bind_param("isis", $hotel_id, $current_user, $rating, $comment);
     $insertStmt->execute();
 
     if ($insertStmt->affected_rows > 0) {
@@ -43,7 +39,7 @@ $reviewsStmt = $db->prepare($reviewsQuery);
 $reviewsStmt->execute();
 $reviewsResult = $reviewsStmt->get_result();
 
-echo'
+echo '
 
 <div class="main-content">
 <div class="review-form-container">
@@ -51,10 +47,10 @@ echo'
     <form action="submit_review.php" method="post">
         <label for="hotel_id">Choose a hotel:</label>
         <select id="hotel_id" name="hotel_id" required>';
-            while ($hotel = $hotelsResult->fetch_assoc()){
-                echo'<option value="'. $hotel['hotel_id'].'">'. htmlspecialchars($hotel['name']).'</option>';
-            }
-        echo'</select>
+while ($hotel = $hotelsResult->fetch_assoc()) {
+    echo '<option value="' . $hotel['hotel_id'] . '">' . htmlspecialchars($hotel['name']) . '</option>';
+}
+echo '</select>
         <label for="rating">Rating:</label>
         <input type="number" id="rating" name="rating" required min="1" max="5" placeholder="1">
         <label for="comment">Comment:</label>
@@ -66,13 +62,13 @@ echo'
 
 <div class="reviews-container">
     <h2>Customer Reviews</h2>';
-    while($review = $reviewsResult->fetch_assoc()){
-        echo'<div class="review">
-            <p>Hotel: '. htmlspecialchars($review['name']).'</p>
-            <p>Rating: '.str_repeat('★', $review['rating']) .'</p>
-            <p>Comment: '. htmlspecialchars($review["comment"]). '</p>
+while ($review = $reviewsResult->fetch_assoc()) {
+    echo '<div class="review">
+            <p>Hotel: ' . htmlspecialchars($review['name']) . '</p>
+            <p>Rating: ' . str_repeat('★', $review['rating']) . '</p>
+            <p>Comment: ' . htmlspecialchars($review["comment"]) . '</p>
         </div>';
-    }
+}
 echo '</div>';
 require("footer.php");
 $hotelsResult->free_result();

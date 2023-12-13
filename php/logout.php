@@ -1,10 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-    include_once('../helper/function.php');
-    session_start();
-    session_destroy();
-    $message = "logged out";
-    redirect_to('index.php');
+include_once('../helper/function.php');
+session_start();
+session_destroy();
+$message = "logged out";
+redirect_to('index.php');
 ?>
