@@ -1,7 +1,6 @@
 <?php
 
 require_once("header.php");
-$message = '';
 $userResult = userResult($db, $current_user);
 
 // display editing personal information form
@@ -32,6 +31,9 @@ while ($row = $userResult->fetch_assoc()) {
     </form>
     </div</div>
     ';
+    echo "<p class='success-message'>".$_SESSION['message']."</p>";
+    if(!empty($_SESSION['message'])) $_SESSION['message'] = '';
+    
 }
 
 if (isset($_POST['submit'])) { // detect form submission
@@ -66,8 +68,9 @@ if (isset($_POST['submit'])) { // detect form submission
             exit();
          }
         // Reload page after successful registration and display success message
-        $message = 'Personal information has been changed successfully';
-        echo"<p class='success-message'>$message</p>";
+        $_SESSION['message'] = 'Personal information has been changed successfully';
+        redirect_to('accountInfo.php');
+
     } 
 }
 else {
