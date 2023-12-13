@@ -51,33 +51,29 @@ if (isset($_POST['submit'])) {
             $stmt = $db->prepare($query);
             $stmt->bind_param('sssss', $email, $number_encrypted, $firstName, $lastName, $username);
             $stmt->execute();
-
+echo"hello";
             $_SESSION['valid_user'] = $username;
 
             // Create booking with registered_member ID
-            $query = "INSERT INTO booking (pet_info, options, total_price, room_id, member_id) ";
-            $query .= "VALUES (?,?,?,?,?)";
+            $query = "INSERT INTO booking (total_price, room_id, member_id) ";
+            $query .= "VALUES (?,?,?)";
             $stmt = $db->prepare($query);
-            $stmt->bind_param('sssss', $pet_info, $options, $price, $room_id, $username);
+            $stmt->bind_param('sss', $price, $room_id, $username);
             $stmt->execute();
-            // echo $query;
 
             $bookid = mysqli_insert_id($db);
             redirect_to("confirm_booking.php?bookid=" . $bookid);
         }
     } else {
         // User is logged in
-        $pet_info = "";
-        $options = "";
         $total_price = $price;
         $member_id = $_SESSION['valid_user'];
 
-        $query = "INSERT INTO booking (pet_info, options, total_price, room_id, member_id) ";
-        $query .= "VALUES (?,?,?,?,?)";
+        $query = "INSERT INTO booking (total_price, room_id, member_id) ";
+        $query .= "VALUES (?,?,?)";
         $stmt = $db->prepare($query);
-        $stmt->bind_param('sssss', $pet_info, $options, $total_price, $room_id, $member_id);
+        $stmt->bind_param('sss', $total_price, $room_id, $member_id);
         $stmt->execute();
-        // echo $query;
 
         $bookid = mysqli_insert_id($db);
         redirect_to("confirm_booking.php?bookid=" . $bookid);

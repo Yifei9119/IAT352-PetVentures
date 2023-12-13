@@ -4,8 +4,6 @@ require_once("header.php");
 
 // select the booking information according to booking id and store in the variables
 $booking_price = "";
-$pet_info = "";
-$options = "";
 $room_id = "";
 $member_id = "";
 
@@ -20,8 +18,6 @@ if (!empty($_REQUEST['bookid'])) {
 
     while ($row = $res->fetch_assoc()) {
         $booking_price = $row['total_price'];
-        $pet_info = $row['pet_info'];
-        $options = $row['options'];
         $room_id = $row['room_id'];
         $member_id = $row['member_id'];
     }
