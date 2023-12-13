@@ -51,7 +51,7 @@ if (isset($_POST['submit'])) {
             $stmt = $db->prepare($query);
             $stmt->bind_param('sssss', $email, $number_encrypted, $firstName, $lastName, $username);
             $stmt->execute();
-echo"hello";
+
             $_SESSION['valid_user'] = $username;
 
             // Create booking with registered_member ID
